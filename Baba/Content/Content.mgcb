@@ -1,4 +1,3 @@
-
 #----------------------------- Global Properties ----------------------------#
 
 /outputDir:bin/$(Platform)
@@ -13,3 +12,16 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Fonts/menu-select.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/menu-select.spritefont
+
+#begin Fonts/menu.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/menu.spritefont

@@ -23,3 +23,5 @@ C:\Users\rettr\cs5410\Baba\Baba\obj\Debug\net6.0\refint\Baba.dll
 C:\Users\rettr\cs5410\Baba\Baba\obj\Debug\net6.0\Baba.pdb
 C:\Users\rettr\cs5410\Baba\Baba\obj\Debug\net6.0\Baba.genruntimeconfig.cache
 C:\Users\rettr\cs5410\Baba\Baba\obj\Debug\net6.0\ref\Baba.dll
+C:\Users\rettr\cs5410\Baba\Baba\bin\Debug\net6.0\Content\Fonts\menu-select.xnb
+C:\Users\rettr\cs5410\Baba\Baba\bin\Debug\net6.0\Content\Fonts\menu.xnb

@@ -48,7 +48,8 @@ namespace DrawingExample.Input
     {
         Right,
         Left,
-        Hover
+        Hover,
+        Move
     }
 
     public class MouseInput : IInputDevice
@@ -150,6 +151,16 @@ namespace DrawingExample.Input
                     {
                         return true;
                     }
+            }
+            else if (click == Click.Move)
+            {
+                if (state.X >= key.GetX() && state.X <= key.GetX() + key.GetWidth() && state.Y >= key.GetY() && state.Y <= key.GetY() + key.GetHeight())
+                {
+                    if (state.X != m_statePrevious.X || state.Y != m_statePrevious.Y)
+                    {
+                        return true;
+                    }
+                }
             }
             return false;
         }

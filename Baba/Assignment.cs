@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using System.Xml;
 
 namespace Baba
 {
@@ -37,6 +38,7 @@ namespace Baba
                 { GameStateEnum.GamePlay, new NewGameView() },
                 { GameStateEnum.Controls, new ControlsView() },
                 { GameStateEnum.Credits, new CreditsView() },
+                {GameStateEnum.LevelSelect, new LevelSelectView() }
             };
 
             foreach (var item in m_states)
@@ -83,6 +85,7 @@ namespace Baba
             GraphicsDevice.Clear(Color.CornflowerBlue);
             m_currentState.render(gameTime);
             m_currentState = m_states[m_nextStateEnum];
+            int x = 4;
 
             // TODO: Add your drawing code here
 

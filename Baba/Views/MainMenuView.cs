@@ -6,6 +6,8 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using static System.Net.Mime.MediaTypeNames;
+using System;
+using System.Threading;
 
 namespace Baba.Views
 {
@@ -22,14 +24,13 @@ namespace Baba.Views
         //enum for the different menus, borrowed from startercode
         private enum MenuState
         {
-            NewGame,
+            LevelSelect,
             Controls,
             Credits,
             Quit
         }
 
-        private MenuState m_currentSelection = MenuState.NewGame;
-
+        private MenuState m_currentSelection = MenuState.LevelSelect;
         public override void loadContent(ContentManager contentManager)
         {
             base.loadContent(contentManager);
@@ -45,7 +46,7 @@ namespace Baba.Views
             m_fontMenuSelect = contentManager.Load<SpriteFont>("Fonts/menu-select");
 
             m_inputMouse = new MouseInput();
-            Vector2 stringSize = m_fontMenu.MeasureString("New Game");
+            Vector2 stringSize = m_fontMenu.MeasureString("Select");
             int y = 200;
             m_inputMouse.registerCommand(new ScreenButton((int)(m_graphics.PreferredBackBufferWidth / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y), false, Click.Move, new InputDeviceHelper.CommandDelegate(SetNew));
             m_inputMouse.registerCommand(new ScreenButton((int)(m_graphics.PreferredBackBufferWidth / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y), true, Click.Left, new InputDeviceHelper.CommandDelegate(OnEnter));
@@ -60,6 +61,7 @@ namespace Baba.Views
             m_inputMouse.registerCommand(new ScreenButton((int)(m_graphics.PreferredBackBufferWidth / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y), false, Click.Move, new InputDeviceHelper.CommandDelegate(SetCredits));
             m_inputMouse.registerCommand(new ScreenButton((int)(m_graphics.PreferredBackBufferWidth / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y), true, Click.Left, new InputDeviceHelper.CommandDelegate(OnEnter));
 
+           
             stringSize = m_fontMenu.MeasureString("Quit");
             y += (int)stringSize.Y;
             m_inputMouse.registerCommand(new ScreenButton((int)(m_graphics.PreferredBackBufferWidth / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y), false, Click.Move, new InputDeviceHelper.CommandDelegate(SetQuit));
@@ -87,12 +89,13 @@ namespace Baba.Views
 
             // I split the first one's parameters on separate lines to help you see them better
             float bottom = DrawMenuItem(
-                m_currentSelection == MenuState.NewGame ? m_fontMenuSelect : m_fontMenu,
-                "New Game",
+                m_currentSelection == MenuState.LevelSelect ? m_fontMenuSelect : m_fontMenu,
+                "Level Selector",
                 200,
-                m_currentSelection == MenuState.NewGame ? Color.Yellow : Color.Blue);
+                m_currentSelection == MenuState.LevelSelect ? Color.Yellow : Color.Blue);
             bottom = DrawMenuItem(m_currentSelection == MenuState.Controls ? m_fontMenuSelect : m_fontMenu, "Help", bottom, m_currentSelection == MenuState.Controls ? Color.Yellow : Color.Blue);
             bottom = DrawMenuItem(m_currentSelection == MenuState.Credits ? m_fontMenuSelect : m_fontMenu, "About", bottom, m_currentSelection == MenuState.Credits ? Color.Yellow : Color.Blue);
+            
             DrawMenuItem(m_currentSelection == MenuState.Quit ? m_fontMenuSelect : m_fontMenu, "Quit", bottom, m_currentSelection == MenuState.Quit ? Color.Yellow : Color.Blue);
 
             m_spriteBatch.End();
@@ -115,7 +118,7 @@ namespace Baba.Views
 
         private void SetNew(GameTime gametime, float scale)
         {
-            m_currentSelection = MenuState.NewGame;
+            m_currentSelection = MenuState.LevelSelect;
         }
         private void SetControls(GameTime gametime, float scale)
         {
@@ -125,6 +128,7 @@ namespace Baba.Views
         {
             m_currentSelection = MenuState.Credits;
         }
+
         private void SetQuit(GameTime gametime, float scale)
         {
             m_currentSelection = MenuState.Quit;
@@ -134,14 +138,14 @@ namespace Baba.Views
             m_currentSelection ++;
             if (m_currentSelection > MenuState.Quit)
             {
-                m_currentSelection = MenuState.NewGame;
+                m_currentSelection = MenuState.LevelSelect;
             }
         }
 
         private void OnUp(GameTime gametime, float scale)
         {
             m_currentSelection--;
-            if (m_currentSelection  < MenuState.NewGame) 
+            if (m_currentSelection  < MenuState.LevelSelect) 
             {
                 m_currentSelection = MenuState.Quit;
             }
@@ -149,11 +153,12 @@ namespace Baba.Views
 
         private void OnEnter(GameTime gametime, float scale)
         {
+            Thread.Sleep(50);
             switch (m_currentSelection)
             {
                 //changes the return enum
-                case MenuState.NewGame:
-                    returnEnum = GameStateEnum.GamePlay;
+                case MenuState.LevelSelect:
+                    returnEnum = GameStateEnum.LevelSelect;
                     break;
                 case MenuState.Controls:
                     returnEnum = GameStateEnum.Controls;

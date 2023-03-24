@@ -13,7 +13,7 @@ namespace Baba.Views
 {
     public class NewGameView : GameStateView
     {
-
+     
         public override void loadContent(ContentManager contentManager)
         {
             base.loadContent(contentManager);

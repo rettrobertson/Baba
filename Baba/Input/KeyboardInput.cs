@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework;
 using Baba.Input;
+using System;
+
 
 namespace Baba.Input
 {
@@ -58,6 +60,7 @@ namespace Baba.Input
                 if (entry.keyPressOnly && keyPressed(entry.key))
                 {
                     entry.callback(gameTime, 1.0f);
+                    
                 }
                 else if (!entry.keyPressOnly && state.IsKeyDown(entry.key))
                 {

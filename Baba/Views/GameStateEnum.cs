@@ -3,6 +3,7 @@
     public enum GameStateEnum
     {
         MainMenu,
+        LevelSelect,
         GamePlay,
         Options,
         Controls,

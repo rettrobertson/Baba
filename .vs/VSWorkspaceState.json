@@ -1,6 +1,10 @@
 {
   "ExpandedNodes": [
-    "\\Baba"
+    "",
+    "\\Baba",
+    "\\Baba\\Input",
+    "\\Baba\\Views"
   ],
+  "SelectedNode": "\\Baba\\Views\\LevelSelectView.cs",
   "PreviewInSolutionExplorer": false
 }

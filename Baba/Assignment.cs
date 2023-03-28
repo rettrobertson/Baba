@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using System.Xml;
 
 namespace Baba
 {
@@ -30,13 +31,18 @@ namespace Baba
             m_graphics.PreferredBackBufferHeight = height;
 
             m_graphics.ApplyChanges();
+            NewGameView temp = new NewGameView();
+            LevelSelectView temp2 = new LevelSelectView();
+
+            temp2.LevelInfo(temp.level);
 
             m_states = new Dictionary<GameStateEnum, IGameState>
             {
                 { GameStateEnum.MainMenu, new MainMenuView() },
-                { GameStateEnum.GamePlay, new NewGameView() },
+                { GameStateEnum.GamePlay, temp },
                 { GameStateEnum.Controls, new ControlsView() },
                 { GameStateEnum.Credits, new CreditsView() },
+                {GameStateEnum.LevelSelect, temp2 }
             };
 
             foreach (var item in m_states)
@@ -56,7 +62,6 @@ namespace Baba
             {
                 item.Value.loadContent(this.Content);
             }
-
             // TODO: use this.Content to load your game content here
         }
 
@@ -68,7 +73,7 @@ namespace Baba
             {
                 Exit();
             }
-            if (m_nextStateEnum == GameStateEnum.GamePlay && temp == GameStateEnum.MainMenu)
+            if (m_nextStateEnum == GameStateEnum.GamePlay && temp != GameStateEnum.GamePlay)
             {
                 m_states[GameStateEnum.GamePlay].reset();
             }

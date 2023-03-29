@@ -11,7 +11,7 @@ namespace Baba.Views
     {
         private KeyboardInput m_inputKeyboard;
         private GameStateEnum returnEnum = GameStateEnum.GamePlay;
-        private Object[,] grid;
+        private Item[,] grid;
         public string[] level { get; set; } = new string[1] { "Level-1" };
 
         public override void loadContent(ContentManager contentManager)
@@ -33,7 +33,7 @@ namespace Baba.Views
         }
         public override void reset()
         {
-            grid = GridMaker.MakeGrid("TempfileName", level[0]);
+            grid = GridMaker.MakeGrid("levels-all.bbiy", level[0]);
         }
         public override void update(GameTime gameTime)
         {

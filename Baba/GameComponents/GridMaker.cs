@@ -171,7 +171,7 @@ namespace Baba.GameComponents
                         case 'O':
                             break;
                     }
-                    grid[i, j] = new Item();
+                    grid[i, j] = new Item(ItemType.Empty, grid, j, i);
                 }
             }
             return grid;

@@ -1,0 +1,26 @@
+﻿public enum WordType
+{
+    Is,
+    Wall,
+    Stop,
+    Rock,
+    Push,
+    Baba,
+    You,
+    Flag,
+    Win,
+    Goop,
+    Sink,
+    Lava,
+    Kill,
+    Anni,
+    Hot,
+    Melt,
+    Move,
+    Slip,
+    Best,
+    Love,
+    Bone,
+    Ice,
+    Kiki
+}

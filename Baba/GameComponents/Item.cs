@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Xna.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,17 +7,43 @@ using System.Threading.Tasks;
 
 namespace Baba.GameComponents
 {
-    public class Item
+    public class Item : IItem
     {
-        public enum Type
+        public ItemType type { get; set; }
+        private Item[,] grid;
+        private int x;
+        private int y;
+        public Item(ItemType type, Item[,] grid, int x, int y)
         {
-            Grass, 
-            Hedge,
-            Empty,
-            Rock,
-            Wall,
+            this.type = type;
+            this.grid = grid;
+            this.x = x;
+            this.y = y;
+        }
+
+        public void Draw(GameTime gameTime)
+        {
 
         }
-        public Type type { get; set; }
+
+        public bool Right()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Left()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Up()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Down()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

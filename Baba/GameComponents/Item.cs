@@ -10,12 +10,16 @@ namespace Baba.GameComponents
     public class Item : IItem
     {
         public ItemType type { get; set; }
-        private Item[,] grid;
+        private IItem[,] grid;
         private int x;
         private int y;
-        public Item(ItemType type, Item[,] grid, int x, int y)
+        public Item(ItemType type)
         {
             this.type = type;
+            
+        }
+        public void AddLocation(IItem[,] grid, int x, int y)
+        {
             this.grid = grid;
             this.x = x;
             this.y = y;

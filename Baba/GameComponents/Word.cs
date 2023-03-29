@@ -8,16 +8,13 @@ namespace Baba.GameComponenets
     {
         public WordType wordType { get; set; }
         public RuleType ruleType { get; set; }
-        public Item[,] grid;
+        public IItem[,] grid;
         private int x;
         private int y;
 
-        public Word(WordType type, Item[,] grid, int x, int y)
+        public Word(WordType type)
         {
             this.wordType = type;
-            this.grid = grid;
-            this.x = x;
-            this.y = y;
             switch (this.wordType)
             {
                 case WordType.Is:
@@ -90,6 +87,13 @@ namespace Baba.GameComponenets
                     ruleType = RuleType.Attribute;
                     break;
             }
+        }
+
+        public void AddLocation(IItem[,] grid, int x, int y)
+        {
+            this.grid = grid;
+            this.x = x;
+            this.y = y;
         }
         public void Draw(GameTime gameTime)
         {

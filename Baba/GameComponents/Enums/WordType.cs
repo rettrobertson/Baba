@@ -22,5 +22,7 @@
     Love,
     Bone,
     Ice,
-    Kiki
+    Kiki,
+    Empty,
+    Grass
 }

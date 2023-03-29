@@ -1,177 +1,70 @@
-﻿using System;
+﻿using Baba.GameComponenets;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
 namespace Baba.GameComponents
 {
-    public static class GridMaker
+    public class GridMaker
     {
-        public static Item[,] MakeGrid(string fileName, string level)
+        private Dictionary<char, IItem> dict;
+        public GridMaker() 
+        {
+            dict = new Dictionary<char, IItem>();
+            dict.Add(' ', new Item(ItemType.Empty));
+            dict.Add('h', new Item(ItemType.Hedge));
+            dict.Add('g', new Item(ItemType.Grass));
+            dict.Add('l', new Item(ItemType.Background));
+            dict.Add('w', new Item(ItemType.Wall));
+            dict.Add('b', new Item(ItemType.Baba));
+            dict.Add('r', new Item(ItemType.Rock));
+            dict.Add('f', new Item(ItemType.Flag));
+            dict.Add('a', new Item(ItemType.Goop));
+            dict.Add('v', new Item(ItemType.Lava));
+            dict.Add('c', new Item(ItemType.Anni));
+            dict.Add('e', new Item(ItemType.Love));
+            dict.Add('d', new Item(ItemType.Bone));
+            dict.Add('j', new Item(ItemType.Ice));
+            dict.Add('o', new Item(ItemType.Kiki));
+            
+            dict.Add('Z', new Word(WordType.Empty));
+            dict.Add('G', new Word(WordType.Grass));
+            dict.Add('W', new Word(WordType.Wall));
+            dict.Add('B', new Word(WordType.Baba));
+            dict.Add('R', new Word(WordType.Rock));
+            dict.Add('F', new Word(WordType.Flag));
+            dict.Add('A', new Word(WordType.Goop));
+            dict.Add('V', new Word(WordType.Lava));
+            dict.Add('C', new Word(WordType.Anni));
+            dict.Add('E', new Word(WordType.Love));
+            dict.Add('D', new Word(WordType.Bone));
+            dict.Add('J', new Word(WordType.Ice));
+            dict.Add('O', new Word(WordType.Kiki));
+            dict.Add('I', new Word(WordType.Is));
+            dict.Add('S', new Word(WordType.Stop));
+            dict.Add('P', new Word(WordType.Push));
+            dict.Add('Y', new Word(WordType.You));
+            dict.Add('X', new Word(WordType.Win));
+            dict.Add('N', new Word(WordType.Sink));
+            dict.Add('K', new Word(WordType.Kill));
+            dict.Add('H', new Word(WordType.Hot));
+            dict.Add('M', new Word(WordType.Melt));
+            dict.Add('G', new Word(WordType.Move));
+            dict.Add('L', new Word(WordType.Slip));
+            dict.Add('T', new Word(WordType.Best));
+        }
+        public IItem[,] MakeGrid(string fileName, string level)
         {
             (int width, int height, List<string> file) = getLength(fileName, level);
-            Item[,] grid= new Item[width, height];
+            IItem[,] grid= new IItem[width, height];
             for (int i = 0; i < height; i++)
             {
                 for (int j = 0; j < width; j++)
                 {
-                    char temp = file[i][j];
-
-                    switch (temp){
-                        // empty
-                        case ' ':
-                            break;
-
-                        // hedge
-                        case 'h':
-                            break;
-
-                        // grass
-                        case 'g':
-                            break;
-
-                        // background wall
-                        case 'l':
-                            break;
-
-                        // wall
-                        case 'w':
-                            break;
-
-                        // baba
-                        case 'b':
-                            break;
-
-                        // rock
-                        case 'r':
-                            break;
-
-                        // flag
-                        case 'f':
-                            break;
-
-                        // goop
-                        case 'a':
-                            break;
-
-                        // lava
-                        case 'v':
-                            break;
-
-                        // Anni
-                        case 'c':
-                            break;
-
-                        // love
-                        case 'e':
-                            break;
-
-                        // bone
-                        case 'd':
-                            break;
-
-                        // ice
-                        case 'j':
-                            break;
-
-                        // kiki
-                        case 'o':
-                            break;
-
-                        // words
-                        // is
-                        case 'I':
-                            break;
-
-                        // wall
-                        case 'W':
-                            break;
-
-                        // stop
-                        case 'S':
-                            break;
-
-                        // rock
-                        case 'R':
-                            break;
-
-                        // push
-                        case 'P':
-                            break;
-
-                        // baba
-                        case 'B':
-                            break;
-
-                        // you
-                        case 'Y':
-                            break;
-
-                        // flag
-                        case 'F':
-                            break;
-
-                        // win
-                        case 'X':
-                            break;
-
-                        // goop
-                        case 'A':
-                            break;
-
-                        // sink
-                        case 'N':
-                            break;
-
-                        // lava
-                        case 'V':
-                            break;
-
-                        // kill
-                        case 'K':
-                            break;
-
-                        // anni
-                        case 'C':
-                            break;
-
-                        // hot
-                        case 'H':
-                            break;
-
-                        // melt
-                        case 'M':
-                            break;
-
-                        // move
-                        case 'G':
-                            break;
-
-                        // slip
-                        case 'L':
-                            break;
-
-                        // best
-                        case 'T':
-                            break;
-
-                        // love
-                        case 'E':
-                            break;
-
-                        // bone
-                        case 'D':
-                            break;
-
-                        // ice
-                        case 'J':
-                            break;
-
-                        // Kiki
-                        case 'O':
-                            break;
-                    }
-                    grid[i, j] = new Item(ItemType.Empty, grid, j, i);
+                    IItem temp = dict[file[i][j]];
+                    temp.AddLocation(grid, j, i);
+                    grid[i, j] = temp;
                 }
             }
             return grid;

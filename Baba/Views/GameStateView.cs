@@ -19,6 +19,7 @@ namespace Baba.Views
         }
         public virtual void loadContent(ContentManager contentManager)
         {
+
         }
         public abstract GameStateEnum processInput(GameTime gameTime);
         public virtual void render(GameTime gameTime)
@@ -26,5 +27,6 @@ namespace Baba.Views
         }
         public abstract void update(GameTime gameTime);
         public virtual void reset() { }
+
     }
 }

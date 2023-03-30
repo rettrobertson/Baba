@@ -50,7 +50,7 @@ namespace Baba.GameComponents
             dict.Add('K', new Word(WordType.Kill));
             dict.Add('H', new Word(WordType.Hot));
             dict.Add('M', new Word(WordType.Melt));
-            dict.Add('G', new Word(WordType.Move));
+            dict.Add('Q', new Word(WordType.Move));
             dict.Add('L', new Word(WordType.Slip));
             dict.Add('T', new Word(WordType.Best));
         }

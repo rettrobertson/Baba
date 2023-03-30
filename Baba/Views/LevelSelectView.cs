@@ -22,6 +22,7 @@ namespace Baba.Views
         private GameStateEnum returnEnum = GameStateEnum.LevelSelect;
         public string[] level { get; set; }
         private List<String> MenuState = new List<String>();
+        private List<Action<GameTime, float>> lambdaList = new List<Action<GameTime, float>>();
         private int m_currentSelectionInt;
         private String m_currentSelection;
         
@@ -52,12 +53,16 @@ namespace Baba.Views
             for (int i = 0; i < 5;i++)
             {
                 Vector2 stringSize = m_fontMenu.MeasureString($"Level {i}");
-                y += (int)stringSize.Y;
-                Action<GameTime, float> setLevel = (gameTime, val) => {
-                    m_currentSelectionInt = i - 1;
+                if (i != 0)
+                {
+                    y += (int)stringSize.Y;
+                }
+                int x = i;
+                lambdaList.Add( (gameTime, val) => {
+                    m_currentSelectionInt = x;
                     m_currentSelection = MenuState[m_currentSelectionInt];
-                };
-                m_inputMouse.registerCommand(new ScreenButton((int)(m_graphics.PreferredBackBufferWidth / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y), false, Click.Move, new InputDeviceHelper.CommandDelegate(setLevel));
+                });
+                m_inputMouse.registerCommand(new ScreenButton((int)(m_graphics.PreferredBackBufferWidth / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y), false, Click.Move, new InputDeviceHelper.CommandDelegate(lambdaList[i]));
                 m_inputMouse.registerCommand(new ScreenButton((int)(m_graphics.PreferredBackBufferWidth / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y), true, Click.Left, new InputDeviceHelper.CommandDelegate(OnEnter));
             }
            

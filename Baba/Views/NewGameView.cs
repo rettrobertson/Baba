@@ -21,6 +21,7 @@ namespace Baba.Views
             gridMaker = new GridMaker();
             m_inputKeyboard = new KeyboardInput();
             m_inputKeyboard.registerCommand(Keys.Escape, true, new InputDeviceHelper.CommandDelegate(Escape));
+            loadTextures(contentManager);
 
         }
 
@@ -44,6 +45,10 @@ namespace Baba.Views
         public override void render(GameTime gameTime)
         {
             base.render(gameTime);
+        }
+        private void loadTextures(ContentManager contentManager)
+        {
+
         }
         #region input handlers
         private void Escape(GameTime gameTime, float scale)

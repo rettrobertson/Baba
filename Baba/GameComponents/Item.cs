@@ -28,6 +28,7 @@ namespace Baba.GameComponents
         public void Draw(GameTime gameTime)
         {
 
+            //How to make so that it can draw multiple types with as little code as possible
         }
 
         public bool Right()

@@ -29,7 +29,7 @@ namespace Baba.GameComponents
             dict.Add('o', new Item(ItemType.Kiki));
             
             dict.Add('Z', new Word(WordType.Empty));
-            dict.Add('G', new Word(WordType.Grass));
+           
             dict.Add('W', new Word(WordType.Wall));
             dict.Add('B', new Word(WordType.Baba));
             dict.Add('R', new Word(WordType.Rock));

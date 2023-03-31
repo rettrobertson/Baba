@@ -2,13 +2,11 @@
   "ExpandedNodes": [
     "",
     "\\Baba",
-    "\\Baba\\bin\\Debug",
-    "\\Baba\\bin\\Debug\\net6.0",
     "\\Baba\\GameComponents",
     "\\Baba\\GameComponents\\Enums",
     "\\Baba\\Input",
     "\\Baba\\Views"
   ],
-  "SelectedNode": "\\Baba\\GameComponents\\Enums\\WordType.cs",
+  "SelectedNode": "\\Baba\\Views\\LevelSelectView.cs",
   "PreviewInSolutionExplorer": false
 }

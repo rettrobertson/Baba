@@ -7,7 +7,8 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using static System.Net.Mime.MediaTypeNames;
 using System;
-
+using System.Security.Cryptography.X509Certificates;
+using System.Collections.Generic;
 
 namespace Baba.Views
 {
@@ -20,21 +21,15 @@ namespace Baba.Views
         private MouseInput m_inputMouse;
         private GameStateEnum returnEnum = GameStateEnum.LevelSelect;
         public string[] level { get; set; }
-        private enum MenuState
-        {
-            LevelOne,
-            LevelTwo,
-            LevelThree,
-            LevelFour,
-            LevelFive,
-            MainMenu,
-            Quit
-        }
-        private MenuState m_currentSelection = MenuState.LevelOne;
+        private List<String> MenuState = new List<String>();
+        private List<Action<GameTime, float>> lambdaList = new List<Action<GameTime, float>>();
+        private int m_currentSelectionInt;
+        private String m_currentSelection;
         
             
         public override void loadContent(ContentManager contentManager)
         {
+
             base.loadContent(contentManager);
             //Keyboard input for up down and enter
             m_inputKeyboard = new KeyboardInput();
@@ -47,35 +42,35 @@ namespace Baba.Views
 
             m_fontMenu = contentManager.Load<SpriteFont>("Fonts/menu");
             m_fontMenuSelect = contentManager.Load<SpriteFont>("Fonts/menu-select");
-
             m_inputMouse = new MouseInput();
-            Vector2 stringSize = m_fontMenu.MeasureString("Level 1");
+            for(int i =0; i < 5; i++)
+            {
+                MenuState.Add( $"Level {i + 1}");
+            }
             int y = 200;
-            m_inputMouse.registerCommand(new ScreenButton((int)(m_graphics.PreferredBackBufferWidth / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y), false, Click.Move, new InputDeviceHelper.CommandDelegate(SetLevel1));
-            m_inputMouse.registerCommand(new ScreenButton((int)(m_graphics.PreferredBackBufferWidth / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y), true, Click.Left, new InputDeviceHelper.CommandDelegate(OnEnter));
-
-            stringSize = m_fontMenu.MeasureString("Level 2");
-            y += (int)stringSize.Y;
-            m_inputMouse.registerCommand(new ScreenButton((int)(m_graphics.PreferredBackBufferWidth / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y), false, Click.Move, new InputDeviceHelper.CommandDelegate(SetLevel2));
-            m_inputMouse.registerCommand(new ScreenButton((int)(m_graphics.PreferredBackBufferWidth / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y), true, Click.Left, new InputDeviceHelper.CommandDelegate(OnEnter));
-
+            m_currentSelectionInt= 0;
+            m_currentSelection = MenuState[0];
+            for (int i = 0; i < 5;i++)
+            {
+                Vector2 stringSize = m_fontMenu.MeasureString($"Level {i}");
+                if (i != 0)
+                {
+                    y += (int)stringSize.Y;
+                }
+                int x = i;
+                lambdaList.Add( (gameTime, val) => {
+                    m_currentSelectionInt = x;
+                    m_currentSelection = MenuState[m_currentSelectionInt];
+                });
+                m_inputMouse.registerCommand(new ScreenButton((int)(m_graphics.PreferredBackBufferWidth / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y), false, Click.Move, new InputDeviceHelper.CommandDelegate(lambdaList[i]));
+                m_inputMouse.registerCommand(new ScreenButton((int)(m_graphics.PreferredBackBufferWidth / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y), true, Click.Left, new InputDeviceHelper.CommandDelegate(OnEnter));
+            }
+           
             
-            stringSize = m_fontMenu.MeasureString("Level 3");
-            y += (int)stringSize.Y;
-            m_inputMouse.registerCommand(new ScreenButton((int)(m_graphics.PreferredBackBufferWidth / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y), false, Click.Move, new InputDeviceHelper.CommandDelegate(SetLevel3));
-            m_inputMouse.registerCommand(new ScreenButton((int)(m_graphics.PreferredBackBufferWidth / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y), true, Click.Left, new InputDeviceHelper.CommandDelegate(OnEnter));
 
-            stringSize = m_fontMenu.MeasureString("Level 4");
-            y += (int)stringSize.Y;
-
-            m_inputMouse.registerCommand(new ScreenButton((int)(m_graphics.PreferredBackBufferWidth / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y), false, Click.Move, new InputDeviceHelper.CommandDelegate(SetLevel4));
-            m_inputMouse.registerCommand(new ScreenButton((int)(m_graphics.PreferredBackBufferWidth / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y), true, Click.Left, new InputDeviceHelper.CommandDelegate(OnEnter));
-
-            stringSize = m_fontMenu.MeasureString("Level 5");
-            y += (int)stringSize.Y;
-            m_inputMouse.registerCommand(new ScreenButton((int)(m_graphics.PreferredBackBufferWidth / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y), false, Click.Move, new InputDeviceHelper.CommandDelegate(SetLevel5));
-            m_inputMouse.registerCommand(new ScreenButton((int)(m_graphics.PreferredBackBufferWidth / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y), true, Click.Left, new InputDeviceHelper.CommandDelegate(OnEnter));
-
+           
+            
+            
            /* stringSize = m_fontMenu.MeasureString("Main Menu");
             y += (int)stringSize.Y;
             m_inputMouse.registerCommand(new ScreenButton((int)(m_graphics.PreferredBackBufferWidth / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y), false, Click.Move, new InputDeviceHelper.CommandDelegate(SetMenu));
@@ -108,15 +103,17 @@ namespace Baba.Views
             m_spriteBatch.Begin();
 
             // I split the first one's parameters on separate lines to help you see them better
-            float bottom = DrawMenuItem(
-                m_currentSelection == MenuState.LevelOne ? m_fontMenuSelect : m_fontMenu,
-                "Level 1",
-                200,
-                m_currentSelection == MenuState.LevelOne ? Color.Yellow : Color.Blue);
-            bottom = DrawMenuItem(m_currentSelection == MenuState.LevelTwo ? m_fontMenuSelect : m_fontMenu, "Level 2", bottom, m_currentSelection == MenuState.LevelTwo ? Color.Yellow : Color.Blue);
-            bottom = DrawMenuItem(m_currentSelection == MenuState.LevelThree ? m_fontMenuSelect : m_fontMenu, "Level 3", bottom, m_currentSelection == MenuState.LevelThree ? Color.Yellow : Color.Blue);
-            bottom = DrawMenuItem(m_currentSelection == MenuState.LevelFour ? m_fontMenuSelect : m_fontMenu, "Level 4", bottom, m_currentSelection == MenuState.LevelFour ? Color.Yellow : Color.Blue);
-            bottom = DrawMenuItem(m_currentSelection == MenuState.LevelFive ? m_fontMenuSelect : m_fontMenu, "Level 5", bottom, m_currentSelection == MenuState.LevelFive ? Color.Yellow : Color.Blue);
+            
+            float bottom = 200;
+            for(int i = 0; i < MenuState.Count; i++)
+            {
+                bottom = DrawMenuItem(
+                m_currentSelection == MenuState[i] ? m_fontMenuSelect : m_fontMenu,
+                $"Level {i + 1}",
+                bottom,
+                m_currentSelection == MenuState[i] ? Color.Yellow : Color.Blue);
+            }
+          
             /*bottom = DrawMenuItem(m_currentSelection == MenuState.MainMenu ? m_fontMenuSelect : m_fontMenu, "Main Menu", bottom, m_currentSelection == MenuState.MainMenu ? Color.Yellow : Color.Blue);
 
             DrawMenuItem(m_currentSelection == MenuState.Quit ? m_fontMenuSelect : m_fontMenu, "Quit", bottom, m_currentSelection == MenuState.Quit ? Color.Yellow : Color.Blue);*/
@@ -141,91 +138,41 @@ namespace Baba.Views
         #region input Handlers
         // if statements on down and up to ensure wraparound
 
-        private void SetLevel1(GameTime gametime, float scale)
-        {
-            m_currentSelection = MenuState.LevelOne;
-        }
-        private void SetLevel2(GameTime gametime, float scale)
-        {
-            m_currentSelection = MenuState.LevelTwo;
-        }
-        private void SetLevel3(GameTime gametime, float scale)
-        {
-            m_currentSelection = MenuState.LevelThree;
-        }
-        private void SetLevel4(GameTime gametime, float scale)
-        {
-            m_currentSelection = MenuState.LevelFour;
-        }
-        private void SetLevel5(GameTime gametime, float scale)
-        {
-            m_currentSelection = MenuState.LevelFive;
-        }
-        private void SetMenu(GameTime gametime, float scale)
-        {
-            m_currentSelection = MenuState.MainMenu;
-        }
+      
+      
         private void Escape(GameTime gametime, float scale)
         {
 
             returnEnum = GameStateEnum.MainMenu;
         }
-        private void SetQuit(GameTime gametime, float scale)
-        {
-            m_currentSelection = MenuState.Quit;
-        }
+       
         private void OnDown(GameTime gametime, float scale)
         {
-            m_currentSelection++;
-            if (m_currentSelection > MenuState.LevelFive)
+            m_currentSelectionInt++;
+            if (m_currentSelectionInt > MenuState.Count - 1)
             {
-                m_currentSelection = MenuState.LevelOne;
+                m_currentSelectionInt = 0;
+                
             }
+            m_currentSelection = MenuState[m_currentSelectionInt];
         }
 
         private void OnUp(GameTime gametime, float scale)
         {
-            m_currentSelection--;
-            if (m_currentSelection < MenuState.LevelOne)
+            m_currentSelectionInt--;
+            if (m_currentSelectionInt < 0)
             {
-                m_currentSelection = MenuState.LevelFive;
+                m_currentSelectionInt = MenuState.Count - 1;
+                
             }
+            m_currentSelection = MenuState[m_currentSelectionInt];
+
         }
 
         private void OnEnter(GameTime gametime, float scale)
-        {
-            switch (m_currentSelection)
-            {
-                //changes the return enum
-                case MenuState.LevelOne:
-                    returnEnum =GameStateEnum.GamePlay;
-                    level[0] = "Level-1";
-                    break;
-                case MenuState.LevelTwo:
-                    returnEnum = GameStateEnum.GamePlay;
-                    level[0] = "Level-2";
-                    break;
-                case MenuState.LevelThree:
-                    returnEnum = GameStateEnum.GamePlay;
-                    level[0] = "Level-3";
-                    break;
-
-                case MenuState.LevelFour:
-                    returnEnum = GameStateEnum.GamePlay;
-                    level[0] = "Level-4";
-                    break;
-                case MenuState.LevelFive:
-                    returnEnum = GameStateEnum.GamePlay;
-                    level[0] = "Level-5";
-                    break;
-
-                /*case MenuState.MainMenu:
-                    returnEnum = GameStateEnum.MainMenu;
-                    break;
-                case MenuState.Quit:
-                    returnEnum = GameStateEnum.Exit;
-                    break;*/
-            }
+        {  
+            returnEnum =GameStateEnum.GamePlay;
+            level[0] = $"Level-{m_currentSelectionInt}";
         }
         #endregion
     }

@@ -1,5 +1,7 @@
 ﻿using Baba.GameComponenets;
+using Baba.GameComponents.ConcreteComponents;
 using System;
+using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -8,10 +10,10 @@ namespace Baba.GameComponents
 {
     public class GridMaker
     {
-        private Dictionary<char, IItem> dict;
+        private Dictionary<char, Entity> dict;
         public GridMaker() 
         {
-            dict = new Dictionary<char, IItem>();
+            dict = new Dictionary<char, Entity>();
             dict.Add(' ', new Item(ItemType.Empty));
             dict.Add('h', new Item(ItemType.Hedge));
             dict.Add('g', new Item(ItemType.Grass));
@@ -54,20 +56,19 @@ namespace Baba.GameComponents
             dict.Add('L', new Word(WordType.Slip));
             dict.Add('T', new Word(WordType.Best));
         }
-        public IItem[,] MakeGrid(string fileName, string level)
+        public List<Transform> MakeGrid(string fileName, string level)
         {
+            List<Transform> returnList = new();
             (int width, int height, List<string> file) = getLength(fileName, level);
-            IItem[,] grid= new IItem[width, height];
             for (int i = 0; i < height; i++)
             {
                 for (int j = 0; j < width; j++)
                 {
-                    IItem temp = dict[file[i][j]];
-                    temp.AddLocation(grid, j, i);
-                    grid[i, j] = temp;
+                    Entity temp = dict[file[i][j]];
+                    returnList.Add(new Transform(new Vector2(j, i), temp));
                 }
             }
-            return grid;
+            return returnList;
         }
         private static (int, int, List<string>) getLength(string fileName, string level)
         {

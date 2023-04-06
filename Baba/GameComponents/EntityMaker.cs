@@ -9,5 +9,11 @@
 
             return entity;
         }
+        public static Entity MakeEntity(WordType type)
+        {
+            Entity entity = new Entity();
+            // I added this because words are also entities
+            return entity;
+        }
     }
 }

@@ -14,47 +14,47 @@ namespace Baba.GameComponents
         public GridMaker() 
         {
             dict = new Dictionary<char, Entity>();
-            dict.Add(' ', new Item(ItemType.Empty));
-            dict.Add('h', new Item(ItemType.Hedge));
-            dict.Add('g', new Item(ItemType.Grass));
-            dict.Add('l', new Item(ItemType.Background));
-            dict.Add('w', new Item(ItemType.Wall));
-            dict.Add('b', new Item(ItemType.Baba));
-            dict.Add('r', new Item(ItemType.Rock));
-            dict.Add('f', new Item(ItemType.Flag));
-            dict.Add('a', new Item(ItemType.Goop));
-            dict.Add('v', new Item(ItemType.Lava));
-            dict.Add('c', new Item(ItemType.Anni));
-            dict.Add('e', new Item(ItemType.Love));
-            dict.Add('d', new Item(ItemType.Bone));
-            dict.Add('j', new Item(ItemType.Ice));
-            dict.Add('o', new Item(ItemType.Kiki));
+            dict.Add(' ', EntityMaker.MakeEntity(ItemType.Empty));
+            dict.Add('h', EntityMaker.MakeEntity(ItemType.Hedge));
+            dict.Add('g', EntityMaker.MakeEntity(ItemType.Grass));
+            dict.Add('l', EntityMaker.MakeEntity(ItemType.Background));
+            dict.Add('w', EntityMaker.MakeEntity(ItemType.Wall));
+            dict.Add('b', EntityMaker.MakeEntity(ItemType.Baba));
+            dict.Add('r', EntityMaker.MakeEntity(ItemType.Rock));
+            dict.Add('f', EntityMaker.MakeEntity(ItemType.Flag));
+            dict.Add('a', EntityMaker.MakeEntity(ItemType.Goop));
+            dict.Add('v', EntityMaker.MakeEntity(ItemType.Lava));
+            dict.Add('c', EntityMaker.MakeEntity(ItemType.Anni));
+            dict.Add('e', EntityMaker.MakeEntity(ItemType.Love));
+            dict.Add('d', EntityMaker.MakeEntity(ItemType.Bone));
+            dict.Add('j', EntityMaker.MakeEntity(ItemType.Ice));
+            dict.Add('o', EntityMaker.MakeEntity(ItemType.Kiki));
             
-            dict.Add('Z', new Word(WordType.Empty));
+            dict.Add('Z', EntityMaker.MakeEntity(WordType.Empty));
            
-            dict.Add('W', new Word(WordType.Wall));
-            dict.Add('B', new Word(WordType.Baba));
-            dict.Add('R', new Word(WordType.Rock));
-            dict.Add('F', new Word(WordType.Flag));
-            dict.Add('A', new Word(WordType.Goop));
-            dict.Add('V', new Word(WordType.Lava));
-            dict.Add('C', new Word(WordType.Anni));
-            dict.Add('E', new Word(WordType.Love));
-            dict.Add('D', new Word(WordType.Bone));
-            dict.Add('J', new Word(WordType.Ice));
-            dict.Add('O', new Word(WordType.Kiki));
-            dict.Add('I', new Word(WordType.Is));
-            dict.Add('S', new Word(WordType.Stop));
-            dict.Add('P', new Word(WordType.Push));
-            dict.Add('Y', new Word(WordType.You));
-            dict.Add('X', new Word(WordType.Win));
-            dict.Add('N', new Word(WordType.Sink));
-            dict.Add('K', new Word(WordType.Kill));
-            dict.Add('H', new Word(WordType.Hot));
-            dict.Add('M', new Word(WordType.Melt));
-            dict.Add('Q', new Word(WordType.Move));
-            dict.Add('L', new Word(WordType.Slip));
-            dict.Add('T', new Word(WordType.Best));
+            dict.Add('W', EntityMaker.MakeEntity(WordType.Wall));
+            dict.Add('B', EntityMaker.MakeEntity(WordType.Baba));
+            dict.Add('R', EntityMaker.MakeEntity(WordType.Rock));
+            dict.Add('F', EntityMaker.MakeEntity(WordType.Flag));
+            dict.Add('A', EntityMaker.MakeEntity(WordType.Goop));
+            dict.Add('V', EntityMaker.MakeEntity(WordType.Lava));
+            dict.Add('C', EntityMaker.MakeEntity(WordType.Anni));
+            dict.Add('E', EntityMaker.MakeEntity(WordType.Love));
+            dict.Add('D', EntityMaker.MakeEntity(WordType.Bone));
+            dict.Add('J', EntityMaker.MakeEntity(WordType.Ice));
+            dict.Add('O', EntityMaker.MakeEntity(WordType.Kiki));
+            dict.Add('I', EntityMaker.MakeEntity(WordType.Is));
+            dict.Add('S', EntityMaker.MakeEntity(WordType.Stop));
+            dict.Add('P', EntityMaker.MakeEntity(WordType.Push));
+            dict.Add('Y', EntityMaker.MakeEntity(WordType.You));
+            dict.Add('X', EntityMaker.MakeEntity(WordType.Win));
+            dict.Add('N', EntityMaker.MakeEntity(WordType.Sink));
+            dict.Add('K', EntityMaker.MakeEntity(WordType.Kill));
+            dict.Add('H', EntityMaker.MakeEntity(WordType.Hot));
+            dict.Add('M', EntityMaker.MakeEntity(WordType.Melt));
+            dict.Add('Q', EntityMaker.MakeEntity(WordType.Move));
+            dict.Add('L', EntityMaker.MakeEntity(WordType.Slip));
+            dict.Add('T', EntityMaker.MakeEntity(WordType.Best));
         }
         public List<Transform> MakeGrid(string fileName, string level)
         {

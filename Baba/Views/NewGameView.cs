@@ -36,7 +36,7 @@ namespace Baba.Views
         }
         public override void reset()
         {
-            grid = gridMaker.MakeGrid("levels-all.bbiy", level[0]);
+            //grid = gridMaker.MakeGrid("levels-all.bbiy", level[0]);
         }
         public override void update(GameTime gameTime)
         {

@@ -6,40 +6,61 @@ namespace Baba.GameComponents
     public class ObjectPool
     {
         private readonly object[] _pool;
-        private readonly int _maxSize;
+        private readonly Type _objectType;
         private int _head;
         private int _tail;
-        private Type _type;
+        private int _count;
 
-        public ObjectPool(int maxSize, Type type)
+        public ObjectPool(int capacity, Type objectType)
         {
-            _type = type;
-            _maxSize = maxSize;
-            _pool = new object[maxSize];
-            _head = 0;
-            _tail = 0;
+            _pool = new object[capacity];
+            _objectType = objectType;
+            InitializePool();
         }
 
-        public object GetObject()
+        public T GetObject<T>() where T : class
         {
-            if (_head == _tail && _pool[_head] == null)
+            if (_count == 0)
             {
-                return new object();
+                return CreateObject<T>();
             }
-            var obj = _pool[_head];
-            _pool[_head] = null;
-            _head = (_head + 1) % _maxSize;
+            _count--;
+            var obj = (T)_pool[_tail];
+            _pool[_tail] = null;
+            _tail = (_tail + 1) % _pool.Length;
             return obj;
         }
 
         public void ReturnObject(object obj)
         {
-            if (_pool[_tail] != null)
+            if (_count == _pool.Length)
             {
-                //Discard the object if the pool is full
+                return;
             }
-            _pool[_tail] = obj;
-            _tail = (_tail + 1) % _maxSize;
+            _count++;
+            _pool[_head] = obj;
+            _head = (_head + 1) % _pool.Length;
+        }
+
+        private void InitializePool()
+        {
+            for (int i = 0; i < _pool.Length; i++)
+            {
+                _pool[i] = CreateObject();
+                _count++;
+            }
+            _head = _pool.Length - 1;
+            _tail = 0;
+        }
+
+        private object CreateObject()
+        {
+            return Activator.CreateInstance(_objectType);
+        }
+
+        private T CreateObject<T>() where T : class
+        {
+            return CreateObject() as T;
         }
     }
 }

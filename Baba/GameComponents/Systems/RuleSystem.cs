@@ -40,7 +40,7 @@ namespace Baba.GameComponents.Systems
 
             foreach (Type type in attributeComponents.Values)
             {
-                Activator.CreateInstance(type);
+                objectPools.Add(type, new ObjectPool(poolSize, type));
             }
         }
 
@@ -62,12 +62,12 @@ namespace Baba.GameComponents.Systems
 
             foreach (ItemType item in rules.Keys)
             {
-                foreach (AttributeType attribute in rules[item])
+                foreach (Entity entity in dummyEntities)
                 {
-                    foreach (Entity entity in dummyEntities)
+                    ItemLabel label = entity.GetComponent<ItemLabel>();
+                    if (label.item == item)
                     {
 
-                        entity.RemoveComponent()
                     }
                 }
                 rules[item].Clear();
@@ -137,6 +137,7 @@ namespace Baba.GameComponents.Systems
 
         public override void Update(GameTime time)
         {
+
         }
     }
 }

@@ -1,9 +1,11 @@
 ﻿using Baba.GameComponents;
+using Baba.GameComponents.ConcreteComponents;
 using Baba.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 using System;
+using System.Collections.Generic;
 
 namespace Baba.Views
 {
@@ -11,14 +13,16 @@ namespace Baba.Views
     {
         private KeyboardInput m_inputKeyboard;
         private GameStateEnum returnEnum = GameStateEnum.GamePlay;
-        private IItem[,] grid;
         private GridMaker gridMaker;
+        private List<Transform> transforms;
         public string[] level { get; set; } = new string[1] { "Level-1" };
 
         public override void loadContent(ContentManager contentManager)
         {
             base.loadContent(contentManager);
             gridMaker = new GridMaker();
+            transforms = gridMaker.MakeGrid("levels-all.bbiy", level[0]);
+
             m_inputKeyboard = new KeyboardInput();
             m_inputKeyboard.registerCommand(Keys.Escape, true, new InputDeviceHelper.CommandDelegate(Escape));
             loadTextures(contentManager);
@@ -36,7 +40,7 @@ namespace Baba.Views
         }
         public override void reset()
         {
-            //grid = gridMaker.MakeGrid("levels-all.bbiy", level[0]);
+            transforms = gridMaker.MakeGrid("levels-all.bbiy", level[0]);
         }
         public override void update(GameTime gameTime)
         {

@@ -1,5 +1,4 @@
-﻿using Baba.GameComponenets;
-using Baba.GameComponents.ConcreteComponents;
+﻿using Baba.GameComponents.ConcreteComponents;
 using System;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;

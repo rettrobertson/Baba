@@ -17,6 +17,8 @@ namespace Baba.GameComponents
         public static Entity MakeEntity(WordType type)
         {
             Entity entity = new Entity();
+
+            entity.AddComponent(new WordLabel(type));
             // I added this because words are also entities
             return entity;
         }

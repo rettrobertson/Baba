@@ -10,6 +10,5 @@
     Melt,
     Move,
     Slip,
-    Best,
-    Empty
+    Best
 }

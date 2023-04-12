@@ -49,6 +49,11 @@ namespace Baba.Particles
             }
         }
 
+        private void Render(ParticleEmitter emitter)
+        {
+
+        }
+
         private int CountParticles()
         {
             int total = 0;

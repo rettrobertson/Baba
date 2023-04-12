@@ -25,7 +25,6 @@ namespace Baba.GameComponents.Systems
             attributeComponents = new Dictionary<AttributeType, Type>()
             {
                 { AttributeType.Best, typeof(Best)},
-                { AttributeType.Empty, typeof(Empty)},
                 { AttributeType.Hot, typeof(Hot)},
                 { AttributeType.Kill, typeof(Kill)},
                 { AttributeType.Melt, typeof(Melt)},
@@ -60,17 +59,14 @@ namespace Baba.GameComponents.Systems
         {
             //Clear all existing rules
 
-            foreach (ItemType item in rules.Keys)
+            foreach (Entity entity in dummyEntities)
             {
-                foreach (Entity entity in dummyEntities)
-                {
-                    ItemLabel label = entity.GetComponent<ItemLabel>();
-                    if (label.item == item)
-                    {
+                entity.RemoveAll<RuleComponent>();
+            }
 
-                    }
-                }
-                rules[item].Clear();
+            foreach (HashSet<AttributeType> attributes in rules.Values)
+            {
+                attributes.Clear();
             }
 
             //Check each is word for updates

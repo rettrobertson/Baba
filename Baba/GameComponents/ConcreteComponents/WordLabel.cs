@@ -12,10 +12,12 @@ namespace Baba.GameComponents.ConcreteComponents
     public class WordLabel : Component
     {
         public WordType item { get; set; }
+        public RuleType ruleType { get; set; }
 
-        public WordLabel(WordType item)
+        public WordLabel(WordType item, RuleType ruleType)
         {
             this.item = item;
+            this.ruleType = ruleType;
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace Baba.GameComponents.ConcreteComponents
 {
-    public class You : Component
+    public class You : RuleComponent
     {
     }
 }

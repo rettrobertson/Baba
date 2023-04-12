@@ -4,8 +4,8 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/Tyler Totsch/Source/Repos/Baba/Baba/Content/Fonts/menu-select.spritefont</File>
-    <File>C:/Users/Tyler Totsch/Source/Repos/Baba/Baba/Content/Fonts/menu.spritefont</File>
+    <File>C:/Users/jason/Documents/Classes/Git/Baba/Baba/Content/Fonts/menu-select.spritefont</File>
+    <File>C:/Users/jason/Documents/Classes/Git/Baba/Baba/Content/Fonts/menu.spritefont</File>
   </SourceFiles>
   <DestFiles>
     <File xsi:nil="true" />

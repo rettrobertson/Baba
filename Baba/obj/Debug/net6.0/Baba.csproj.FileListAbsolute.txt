@@ -52,3 +52,11 @@ C:\Users\Tyler Totsch\Source\Repos\Baba\Baba\obj\Debug\net6.0\refint\Baba.dll
 C:\Users\Tyler Totsch\Source\Repos\Baba\Baba\obj\Debug\net6.0\Baba.pdb
 C:\Users\Tyler Totsch\Source\Repos\Baba\Baba\obj\Debug\net6.0\Baba.genruntimeconfig.cache
 C:\Users\Tyler Totsch\Source\Repos\Baba\Baba\obj\Debug\net6.0\ref\Baba.dll
+C:\Users\jason\Documents\Classes\Git\Baba\Baba\obj\Debug\net6.0\Baba.csproj.AssemblyReference.cache
+C:\Users\jason\Documents\Classes\Git\Baba\Baba\obj\Debug\net6.0\Baba.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\jason\Documents\Classes\Git\Baba\Baba\obj\Debug\net6.0\Baba.AssemblyInfoInputs.cache
+C:\Users\jason\Documents\Classes\Git\Baba\Baba\obj\Debug\net6.0\Baba.AssemblyInfo.cs
+C:\Users\jason\Documents\Classes\Git\Baba\Baba\obj\Debug\net6.0\Baba.csproj.CoreCompileInputs.cache
+C:\Users\jason\Documents\Classes\Git\Baba\Baba\obj\Debug\net6.0\Baba.dll
+C:\Users\jason\Documents\Classes\Git\Baba\Baba\obj\Debug\net6.0\refint\Baba.dll
+C:\Users\jason\Documents\Classes\Git\Baba\Baba\obj\Debug\net6.0\Baba.pdb

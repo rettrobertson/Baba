@@ -27,6 +27,7 @@ namespace Baba.Views
             LevelSelect,
             Controls,
             Credits,
+           
             Quit
         }
 
@@ -61,7 +62,6 @@ namespace Baba.Views
             m_inputMouse.registerCommand(new ScreenButton((int)(m_graphics.PreferredBackBufferWidth / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y), false, Click.Move, new InputDeviceHelper.CommandDelegate(SetCredits));
             m_inputMouse.registerCommand(new ScreenButton((int)(m_graphics.PreferredBackBufferWidth / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y), true, Click.Left, new InputDeviceHelper.CommandDelegate(OnEnter));
 
-           
             stringSize = m_fontMenu.MeasureString("Quit");
             y += (int)stringSize.Y;
             m_inputMouse.registerCommand(new ScreenButton((int)(m_graphics.PreferredBackBufferWidth / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y), false, Click.Move, new InputDeviceHelper.CommandDelegate(SetQuit));
@@ -95,7 +95,8 @@ namespace Baba.Views
                 m_currentSelection == MenuState.LevelSelect ? Color.Yellow : Color.Blue);
             bottom = DrawMenuItem(m_currentSelection == MenuState.Controls ? m_fontMenuSelect : m_fontMenu, "Help", bottom, m_currentSelection == MenuState.Controls ? Color.Yellow : Color.Blue);
             bottom = DrawMenuItem(m_currentSelection == MenuState.Credits ? m_fontMenuSelect : m_fontMenu, "About", bottom, m_currentSelection == MenuState.Credits ? Color.Yellow : Color.Blue);
-            
+           
+
             DrawMenuItem(m_currentSelection == MenuState.Quit ? m_fontMenuSelect : m_fontMenu, "Quit", bottom, m_currentSelection == MenuState.Quit ? Color.Yellow : Color.Blue);
 
             m_spriteBatch.End();
@@ -128,6 +129,7 @@ namespace Baba.Views
         {
             m_currentSelection = MenuState.Credits;
         }
+        
 
         private void SetQuit(GameTime gametime, float scale)
         {

@@ -4,10 +4,60 @@
   <Platform>DesktopGL</Platform>
   <Config />
   <SourceFiles>
-    <File>C:/Users/jason/Documents/Classes/Git/Baba/Baba/Content/Fonts/menu-select.spritefont</File>
-    <File>C:/Users/jason/Documents/Classes/Git/Baba/Baba/Content/Fonts/menu.spritefont</File>
+    <File>C:/Users/Tyler Totsch/Source/Repos/Baba/Baba/Content/Fonts/menu-select.spritefont</File>
+    <File>C:/Users/Tyler Totsch/Source/Repos/Baba/Baba/Content/Fonts/menu.spritefont</File>
+    <File>C:/Users/Tyler Totsch/Source/Repos/Baba/Baba/Content/SpriteSheets/flag.png</File>
+    <File>C:/Users/Tyler Totsch/Source/Repos/Baba/Baba/Content/SpriteSheets/floor.png</File>
+    <File>C:/Users/Tyler Totsch/Source/Repos/Baba/Baba/Content/SpriteSheets/flowers.png</File>
+    <File>C:/Users/Tyler Totsch/Source/Repos/Baba/Baba/Content/SpriteSheets/grass.png</File>
+    <File>C:/Users/Tyler Totsch/Source/Repos/Baba/Baba/Content/SpriteSheets/hedge.png</File>
+    <File>C:/Users/Tyler Totsch/Source/Repos/Baba/Baba/Content/SpriteSheets/lava.png</File>
+    <File>C:/Users/Tyler Totsch/Source/Repos/Baba/Baba/Content/SpriteSheets/rock.png</File>
+    <File>C:/Users/Tyler Totsch/Source/Repos/Baba/Baba/Content/SpriteSheets/sprite_0.png</File>
+    <File>C:/Users/Tyler Totsch/Source/Repos/Baba/Baba/Content/SpriteSheets/sprite_1.png</File>
+    <File>C:/Users/Tyler Totsch/Source/Repos/Baba/Baba/Content/SpriteSheets/sprite_2.png</File>
+    <File>C:/Users/Tyler Totsch/Source/Repos/Baba/Baba/Content/SpriteSheets/wall.png</File>
+    <File>C:/Users/Tyler Totsch/Source/Repos/Baba/Baba/Content/SpriteSheets/water.png</File>
+    <File>C:/Users/Tyler Totsch/Source/Repos/Baba/Baba/Content/SpriteSheets/word-baba.png</File>
+    <File>C:/Users/Tyler Totsch/Source/Repos/Baba/Baba/Content/SpriteSheets/word-flag.png</File>
+    <File>C:/Users/Tyler Totsch/Source/Repos/Baba/Baba/Content/SpriteSheets/word-is.png</File>
+    <File>C:/Users/Tyler Totsch/Source/Repos/Baba/Baba/Content/SpriteSheets/word-kill.png</File>
+    <File>C:/Users/Tyler Totsch/Source/Repos/Baba/Baba/Content/SpriteSheets/word-lava.png</File>
+    <File>C:/Users/Tyler Totsch/Source/Repos/Baba/Baba/Content/SpriteSheets/word-push.png</File>
+    <File>C:/Users/Tyler Totsch/Source/Repos/Baba/Baba/Content/SpriteSheets/word-rock.png</File>
+    <File>C:/Users/Tyler Totsch/Source/Repos/Baba/Baba/Content/SpriteSheets/word-sink.png</File>
+    <File>C:/Users/Tyler Totsch/Source/Repos/Baba/Baba/Content/SpriteSheets/word-stop.png</File>
+    <File>C:/Users/Tyler Totsch/Source/Repos/Baba/Baba/Content/SpriteSheets/word-wall.png</File>
+    <File>C:/Users/Tyler Totsch/Source/Repos/Baba/Baba/Content/SpriteSheets/word-water.png</File>
+    <File>C:/Users/Tyler Totsch/Source/Repos/Baba/Baba/Content/SpriteSheets/word-win.png</File>
+    <File>C:/Users/Tyler Totsch/Source/Repos/Baba/Baba/Content/SpriteSheets/word-you.png</File>
   </SourceFiles>
   <DestFiles>
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
+    <File xsi:nil="true" />
     <File xsi:nil="true" />
     <File xsi:nil="true" />
   </DestFiles>

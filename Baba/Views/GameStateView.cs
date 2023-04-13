@@ -1,3 +1,4 @@
+
 ﻿using Engine.Views;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -10,6 +11,7 @@ namespace Baba.Views
     {
         protected GraphicsDeviceManager m_graphics;
         protected SpriteBatch m_spriteBatch;
+        protected SpriteRenderer m_renderer;
 
         protected Texture2D m_texBackground;
         protected Rectangle m_recBackground;
@@ -19,6 +21,7 @@ namespace Baba.Views
         {
             m_graphics = graphics;
             m_spriteBatch = new SpriteBatch(graphicsDevice);
+
             SaveData savedControls = new SaveData();
             savedControls.loadSomething();
             while(savedControls.getIsLoading()) { }
@@ -35,7 +38,7 @@ namespace Baba.Views
 
                 controls = new GameState(controlList);
             }
-
+            m_renderer = new SpriteRenderer(graphicsDevice);
         }
         public virtual void loadContent(ContentManager contentManager)
         {

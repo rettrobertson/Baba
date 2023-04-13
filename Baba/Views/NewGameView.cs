@@ -1,8 +1,10 @@
 ﻿using Baba.GameComponents;
 using Baba.GameComponents.ConcreteComponents;
+using Baba.GameComponents.Systems;
 using Baba.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
@@ -15,6 +17,7 @@ namespace Baba.Views
         private GameStateEnum returnEnum = GameStateEnum.GamePlay;
         private GridMaker gridMaker;
         private List<Transform> transforms;
+        
         public string[] level { get; set; } = new string[1] { "Level-1" };
 
         public override void loadContent(ContentManager contentManager)
@@ -25,6 +28,7 @@ namespace Baba.Views
 
             m_inputKeyboard = new KeyboardInput();
             m_inputKeyboard.registerCommand(Keys.Escape, true, new InputDeviceHelper.CommandDelegate(Escape));
+           
             loadTextures(contentManager);
 
         }
@@ -49,10 +53,12 @@ namespace Baba.Views
         public override void render(GameTime gameTime)
         {
             base.render(gameTime);
+            m_renderer.Render();
         }
         private void loadTextures(ContentManager contentManager)
         {
-
+            m_renderer.loadWords(contentManager);
+            m_renderer.loadItems(contentManager);
         }
         #region input handlers
         private void Escape(GameTime gameTime, float scale)

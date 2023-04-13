@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "1moTRLQMiFRPcBWkr7nSkl78AHYejuj54wuQwEGEm6CTmM8o1utctBgxjuU8OymRvuTL/dEDfROh/nJbvZuqIQ==",
+  "dgSpecHash": "BmuYjtEGgldbt9OZp1JBEb9a/yD31fALBiJF6LWWET+N14fp3lPJHl68xpo8PwVhgQRTlg0ryMf2cL4YmdHv3g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\jason\\Documents\\Classes\\Git\\Baba\\Baba\\Baba.csproj",
+  "projectFilePath": "C:\\Users\\Tyler Totsch\\Source\\Repos\\Baba\\Baba\\Baba.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\jason\\.nuget\\packages\\monogame.content.builder.task\\3.8.1.303\\monogame.content.builder.task.3.8.1.303.nupkg.sha512",
-    "C:\\Users\\jason\\.nuget\\packages\\monogame.framework.desktopgl\\3.8.1.303\\monogame.framework.desktopgl.3.8.1.303.nupkg.sha512"
+    "C:\\Users\\Tyler Totsch\\.nuget\\packages\\monogame.content.builder.task\\3.8.1.303\\monogame.content.builder.task.3.8.1.303.nupkg.sha512",
+    "C:\\Users\\Tyler Totsch\\.nuget\\packages\\monogame.framework.desktopgl\\3.8.1.303\\monogame.framework.desktopgl.3.8.1.303.nupkg.sha512"
   ],
   "logs": []
 }

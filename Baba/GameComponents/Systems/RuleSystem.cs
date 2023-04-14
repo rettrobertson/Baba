@@ -8,16 +8,20 @@ namespace Baba.GameComponents.Systems
     public class RuleSystem : System
     {
         private Dictionary<ItemType, HashSet<AttributeType>> rules;
-        private List<Entity> dummyEntities;
-
+        private List<Entity> itemEntities;
+        private List<Transform> wordsList;
         private List<Transform> isList;
 
         private Dictionary<AttributeType, Type> attributeComponents;
-        
+        private Dictionary<WordType, ItemType> itemWords;
+        private Dictionary<WordType, AttributeType> attributeWords;
+
         private Dictionary<Type, ObjectPool> objectPools;
         private const int poolSize = 20;
 
-        public RuleSystem() : base(typeof(ItemLabel))
+        private Dictionary<ItemType, ItemType> transformations;
+
+        public RuleSystem() : base(typeof(WordLabel), typeof(ItemLabel))
         {
             rules = new Dictionary<ItemType, HashSet<AttributeType>>();
             isList = new List<Transform>();
@@ -37,6 +41,36 @@ namespace Baba.GameComponents.Systems
                 { AttributeType.You, typeof(You)},
             };
 
+            attributeWords = new Dictionary<WordType, AttributeType>()
+            {
+                { WordType.You, AttributeType.You },
+                { WordType.Move, AttributeType.Move },
+                { WordType.Win, AttributeType.Win },
+                { WordType.Sink, AttributeType.Sink },
+                { WordType.Kill, AttributeType.Kill },
+                { WordType.Slip, AttributeType.Slip },
+                { WordType.Best, AttributeType.Best },
+                { WordType.Hot, AttributeType.Hot },
+                { WordType.Melt, AttributeType.Melt },
+                { WordType.Push, AttributeType.Push },
+                { WordType.Stop, AttributeType.Stop }
+            };
+            itemWords = new Dictionary<WordType, ItemType>()
+            {
+                { WordType.Baba, ItemType.Baba },
+                { WordType.Lava, ItemType.Lava },
+                { WordType.Kiki, ItemType.Kiki },
+                { WordType.Rock, ItemType.Rock },
+                { WordType.Bone, ItemType.Bone },
+                { WordType.Anni, ItemType.Anni },
+                { WordType.Flag, ItemType.Flag },
+                { WordType.Wall, ItemType.Wall },
+                { WordType.Love, ItemType.Love },
+                { WordType.Kiki, ItemType.Kiki },
+                { WordType.Ice, ItemType.Ice },
+                { WordType.Goop, ItemType.Goop },
+            };
+
             foreach (Type type in attributeComponents.Values)
             {
                 objectPools.Add(type, new ObjectPool(poolSize, type));
@@ -45,24 +79,41 @@ namespace Baba.GameComponents.Systems
 
         protected override void EntityChanged(Entity entity, Component component, Entity.ComponentChange change)
         {
-            if (change == Entity.ComponentChange.ADD)
+            WordLabel word = component as WordLabel;
+
+            if (word != null)
             {
-                isList.Add(entity.transform);
+                List<Transform> list = word.ruleType == RuleType.Is ? isList : wordsList;
+
+                if (change == Entity.ComponentChange.ADD)
+                {
+                    list.Add(entity.transform);
+                }
+                else
+                {
+                    list.Remove(entity.transform);
+                }
             }
-            else
+
+            ItemLabel item = component as ItemLabel;
+
+            if (item != null)
             {
-                isList.Remove(entity.transform);
+                if (change == Entity.ComponentChange.ADD)
+                {
+                    itemEntities.Add(entity);
+                }
+                else
+                {
+                    itemEntities.Remove(entity);
+                }
             }
         }
 
-        private void UpdateRules()
+        //Update the game rules based on the position of entities in the world
+        public void UpdateRules()
         {
             //Clear all existing rules
-
-            foreach (Entity entity in dummyEntities)
-            {
-                entity.RemoveAll<RuleComponent>();
-            }
 
             foreach (HashSet<AttributeType> attributes in rules.Values)
             {
@@ -72,45 +123,60 @@ namespace Baba.GameComponents.Systems
             //Check each is word for updates
             for (int j = 0; j < isList.Count; j++)
             {
-                ItemLabel top = null;
-                ItemLabel left = null;
-                AttributeLabel bottom = null;
-                AttributeLabel right = null;
+                WordLabel top = null;
+                WordLabel left = null;
+                WordLabel bottom = null;
+                WordLabel right = null;
 
-                for (int i = 0; i < dummyEntities.Count; i++)
+                for (int i = 0; i < wordsList.Count; i++)
                 {
-                    Entity entity = dummyEntities[i];
+                    Transform transform = wordsList[i];
 
-                    if (entity.transform.position == isList[j].position + Vector2.UnitY)
+                    if (transform.position == isList[j].position + Vector2.UnitY)
                     {
-                        top = entity.GetComponent<ItemLabel>();
+                        top = transform.entity.GetComponent<WordLabel>();
                     }
-                    else if (entity.transform.position == isList[j].position - Vector2.UnitX)
+                    else if (transform.position == isList[j].position - Vector2.UnitX)
                     {
-                        left = entity.GetComponent<ItemLabel>();
+                        left = transform.entity.GetComponent<WordLabel>();
                     }
-                    else if (entity.transform.position == isList[j].position - Vector2.UnitY)
+                    else if (transform.position == isList[j].position - Vector2.UnitY)
                     {
-                        bottom = entity.GetComponent<AttributeLabel>();
+                        bottom = transform.entity.GetComponent<WordLabel>();
                     }
-                    else if (entity.transform.position == isList[j].position + Vector2.UnitX)
+                    else if (transform.position == isList[j].position + Vector2.UnitX)
                     {
-                        right = entity.GetComponent<AttributeLabel>();
+                        right = transform.entity.GetComponent<WordLabel>();
                     }
                 }
 
-                if (top != null && bottom != null)
+                if (top != null && bottom != null && top.ruleType == RuleType.Item)
                 {
-                    AddRule(top.item, bottom.attribute);
+                    if (bottom.ruleType == RuleType.Attribute)
+                    {
+                        AddRule(itemWords[top.item], attributeWords[bottom.item]);
+                    }
+                    else if (right.ruleType == RuleType.Item)
+                    {
+                        transformations.TryAdd(itemWords[top.item], itemWords[bottom.item]);
+                    }
                 }
-                
-                if (left != null && right != null)
+
+                if (left != null && right != null && left.ruleType == RuleType.Item)
                 {
-                    AddRule(left.item, right.attribute);
+                    if (right.ruleType == RuleType.Attribute)
+                    {
+                        AddRule(itemWords[left.item], attributeWords[right.item]);
+                    }
+                    else if (right.ruleType == RuleType.Item)
+                    {
+                        transformations.TryAdd(itemWords[top.item], itemWords[bottom.item]);
+                    }
                 }
             }
 
             //Apply all rules
+            PerformTransformations();
             ApplyRules();
         }
 
@@ -126,9 +192,36 @@ namespace Baba.GameComponents.Systems
             }
         }
 
+        private void PerformTransformations()
+        {
+            foreach (Entity entity in itemEntities)
+            {
+                ItemLabel label = entity.GetComponent<ItemLabel>();
+                if (transformations.ContainsKey(label.item))
+                {
+                    label.item = transformations[label.item];
+                }
+            }
+            transformations.Clear();
+        }
+
         public void ApplyRules()
         {
+            foreach (Entity entity in itemEntities)
+            {
+                List<RuleComponent> components = entity.RemoveAll<RuleComponent>();
+            }
 
+            foreach (Entity entity in itemEntities)
+            {
+                ItemLabel itemLabel = entity.GetComponent<ItemLabel>();
+                
+                foreach (AttributeType attribute in rules[itemLabel.item])
+                {
+                    // This line is pretty hard to read, but it gets the component's object pool, removes a component, and adds it to the object
+                    entity.AddComponent(objectPools[attributeComponents[attribute]].GetObject<Component>());
+                }
+            }
         }
 
         public override void Update(GameTime time)

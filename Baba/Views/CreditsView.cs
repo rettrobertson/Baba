@@ -10,7 +10,7 @@ namespace Baba.Views
         // very simple, just like the example given
         private SpriteFont m_font;
         private const string MESSAGE = "*Everything* done by Rett Robertson";
-
+       
         public override void loadContent(ContentManager contentManager)
         {
             base.loadContent(contentManager);

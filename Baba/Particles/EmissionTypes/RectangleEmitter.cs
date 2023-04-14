@@ -15,14 +15,14 @@ namespace Baba.Particles.EmissionTypes
             this.rectangle = rectangle;
         }
 
-        protected override Vector2 GetEmissionPointArea()
-        {
-            return rectangle.center - new Vector2(random.NextSingle() * rectangle.width, random.NextSingle() * rectangle.height) + rectangle.bottomLeft;
-        }
+        //protected override Vector2 GetEmissionPointArea()
+        //{
+        //    return rectangle.center - new Vector2(random.NextSingle() * rectangle.width, random.NextSingle() * rectangle.height) + rectangle.bottomLeft;
+        //}
 
-        protected override Vector2 GetEmissionPointEdge()
-        {
-            throw new NotImplementedException("The programmer didn't want to implement this algorithm");
-        }
-    }
-}
+        //protected override Vector2 GetEmissionPointEdge()
+        //{
+        //    throw new NotImplementedException("The programmer didn't want to implement this algorithm");
+        //}
+//    }
+//}

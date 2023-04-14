@@ -22,7 +22,7 @@ namespace Baba.GameComponents.Systems
 
         private List<ItemLabel> renderEntities;
 
-        private SpriteRenderer(GraphicsDevice graphics)
+        public SpriteRenderer(GraphicsDevice graphics)
         {
             m_spriteBatch = new SpriteBatch(graphics);
             m_graphics = graphics;
@@ -60,6 +60,17 @@ namespace Baba.GameComponents.Systems
         {
             Vector2 screenPos = GameToScreenPos(itemComponent.entity.transform.position);
             Texture2D texture = itemTextures[itemComponent.item];
+
+            int width = texture.Width * renderScale;
+            int height = texture.Height * renderScale;
+
+            m_spriteBatch.Draw(texture, new Rectangle((int)screenPos.X, (int)screenPos.Y, width, height), texture.Bounds, Color.White);
+        }
+
+        private void Render(WordLabel wordComponent)
+        {
+            Vector2 screenPos = GameToScreenPos(wordComponent.entity.transform.position);
+            Texture2D texture = wordTextures[wordComponent.item];
 
             int width = texture.Width * renderScale;
             int height = texture.Height * renderScale;

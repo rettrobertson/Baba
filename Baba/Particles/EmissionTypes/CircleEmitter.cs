@@ -1,5 +1,4 @@
-﻿using BreakoutGame.Engine.Physics.Shapes;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using System;
 
 namespace Baba.Particles.EmissionTypes

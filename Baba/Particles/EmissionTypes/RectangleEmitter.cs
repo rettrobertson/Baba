@@ -9,8 +9,8 @@ namespace Baba.Particles.EmissionTypes
 {
     public class RectangleEmitter : EmissionShape
     {
-        private Physics.Shapes.Rectangle rectangle;
-        public RectangleEmitter(Physics.Shapes.Rectangle rectangle, EmitType type) : base(type)
+        private Rectangle rectangle;
+        public RectangleEmitter(Rectangle rectangle, EmitType type) : base(type)
         {
             this.rectangle = rectangle;
         }

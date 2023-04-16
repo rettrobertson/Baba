@@ -1,6 +1,8 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Threading;
 using Baba.Input;
 using DrawingExample.Input;
+using Engine.Views;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -18,17 +20,19 @@ namespace Baba.Views
         private KeyboardInput m_inputKeyboard;
         private MouseInput m_inputMouse;
         private GamePadInput m_inputGamePad;
-        private bool getNewControl;
+        private bool getNewControl = false;
+        
+
         
         
         private enum ControlsState
         {
-            Up,
-            Down,
-            Left,
-            Right,
-            Reset,
-            Undo
+            Up = 0,
+            Down = 1,
+            Left= 2,
+            Right =3 ,
+            Reset = 4,
+            Undo = 5
         }
         private ControlsState m_currentSelection = ControlsState.Up;
 
@@ -86,10 +90,24 @@ namespace Baba.Views
             {
                 return GameStateEnum.MainMenu;
             }
+            
             m_inputKeyboard.Update(gameTime);
             m_inputMouse.Update(gameTime);
             m_inputGamePad.Update(gameTime);
             //if return enum changed we'll go to the new view
+            if (getNewControl)
+            {
+                Keys[] keys = Keyboard.GetState().GetPressedKeys();
+                if (Keyboard.GetState().GetPressedKeys().Length > 0)
+                {
+                    int selection = (int)m_currentSelection;
+                    controls.Controls[selection] = keys[0];
+                    savedControls.saveSomething(controls);
+                    getNewControl = false;
+                }
+
+                
+            }
            
             
 
@@ -100,18 +118,25 @@ namespace Baba.Views
         {
             base.render(gameTime);
             m_spriteBatch.Begin();
-            float bottom = DrawMenuItem(
-                          m_currentSelection == ControlsState.Up ? m_fontMenuSelect : m_fontMenu,
-                          $"Up {controls.Controls[0]} ",
-                          200,
-                          m_currentSelection == ControlsState.Up ? Color.Yellow : Color.Blue);
-            bottom = DrawMenuItem(m_currentSelection == ControlsState.Down ? m_fontMenuSelect : m_fontMenu, $"Down {controls.Controls[1]}", bottom, m_currentSelection == ControlsState.Down ? Color.Yellow : Color.Blue);
-            bottom = DrawMenuItem(m_currentSelection == ControlsState.Left ? m_fontMenuSelect : m_fontMenu, $"Left {controls.Controls[2]}", bottom, m_currentSelection == ControlsState.Left ? Color.Yellow : Color.Blue);
-            bottom = DrawMenuItem(m_currentSelection == ControlsState.Right ? m_fontMenuSelect : m_fontMenu, $"Right {controls.Controls[3]}", bottom, m_currentSelection == ControlsState.Right ? Color.Yellow : Color.Blue);
-            bottom = DrawMenuItem(m_currentSelection == ControlsState.Reset ? m_fontMenuSelect : m_fontMenu, $"Reset {controls.Controls[4]}", bottom, m_currentSelection == ControlsState.Reset ? Color.Yellow : Color.Blue);
+            if (!getNewControl)
+            {
+                float bottom = DrawMenuItem(
+                              m_currentSelection == ControlsState.Up ? m_fontMenuSelect : m_fontMenu,
+                              $"Up {controls.Controls[0]} ",
+                              200,
+                              m_currentSelection == ControlsState.Up ? Color.Yellow : Color.Blue);
+                bottom = DrawMenuItem(m_currentSelection == ControlsState.Down ? m_fontMenuSelect : m_fontMenu, $"Down {controls.Controls[1]}", bottom, m_currentSelection == ControlsState.Down ? Color.Yellow : Color.Blue);
+                bottom = DrawMenuItem(m_currentSelection == ControlsState.Left ? m_fontMenuSelect : m_fontMenu, $"Left {controls.Controls[2]}", bottom, m_currentSelection == ControlsState.Left ? Color.Yellow : Color.Blue);
+                bottom = DrawMenuItem(m_currentSelection == ControlsState.Right ? m_fontMenuSelect : m_fontMenu, $"Right {controls.Controls[3]}", bottom, m_currentSelection == ControlsState.Right ? Color.Yellow : Color.Blue);
+                bottom = DrawMenuItem(m_currentSelection == ControlsState.Reset ? m_fontMenuSelect : m_fontMenu, $"Reset {controls.Controls[4]}", bottom, m_currentSelection == ControlsState.Reset ? Color.Yellow : Color.Blue);
 
 
-            DrawMenuItem(m_currentSelection == ControlsState.Undo ? m_fontMenuSelect : m_fontMenu, $"Undo {controls.Controls[5]}", bottom, m_currentSelection == ControlsState.Undo ? Color.Yellow : Color.Blue);
+                DrawMenuItem(m_currentSelection == ControlsState.Undo ? m_fontMenuSelect : m_fontMenu, $"Undo {controls.Controls[5]}", bottom, m_currentSelection == ControlsState.Undo ? Color.Yellow : Color.Blue);
+            }
+            else
+            {
+                m_spriteBatch.DrawString(m_fontMenu, "Enter the new they key for this command", new Vector2(1920 / 2, 1080 / 2), Color.Yellow);
+            }
             m_spriteBatch.End();
         }
         private float DrawMenuItem(SpriteFont font, string text, float y, Color color)
@@ -179,7 +204,7 @@ namespace Baba.Views
 
         private void OnEnter(GameTime gametime, float scale)
         {
-            
+            getNewControl = true;
         }
         #endregion
     }

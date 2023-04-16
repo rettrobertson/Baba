@@ -16,6 +16,7 @@ namespace Baba.Views
         protected Texture2D m_texBackground;
         protected Rectangle m_recBackground;
         protected GameState controls;
+        protected SaveData savedControls;
 
         public void initialize(GraphicsDevice graphicsDevice, GraphicsDeviceManager graphics)
         {
@@ -38,6 +39,7 @@ namespace Baba.Views
 
                 controls = new GameState(controlList);
             }
+            savedControls.saveSomething(controls);
             m_renderer = new GameComponents.Systems.SpriteRenderer(graphicsDevice);
         }
         public virtual void loadContent(ContentManager contentManager)

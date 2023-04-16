@@ -17,6 +17,7 @@ namespace Baba.Views
         private GameStateEnum returnEnum = GameStateEnum.GamePlay;
         private GridMaker gridMaker;
         private List<Transform> transforms;
+        private Entity entity;
         
         public string[] level { get; set; } = new string[1] { "Level-1" };
 
@@ -28,7 +29,8 @@ namespace Baba.Views
 
             m_inputKeyboard = new KeyboardInput();
             m_inputKeyboard.registerCommand(Keys.Escape, true, new InputDeviceHelper.CommandDelegate(Escape));
-           
+            entity = new Entity();
+            //entity.AddComponent(new Component())
             loadTextures(contentManager);
 
         }

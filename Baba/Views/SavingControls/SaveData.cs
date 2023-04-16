@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 using System.Xml.Serialization;
 namespace Engine.Views
 {
-    internal class SaveData
+    public class SaveData
     {
         private bool saving = false;
         private bool loading = false;

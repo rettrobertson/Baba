@@ -2,7 +2,7 @@
 using System.Threading;
 using Baba.Input;
 using DrawingExample.Input;
-using Engine.Views;
+using Baba.Views.SavingControls;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
@@ -21,10 +21,14 @@ namespace Baba.Views
         private MouseInput m_inputMouse;
         private GamePadInput m_inputGamePad;
         private bool getNewControl = false;
+        GameState controls;
         
 
         
-        
+        public ControlsView(GameState controls)
+        {
+            this.controls = controls;
+        }
         private enum ControlsState
         {
             Up = 0,
@@ -86,6 +90,22 @@ namespace Baba.Views
 
         public override GameStateEnum processInput(GameTime gameTime)
         {
+            if (getNewControl)
+            {
+                SaveData savedControls = new SaveData();
+                Keys[] keys = Keyboard.GetState().GetPressedKeys();
+                if (Keyboard.GetState().GetPressedKeys().Length > 0)
+                {
+                    savedControls = new SaveData();
+                    int selection = (int)m_currentSelection;
+                    controls.Controls[selection] = keys[0];
+                    int x = 5;
+                    savedControls.saveSomething(controls);
+                    getNewControl = false;
+                }
+
+
+            }
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
                 return GameStateEnum.MainMenu;
@@ -95,19 +115,8 @@ namespace Baba.Views
             m_inputMouse.Update(gameTime);
             m_inputGamePad.Update(gameTime);
             //if return enum changed we'll go to the new view
-            if (getNewControl)
-            {
-                Keys[] keys = Keyboard.GetState().GetPressedKeys();
-                if (Keyboard.GetState().GetPressedKeys().Length > 0)
-                {
-                    int selection = (int)m_currentSelection;
-                    controls.Controls[selection] = keys[0];
-                    savedControls.saveSomething(controls);
-                    getNewControl = false;
-                }
-
-                
-            }
+            
+            
            
             
 
@@ -135,7 +144,7 @@ namespace Baba.Views
             }
             else
             {
-                m_spriteBatch.DrawString(m_fontMenu, "Enter the new they key for this command", new Vector2(1920 / 2, 1080 / 2), Color.Yellow);
+                m_spriteBatch.DrawString(m_fontMenu, "Enter the new they key for this command", new Vector2(1920 / 2 - 400, 1080 / 2), Color.Yellow);
             }
             m_spriteBatch.End();
         }
@@ -204,6 +213,7 @@ namespace Baba.Views
 
         private void OnEnter(GameTime gametime, float scale)
         {
+            Thread.Sleep(100);
             getNewControl = true;
         }
         #endregion

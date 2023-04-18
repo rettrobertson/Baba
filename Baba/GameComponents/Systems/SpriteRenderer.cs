@@ -22,7 +22,7 @@ namespace Baba.GameComponents.Systems
 
         private List<ItemLabel> renderEntities;
 
-        public SpriteRenderer(GraphicsDevice graphics) : base(typeof(ItemLabel))
+        public SpriteRenderer(GraphicsDevice graphics) : base(typeof(ItemLabel), typeof(RuleComponent))  
         {
             m_spriteBatch = new SpriteBatch(graphics);
             m_graphics = graphics;

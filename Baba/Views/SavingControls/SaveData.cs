@@ -10,7 +10,7 @@ using System.IO.IsolatedStorage;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
-namespace Engine.Views
+namespace Baba.Views.SavingControls
 {
     public class SaveData
     {
@@ -42,7 +42,7 @@ namespace Engine.Views
                 {
                     try
                     {
-                        using (IsolatedStorageFileStream fs = storage.OpenFile("Controls", FileMode.Create))
+                        using (IsolatedStorageFileStream fs = storage.OpenFile("Controls.xml", FileMode.Create))
                         {
                             if (fs != null)
                             {
@@ -91,9 +91,9 @@ namespace Engine.Views
                 {
                     try
                     {
-                        if (storage.FileExists("HighScores.xml"))
+                        if (storage.FileExists("Controls.xml"))
                         {
-                            using (IsolatedStorageFileStream fs = storage.OpenFile("HighScores.xml", FileMode.Open))
+                            using (IsolatedStorageFileStream fs = storage.OpenFile("Controls.xml", FileMode.Open))
                             {
                                 if (fs != null)
                                 {

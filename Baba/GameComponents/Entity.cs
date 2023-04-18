@@ -31,7 +31,7 @@ namespace Baba.GameComponents
         {
             id = nextID++;
             components = new List<Component>();
-            //transform = new Transform();
+            transform = new Transform();
             AddComponent(transform);
         }
 

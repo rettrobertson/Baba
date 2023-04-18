@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using Baba.Views.SavingControls;
 
 namespace Baba.Views
 {
@@ -18,9 +19,13 @@ namespace Baba.Views
         private GridMaker gridMaker;
         private List<Transform> transforms;
         private Entity entity;
-        
+        private GameState controls;
         public string[] level { get; set; } = new string[1] { "Level-1" };
 
+        public NewGameView(GameState controls)
+        {
+            
+        }
         public override void loadContent(ContentManager contentManager)
         {
             base.loadContent(contentManager);
@@ -30,7 +35,7 @@ namespace Baba.Views
             m_inputKeyboard = new KeyboardInput();
             m_inputKeyboard.registerCommand(Keys.Escape, true, new InputDeviceHelper.CommandDelegate(Escape));
             entity = new Entity();
-            //entity.AddComponent(new Component())
+            entity.AddComponent(new You());
             loadTextures(contentManager);
 
         }

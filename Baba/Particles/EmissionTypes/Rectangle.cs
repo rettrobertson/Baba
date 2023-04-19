@@ -13,10 +13,11 @@ namespace Baba.Particles.EmissionTypes
     /// </summary>
     public struct Rectangle
     {
-        public float x;
-        public float y;
-        public float width;
-        public float height;
+        public readonly float x;
+        public readonly float y;
+        public readonly float width;
+        public readonly float height;
+        public readonly float perimeter;
 
         public Vector2 bottomRight => new Vector2(x + width, y);
         public Vector2 bottomLeft => new Vector2(x, y);
@@ -31,6 +32,7 @@ namespace Baba.Particles.EmissionTypes
             this.y = y;
             this.width = width;
             this.height = height;
+            perimeter = width * 2 + height * 2;
         }
     }
 }

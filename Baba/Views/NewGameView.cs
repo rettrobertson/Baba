@@ -30,7 +30,7 @@ namespace Baba.Views
         {
             base.loadContent(contentManager);
             gridMaker = new GridMaker();
-            transforms = gridMaker.MakeGrid("levels-all.bbiy", level[0]);
+            transforms = gridMaker.MakeGrid(level[0]);
 
             m_inputKeyboard = new KeyboardInput();
             m_inputKeyboard.registerCommand(Keys.Escape, true, new InputDeviceHelper.CommandDelegate(Escape));
@@ -51,7 +51,7 @@ namespace Baba.Views
         }
         public override void reset()
         {
-            transforms = gridMaker.MakeGrid("levels-all.bbiy", level[0]);
+            transforms = gridMaker.MakeGrid(level[0]);
         }
         public override void update(GameTime gameTime)
         {

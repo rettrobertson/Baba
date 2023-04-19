@@ -13,6 +13,7 @@ namespace Baba.GameComponents.Systems
         public static void Initialize()
         {
             Entity.onComponentAdded += Notify;
+            Entity.onComponentRemoved += Notify;
         }
 
         private static void Notify(Entity entity, Component component, Entity.ComponentChange change)

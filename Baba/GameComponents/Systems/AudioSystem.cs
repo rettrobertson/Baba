@@ -13,7 +13,7 @@ namespace Baba.GameComponents.Systems
         SoundEffect win;
         SoundEffectInstance bgm;
 
-        public AudioSystem(GameStateView view, params Type[] types) : base(view, types)
+        public AudioSystem(NewGameView view, params Type[] types) : base(view, types)
         {
         }
 

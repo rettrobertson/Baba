@@ -22,7 +22,7 @@ namespace Baba.GameComponents.Systems
 
         private Dictionary<ItemType, ItemType> transformations;
 
-        public RuleSystem(GameStateView view) : base(view, typeof(WordLabel), typeof(ItemLabel))
+        public RuleSystem(NewGameView view) : base(view, typeof(WordLabel), typeof(ItemLabel))
         {
             rules = new Dictionary<ItemType, HashSet<AttributeType>>();
             isList = new List<Transform>();

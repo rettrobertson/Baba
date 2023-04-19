@@ -10,7 +10,7 @@ namespace Baba.GameComponents.Systems
         List<Entity> controlledEntities;
         List<Entity> pushableEntities;
 
-        public MoveSystem(GameStateView view) : base(view, typeof(You), typeof(Push))
+        public MoveSystem(NewGameView view) : base(view, typeof(You), typeof(Push))
         {
             controlledEntities = new List<Entity>();
         }

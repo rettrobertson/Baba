@@ -6,8 +6,10 @@ namespace Baba.Animation
 {
     public class Animation
     {
-        protected Texture2D texture;
+        public Texture2D texture { get; private set; }
         protected KeyFrame[] keyFrames;
+        protected TimeSpan m_duration;
+        public TimeSpan Duration => m_duration;
 
         public Animation(string texture, int frames) 
         {
@@ -19,6 +21,18 @@ namespace Baba.Animation
         {
             public TimeSpan time;
             public Rectangle bounds;
+        }
+
+        public Rectangle Evaluate(TimeSpan time)
+        {
+            for (int i = 0; i < keyFrames.Length - 1; i++)
+            {
+                if (time < keyFrames[i+1].time)
+                {
+                    return keyFrames[i+1].bounds;
+                }
+            }
+            return keyFrames[keyFrames.Length - 1].bounds;
         }
     }
 }

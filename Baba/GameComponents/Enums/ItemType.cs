@@ -14,5 +14,6 @@
     Love,
     Bone,
     Ice,
-    Kiki
+    Kiki,
+    Word
 }

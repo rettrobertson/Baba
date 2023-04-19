@@ -1,6 +1,6 @@
 ﻿namespace Baba.GameComponents.ConcreteComponents
 {
-    public class Kill
+    public class Kill : RuleComponent
     {
     }
 }

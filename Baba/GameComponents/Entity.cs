@@ -30,7 +30,8 @@ namespace Baba.GameComponents
         public Entity()
         {
             id = nextID++;
-            //transform = new Transform();
+            components = new List<Component>();
+            transform = new Transform();
             AddComponent(transform);
         }
 
@@ -59,15 +60,20 @@ namespace Baba.GameComponents
             onComponentRemoved?.Invoke(this, component, ComponentChange.REMOVE);
         }
 
-        public void RemoveAll<T>() where T : Component
+        public List<T> RemoveAll<T>() where T : Component
         {
+            List<T> list = new List<T>();
+
             foreach (Component component in components)
             {
                 if (component.GetType().IsAssignableTo(typeof(T)))
                 {
                     RemoveComponent(component);
+                    list.Add(component as T);
                 }
             }
+
+            return list;
         }
     }
 }

@@ -36,9 +36,8 @@ namespace Baba.Particles
 
         public int Count => particles.Count;
 
-        public ParticleEmitter(GraphicsDevice device)
+        public ParticleEmitter()
         {
-            spriteBatch = new SpriteBatch(device);
             particleDecorators = new List<ParticleDecorator>();
             emissionDecorators = new List<EmissionDecorator>();
 

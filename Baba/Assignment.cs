@@ -34,10 +34,10 @@ namespace Baba
             m_graphics.PreferredBackBufferHeight = height;
 
             m_graphics.ApplyChanges();
-            NewGameView temp = new NewGameView(controls);
+            
             LevelSelectView temp2 = new LevelSelectView();
 
-            temp2.LevelInfo(temp.level);
+            
             SaveData savedControls = new SaveData();
             savedControls.loadSomething();
             while (savedControls.getIsLoading()) { }
@@ -54,11 +54,13 @@ namespace Baba
 
                 controls = new GameState(controlList);
             }
+            NewGameView temp = new NewGameView(ref controls);
+            temp2.LevelInfo(temp.level);
             m_states = new Dictionary<GameStateEnum, IGameState>
             {
                 { GameStateEnum.MainMenu, new MainMenuView() },
                 { GameStateEnum.GamePlay, temp },
-                { GameStateEnum.Controls, new ControlsView(controls) },
+                { GameStateEnum.Controls, new ControlsView(ref controls) },
                 { GameStateEnum.Credits, new CreditsView() },
                 {GameStateEnum.LevelSelect, temp2 }
             };

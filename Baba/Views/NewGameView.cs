@@ -22,9 +22,9 @@ namespace Baba.Views
         private GameState controls;
         public string[] level { get; set; } = new string[1] { "Level-1" };
 
-        public NewGameView(GameState controls)
+        public NewGameView(ref GameState controls)
         {
-            
+            this.controls = controls;
         }
         public override void loadContent(ContentManager contentManager)
         {
@@ -35,7 +35,9 @@ namespace Baba.Views
             m_inputKeyboard = new KeyboardInput();
             m_inputKeyboard.registerCommand(Keys.Escape, true, new InputDeviceHelper.CommandDelegate(Escape));
             entity = new Entity();
-            entity.AddComponent(new You());
+            RuleComponent you = new You();
+            entity.AddComponent(you);
+            m_renderer.addComponent(you);
             loadTextures(contentManager);
 
         }

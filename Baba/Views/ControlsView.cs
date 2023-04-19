@@ -25,7 +25,7 @@ namespace Baba.Views
         
 
         
-        public ControlsView(GameState controls)
+        public ControlsView(ref GameState  controls)
         {
             this.controls = controls;
         }

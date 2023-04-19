@@ -46,7 +46,10 @@ namespace Baba.GameComponents.Systems
                 renderEntities.Remove(component as ItemLabel);
             }
         }
-
+        public void addComponent(Component component)
+        {
+            renderEntities.Add(component as ItemLabel);
+        }
         public void Render()
         {
             for (int i = 0; i < renderEntities.Count; i++)

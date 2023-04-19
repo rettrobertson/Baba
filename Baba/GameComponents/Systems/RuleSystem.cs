@@ -1,4 +1,5 @@
 ﻿using Baba.GameComponents.ConcreteComponents;
+using Baba.Views;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace Baba.GameComponents.Systems
 
         private Dictionary<ItemType, ItemType> transformations;
 
-        public RuleSystem() : base(typeof(WordLabel), typeof(ItemLabel))
+        public RuleSystem(GameStateView view) : base(view, typeof(WordLabel), typeof(ItemLabel))
         {
             rules = new Dictionary<ItemType, HashSet<AttributeType>>();
             isList = new List<Transform>();

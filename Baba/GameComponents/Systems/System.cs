@@ -1,26 +1,21 @@
-﻿using Baba.GameComponents.ConcreteComponents;
+﻿using Baba.Views;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Baba.GameComponents.Systems
 {
     public abstract class System
     {
-        public System(params Type[] types) 
+        public System(GameStateView view, params Type[] types) 
         {
             foreach (Type type in types)
             {
-                ComponentRouterSystem.RegisterComponentListener(type, EntityChanged);
+                view.router.RegisterComponentListener(type, EntityChanged);
             }
         }
 
-        public abstract void Update(GameTime time);
-        public virtual void Draw(SpriteBatch spriteBatch) { }
+        public virtual void Update(GameTime time) { }
+        public virtual void Draw() { }
 
         protected virtual void EntityChanged(Entity entity, Component component, Entity.ComponentChange change) { }
     }

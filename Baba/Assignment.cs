@@ -1,9 +1,11 @@
 ﻿using Baba.Views;
+
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System.Xml;
-
+using Baba.Views.SavingControls;
 namespace Baba
 {
     public class Assignment : Game
@@ -15,6 +17,7 @@ namespace Baba
         private int height;
         private int width;
         private GraphicsDeviceManager m_graphics;
+        protected GameState controls;
 
         public Assignment()
         {
@@ -31,16 +34,33 @@ namespace Baba
             m_graphics.PreferredBackBufferHeight = height;
 
             m_graphics.ApplyChanges();
-            NewGameView temp = new NewGameView();
+            
             LevelSelectView temp2 = new LevelSelectView();
 
-            temp2.LevelInfo(temp.level);
+            
+            SaveData savedControls = new SaveData();
+            savedControls.loadSomething();
+            while (savedControls.getIsLoading()) { }
+            controls = savedControls.m_loadedState;
+            if (controls == null)
+            {
+                Keys[] controlList = new Keys[6];
+                controlList[0] = Keys.W;
+                controlList[1] = Keys.A;
+                controlList[2] = Keys.S;
+                controlList[3] = Keys.D;
+                controlList[4] = Keys.R;
+                controlList[5] = Keys.Z;
 
+                controls = new GameState(controlList);
+            }
+            NewGameView temp = new NewGameView(ref controls);
+            temp2.LevelInfo(temp.level);
             m_states = new Dictionary<GameStateEnum, IGameState>
             {
                 { GameStateEnum.MainMenu, new MainMenuView() },
                 { GameStateEnum.GamePlay, temp },
-                { GameStateEnum.Controls, new ControlsView() },
+                { GameStateEnum.Controls, new ControlsView(ref controls) },
                 { GameStateEnum.Credits, new CreditsView() },
                 {GameStateEnum.LevelSelect, temp2 }
             };

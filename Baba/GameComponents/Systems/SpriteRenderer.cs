@@ -6,9 +6,9 @@ using System.Collections.Generic;
 
 namespace Baba.GameComponents.Systems
 {
-    public class SpriteRenderer
+    public class SpriteRenderer : System
     {
-        public static SpriteRenderer Instance { get; private set; }
+        public SpriteRenderer Instance { get; private set; }
 
         private Dictionary<ItemType, Texture2D> itemTextures = new Dictionary<ItemType, Texture2D>();
         private Dictionary<ItemType, Color> itemColors = new Dictionary<ItemType, Color>();
@@ -22,21 +22,20 @@ namespace Baba.GameComponents.Systems
 
         private List<ItemLabel> renderEntities;
 
-        public SpriteRenderer(GraphicsDevice graphics)
+        public SpriteRenderer(GraphicsDevice graphics) : base(typeof(ItemLabel), typeof(RuleComponent))  
         {
             m_spriteBatch = new SpriteBatch(graphics);
             m_graphics = graphics;
 
             renderEntities = new List<ItemLabel>();
-            ComponentRouterSystem.RegisterComponentListener<ItemLabel>(EntityChanged);
         }
 
-        public static void Initialize(GraphicsDevice graphics)
-        {
-            Instance = new SpriteRenderer(graphics);
-        }
+        //public static void Initialize(GraphicsDevice graphics)
+        //{
+        //    Instance = new SpriteRenderer(graphics);
+        //}
 
-        private void EntityChanged(Entity entity, Component component, Entity.ComponentChange change)
+        protected override void EntityChanged(Entity entity, Component component, Entity.ComponentChange change)
         {
             if (change == Entity.ComponentChange.ADD)
             {
@@ -47,7 +46,10 @@ namespace Baba.GameComponents.Systems
                 renderEntities.Remove(component as ItemLabel);
             }
         }
-
+        public void addComponent(Component component)
+        {
+            renderEntities.Add(component as ItemLabel);
+        }
         public void Render()
         {
             for (int i = 0; i < renderEntities.Count; i++)
@@ -139,6 +141,10 @@ namespace Baba.GameComponents.Systems
 
             wordTextures[WordType.You] = contentManager.Load<Texture2D>("SpriteSheets/word-you");
             wordColors[WordType.You] = Color.Pink;
+        }
+
+        public override void Update(GameTime time)
+        {
         }
     }
 }

@@ -8,6 +8,7 @@
         Options,
         Controls,
         Credits,
-        Exit, 
+        Exit,
+        RenderTest
     }
 }

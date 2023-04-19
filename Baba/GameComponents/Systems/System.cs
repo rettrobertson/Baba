@@ -1,15 +1,16 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Baba.Views;
+using Microsoft.Xna.Framework;
 using System;
 
 namespace Baba.GameComponents.Systems
 {
     public abstract class System
     {
-        public System(params Type[] types) 
+        public System(GameStateView view, params Type[] types) 
         {
             foreach (Type type in types)
             {
-                ComponentRouterSystem.RegisterComponentListener(type, EntityChanged);
+                view.router.RegisterComponentListener(type, EntityChanged);
             }
         }
 

@@ -1,4 +1,5 @@
 ﻿using Baba.GameComponents.ConcreteComponents;
+using Baba.Views;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
 
@@ -9,7 +10,7 @@ namespace Baba.GameComponents.Systems
         List<Entity> controlledEntities;
         List<Entity> pushableEntities;
 
-        public MoveSystem() : base(typeof(You), typeof(Push))
+        public MoveSystem(GameStateView view) : base(view, typeof(You), typeof(Push))
         {
             controlledEntities = new List<Entity>();
         }

@@ -1,5 +1,7 @@
-﻿using Microsoft.Xna.Framework.Audio;
+﻿using Baba.Views;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
+using System;
 
 namespace Baba.GameComponents.Systems
 {
@@ -10,6 +12,10 @@ namespace Baba.GameComponents.Systems
         SoundEffect hurt;
         SoundEffect win;
         SoundEffectInstance bgm;
+
+        public AudioSystem(GameStateView view, params Type[] types) : base(view, types)
+        {
+        }
 
         public void PlayHurt()
         {

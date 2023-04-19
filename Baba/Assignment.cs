@@ -62,7 +62,8 @@ namespace Baba
                 { GameStateEnum.GamePlay, temp },
                 { GameStateEnum.Controls, new ControlsView(ref controls) },
                 { GameStateEnum.Credits, new CreditsView() },
-                {GameStateEnum.LevelSelect, temp2 }
+                { GameStateEnum.LevelSelect, temp2 },
+                { GameStateEnum.RenderTest, new RenderTestView() }
             };
 
             foreach (var item in m_states)

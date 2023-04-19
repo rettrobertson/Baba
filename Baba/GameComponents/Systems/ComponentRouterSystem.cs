@@ -5,19 +5,24 @@ namespace Baba.GameComponents.Systems
 {
     /// <summary>
     /// System for keeping track of components on entities
+    /// 
+    /// THIS NEEDS TO CHANGE!!!!! 
+    /// Right now it is a singleton so every view registers to the same one and everything breaks
     /// </summary>
-    public static class ComponentRouterSystem
+    public class ComponentRouterSystem
     {
-        private static Dictionary<Type, List<Entity.ComponentChangedCallback>> callbacks = new Dictionary<Type, List<Entity.ComponentChangedCallback>>();
+        private Dictionary<Type, List<Entity.ComponentChangedCallback>> callbacks = new Dictionary<Type, List<Entity.ComponentChangedCallback>>();
 
-        public static void Initialize()
+        public ComponentRouterSystem()
         {
             Entity.onComponentAdded += Notify;
             Entity.onComponentRemoved += Notify;
         }
 
-        private static void Notify(Entity entity, Component component, Entity.ComponentChange change)
+        private void Notify(Entity entity, Component component, Entity.ComponentChange change)
         {
+            if (!callbacks.ContainsKey(component.GetType())) return;
+
             List<Entity.ComponentChangedCallback> listeners = callbacks[component.GetType()];
             for (int i = 0; i < listeners.Count; i++)
             {
@@ -30,7 +35,7 @@ namespace Baba.GameComponents.Systems
         /// </summary>
         /// <typeparam name="T">Generic type of component to listen to</typeparam>
         /// <param name="callback">Callback for when a component is changed</param>
-        public static void RegisterComponentListener<T>(Entity.ComponentChangedCallback callback)
+        public void RegisterComponentListener<T>(Entity.ComponentChangedCallback callback)
         {
             RegisterComponentListener(typeof(T), callback);
         }
@@ -39,17 +44,15 @@ namespace Baba.GameComponents.Systems
         /// Register a callback to be notified when a component of the given type is added or removed
         /// </summary>
         /// <param name="type">Type of component to listen to</param>
-        /// <param name="callback"></param>
-        public static void RegisterComponentListener(Type type, Entity.ComponentChangedCallback callback)
+        /// <param name="callback">Callback for changed components</param>
+        public void RegisterComponentListener(Type type, Entity.ComponentChangedCallback callback)
         {
-            if (callbacks.ContainsKey(type))
-            {
-                callbacks[type].Add(callback);
-            }
-            else
+            if (!callbacks.ContainsKey(type))
             {
                 callbacks.Add(type, new List<Entity.ComponentChangedCallback>());
             }
+            
+            callbacks[type].Add(callback);
         }
 
     }

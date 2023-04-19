@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Baba.GameComponents.ConcreteComponents;
 using Baba.Particles;
+using Baba.Views;
 
 namespace Baba.GameComponents.Systems
 {
@@ -16,7 +17,7 @@ namespace Baba.GameComponents.Systems
         private List<ParticleEmitter> removeEmitters;
         public int particleCount => CountParticles();
 
-        public ParticleSystem(GraphicsDevice graphics) : base(typeof(You), typeof(Win))
+        public ParticleSystem(GameStateView view, GraphicsDevice graphics) : base(view, typeof(You), typeof(Win))
         {
             spriteBatch = new SpriteBatch(graphics);
             emitters = new List<ParticleEmitter>();

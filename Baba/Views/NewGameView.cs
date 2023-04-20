@@ -21,6 +21,9 @@ namespace Baba.Views
         private Entity entity;
         private GameState controls;
         public string[] level { get; set; } = new string[1] { "Level-1" };
+        protected SpriteRenderer m_renderer;
+        public ComponentRouterSystem router;
+        private AnimationSystem animationSystem;
 
         public NewGameView(ref GameState controls)
         {
@@ -29,15 +32,18 @@ namespace Baba.Views
         public override void loadContent(ContentManager contentManager)
         {
             base.loadContent(contentManager);
-            gridMaker = new GridMaker();
-            transforms = gridMaker.MakeGrid(level[0]);
 
+            router = new ComponentRouterSystem();
+            animationSystem = new AnimationSystem(this);
+            m_renderer = new SpriteRenderer(this, m_graphics.GraphicsDevice);
+            gridMaker = new GridMaker();
+            loadTextures(contentManager);
+            transforms = gridMaker.MakeGrid(level[0]);
             m_inputKeyboard = new KeyboardInput();
             m_inputKeyboard.registerCommand(Keys.Escape, true, new InputDeviceHelper.CommandDelegate(Escape));
             entity = new Entity();
             RuleComponent you = new You();
             entity.AddComponent(you);
-            loadTextures(contentManager);
         }
 
         public override GameStateEnum processInput(GameTime gameTime)
@@ -55,11 +61,13 @@ namespace Baba.Views
         }
         public override void update(GameTime gameTime)
         {
+            animationSystem.Update(gameTime);
         }
 
         public override void render(GameTime gameTime)
         {
             base.render(gameTime);
+
             m_renderer.Render();
         }
         private void loadTextures(ContentManager contentManager)

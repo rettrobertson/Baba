@@ -6,6 +6,8 @@ using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using System.Xml;
 using Baba.Views.SavingControls;
+using BreakoutGame.Engine;
+
 namespace Baba
 {
     public class Assignment : Game
@@ -78,6 +80,7 @@ namespace Baba
 
         protected override void LoadContent()
         {
+            AssetManager.LoadContent(Content);
             // box is an static class to tell where the balls' bounds are
             foreach (var item in m_states)
             {

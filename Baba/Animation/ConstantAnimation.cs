@@ -15,6 +15,7 @@ namespace Baba.Animation
             {
                 keyFrames[i] = new KeyFrame() { time = frameTime * i, bounds = new Rectangle(i * frameWidth, 0, frameWidth, frameHeight) };
             }
+            m_duration = frames * frameTime;
         }
     }
 }

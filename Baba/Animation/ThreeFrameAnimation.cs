@@ -8,7 +8,7 @@ namespace Baba.Animation
 {
     public class ThreeFrameAnimation : ConstantAnimation
     {
-        private const float SPEED = 1;
+        private const float SPEED = .5f;
 
         public ThreeFrameAnimation(string texture) : base(texture, 3, TimeSpan.FromSeconds(SPEED), 24, 24)
         {

@@ -15,5 +15,6 @@
     Bone,
     Ice,
     Kiki,
+    Water,
     Word
 }

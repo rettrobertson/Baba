@@ -80,7 +80,7 @@ namespace Baba.Input
         /// </summary>
         private bool keyPressed(Keys key)
         {
-            return (Keyboard.GetState().IsKeyDown(key) && !m_statePrevious.IsKeyDown(key));
+            return (Keyboard.GetState().IsKeyUp(key) && m_statePrevious.IsKeyDown(key));
         }
     }
 }

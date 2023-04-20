@@ -213,7 +213,7 @@ namespace Baba.Views
 
         private void OnEnter(GameTime gametime, float scale)
         {
-            Thread.Sleep(100);
+            
             getNewControl = true;
         }
         #endregion

@@ -25,6 +25,7 @@ namespace Baba.Views
         public ComponentRouterSystem router;
         private AnimationSystem animationSystem;
         private RuleSystem ruleSystem;
+        private MoveSystem moveSystem;
 
         public NewGameView(ref GameState controls)
         {
@@ -39,11 +40,16 @@ namespace Baba.Views
             animationSystem = new AnimationSystem(this);
             m_renderer = new SpriteRenderer(this, m_graphics.GraphicsDevice);
             gridMaker = new GridMaker();
+            moveSystem = new MoveSystem(this);
             loadTextures(contentManager);
             transforms = gridMaker.MakeGrid(level[0]);
             m_inputKeyboard = new KeyboardInput();
             m_inputKeyboard.registerCommand(Keys.Escape, true, new InputDeviceHelper.CommandDelegate(Escape));
-            
+            m_inputKeyboard.registerCommand(controls.Controls[0], true, new InputDeviceHelper.CommandDelegate(moveUP));
+            m_inputKeyboard.registerCommand(controls.Controls[1], true, new InputDeviceHelper.CommandDelegate(moveDown));
+            m_inputKeyboard.registerCommand(controls.Controls[2], true, new InputDeviceHelper.CommandDelegate(moveLeft));
+            m_inputKeyboard.registerCommand(controls.Controls[3], true, new InputDeviceHelper.CommandDelegate(moveRight));
+
             ruleSystem.UpdateRules();
         }
 
@@ -80,6 +86,22 @@ namespace Baba.Views
         private void Escape(GameTime gameTime, float scale)
         {
             returnEnum = GameStateEnum.LevelSelect;
+        }
+        private void moveUP(GameTime gameTime, float scale)
+        {
+            moveSystem.moveEntity(gameTime, "Up");
+        }
+        private void moveDown(GameTime gameTime, float scale)
+        {
+            moveSystem.moveEntity(gameTime, "Down");
+        }
+        private void moveLeft(GameTime gameTime, float scale)
+        {
+            moveSystem.moveEntity(gameTime, "Left");
+        }
+        private void moveRight(GameTime gameTime, float scale)
+        {
+            moveSystem.moveEntity(gameTime, "Right");
         }
         #endregion
     }

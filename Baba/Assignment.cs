@@ -98,6 +98,11 @@ namespace Baba
             {
                 Exit();
             }
+            else
+            {
+                m_currentState.update(gameTime);
+                m_currentState = m_states[m_nextStateEnum];
+            }
             if (m_nextStateEnum == GameStateEnum.GamePlay && temp != GameStateEnum.GamePlay)
             {
                 m_states[GameStateEnum.GamePlay].reset();

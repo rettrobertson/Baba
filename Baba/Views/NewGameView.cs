@@ -24,6 +24,7 @@ namespace Baba.Views
         protected SpriteRenderer m_renderer;
         public ComponentRouterSystem router;
         private AnimationSystem animationSystem;
+        private RuleSystem ruleSystem;
 
         public NewGameView(ref GameState controls)
         {
@@ -34,6 +35,7 @@ namespace Baba.Views
             base.loadContent(contentManager);
 
             router = new ComponentRouterSystem();
+            ruleSystem = new RuleSystem(this);
             animationSystem = new AnimationSystem(this);
             m_renderer = new SpriteRenderer(this, m_graphics.GraphicsDevice);
             gridMaker = new GridMaker();
@@ -41,9 +43,8 @@ namespace Baba.Views
             transforms = gridMaker.MakeGrid(level[0]);
             m_inputKeyboard = new KeyboardInput();
             m_inputKeyboard.registerCommand(Keys.Escape, true, new InputDeviceHelper.CommandDelegate(Escape));
-            entity = new Entity();
-            RuleComponent you = new You();
-            entity.AddComponent(you);
+            
+            ruleSystem.UpdateRules();
         }
 
         public override GameStateEnum processInput(GameTime gameTime)

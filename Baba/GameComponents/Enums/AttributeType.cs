@@ -1,6 +1,6 @@
 ﻿public enum AttributeType
 {
-    Stop,
+    Stop = 32,
     Push,
     You,
     Win,

@@ -23,6 +23,7 @@ namespace Baba.Views
         public string[] level { get; set; } = new string[1] { "Level-1" };
         protected SpriteRenderer m_renderer;
         public ComponentRouterSystem router;
+        private AnimationSystem animationSystem;
 
         public NewGameView(ref GameState controls)
         {
@@ -33,8 +34,8 @@ namespace Baba.Views
             base.loadContent(contentManager);
 
             router = new ComponentRouterSystem();
+            animationSystem = new AnimationSystem(this);
             m_renderer = new SpriteRenderer(this, m_graphics.GraphicsDevice);
-            
             gridMaker = new GridMaker();
             loadTextures(contentManager);
             transforms = gridMaker.MakeGrid(level[0]);
@@ -60,6 +61,7 @@ namespace Baba.Views
         }
         public override void update(GameTime gameTime)
         {
+            animationSystem.Update(gameTime);
         }
 
         public override void render(GameTime gameTime)

@@ -26,10 +26,38 @@ namespace Baba.GameComponents.Systems
         {
         };
 
-        public AnimationSystem(NewGameView view) : base(view)
+        public AnimationSystem(NewGameView view) : base(view, typeof(Sprite))
         {
             animators = new List<SpriteAnimator>();
             //Subscribe to rule system transformation
+        }
+
+        protected override void EntityChanged(Entity entity, Component component, Entity.ComponentChange change)
+        {
+            if (change == Entity.ComponentChange.ADD)
+            {
+                ItemLabel itemLabel = entity.GetComponent<ItemLabel>();
+                WordLabel wordLabel = entity.GetComponent<WordLabel>();
+                SpriteAnimator sprite = null;
+
+                if (itemLabel != null && itemAnimations.ContainsKey(itemLabel.item))
+                {
+                    sprite = new SpriteAnimator(entity.GetComponent<Sprite>());
+                    sprite.animation = itemAnimations[itemLabel.item];
+                }
+                else if (wordLabel != null && wordAnimations.ContainsKey(wordLabel.item))
+                {
+                    sprite = new SpriteAnimator(entity.GetComponent<Sprite>());
+                    sprite.animation = wordAnimations[wordLabel.item];
+                }
+
+                if (sprite != null)
+                {
+                    entity.AddComponent(sprite);
+                    animators.Add(sprite);
+                }
+                
+            }
         }
 
         public override void Update(GameTime time)

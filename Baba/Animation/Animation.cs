@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using BreakoutGame.Engine;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 
@@ -14,6 +15,11 @@ namespace Baba.Animation
         public Animation(string texture, int frames) 
         {
             keyFrames = new KeyFrame[frames];
+
+            AssetManager.onContentLoaded += () =>
+            {
+                this.texture = AssetManager.GetTexture(texture);
+            };
             //add callback to assign texture when content is loaded
         }
 

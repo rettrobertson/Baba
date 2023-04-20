@@ -32,6 +32,7 @@ namespace Baba
         {
             height = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             width = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+
             m_graphics.PreferredBackBufferWidth = width;
             m_graphics.PreferredBackBufferHeight = height;
 

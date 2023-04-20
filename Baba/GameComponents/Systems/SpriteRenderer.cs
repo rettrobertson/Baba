@@ -90,6 +90,11 @@ namespace Baba.GameComponents.Systems
                 return;
             }
 
+            if (sprite.source.X == 48)
+            {
+                sprite.texture = sprite.texture;
+            }
+
             int width = renderScale;
             int height = renderScale;
 

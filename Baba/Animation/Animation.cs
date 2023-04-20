@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.Diagnostics;
 
 namespace Baba.Animation
 {
@@ -16,7 +17,6 @@ namespace Baba.Animation
         public Animation(string texture, int frames) 
         {
             keyFrames = new KeyFrame[frames];
-
 
             this.texture = AssetManager.GetTexture(texture);
             
@@ -35,7 +35,7 @@ namespace Baba.Animation
             {
                 if (time < keyFrames[i+1].time)
                 {
-                    return keyFrames[i+1].bounds;
+                    return keyFrames[i].bounds;
                 }
             }
             return keyFrames[keyFrames.Length - 1].bounds;

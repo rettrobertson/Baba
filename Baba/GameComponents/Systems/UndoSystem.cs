@@ -1,0 +1,57 @@
+﻿using Baba.GameComponents.ConcreteComponents;
+using Baba.Views;
+using Microsoft.Xna.Framework;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Baba.GameComponents.Systems
+{
+    internal class UndoSystem : System
+    {
+        private List<Transform> transforms;
+        private Stack<Dictionary<uint, (Vector2, ItemType?)>> snapshots;
+        public UndoSystem(NewGameView view) : base(view, typeof(Transform))
+        {
+            snapshots = new Stack<Dictionary<uint, (Vector2, ItemType?)>>();
+        }
+        protected override void EntityChanged(Entity entity, Component component, Entity.ComponentChange change)
+        {
+
+            if (change == Entity.ComponentChange.ADD)
+            {
+                transforms.Add(component as Transform);
+            }
+            else
+            {
+                transforms.Remove(component as Transform);
+            }
+        }
+
+        public void ArrowKeyPress()
+        {
+            Dictionary<uint, (Vector2, ItemType?)> temp = new();
+            foreach (Transform transform in transforms)
+            {
+                temp.Add(transform.entity.id, (transform.position, transform.entity.GetComponent<ItemLabel>() == null ? null : transform.entity.GetComponent<ItemLabel>().item));
+            }
+            snapshots.Push(temp);
+        }
+
+        public void UndoKeyPress()
+        {
+            snapshots.Pop();
+            Dictionary<uint, (Vector2, ItemType?)> temp = snapshots.Peek();
+            foreach (Transform transform in transforms)
+            {
+                transform.position = temp[transform.entity.id].Item1;
+                if (temp[transform.entity.id].Item2 != null)
+                {
+
+                }
+            }
+        }
+    }
+}

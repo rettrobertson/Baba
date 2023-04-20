@@ -155,8 +155,8 @@ namespace Baba.Views
 
         private void OnEnter(GameTime gametime, float scale)
         {
-            Thread.Sleep(50);
-            switch (m_currentSelection)
+/*            Thread.Sleep(50);
+*/            switch (m_currentSelection)
             {
                 //changes the return enum
                 case MenuState.LevelSelect:

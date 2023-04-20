@@ -21,7 +21,6 @@ namespace Baba.GameComponents
         public static Entity MakeEntity(WordType type)
         {
             Entity entity = new Entity();
-
             RuleType ruleType = RuleType.Is;
 
             if ((int)type >= 32)
@@ -38,8 +37,6 @@ namespace Baba.GameComponents
             }
 
             entity.AddComponent(new WordLabel(type, ruleType));
-
-            // I added this because words are also entities
             return entity;
         }
     }

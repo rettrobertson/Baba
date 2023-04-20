@@ -5,6 +5,7 @@ using System;
 
 namespace Baba.Animation
 {
+    //ChatGPT looked this over and explained it to me and says it should work properly
     public class Animation
     {
         public Texture2D texture { get; private set; }
@@ -16,10 +17,9 @@ namespace Baba.Animation
         {
             keyFrames = new KeyFrame[frames];
 
-            AssetManager.onContentLoaded += () =>
-            {
-                this.texture = AssetManager.GetTexture(texture);
-            };
+
+            this.texture = AssetManager.GetTexture(texture);
+            
             //add callback to assign texture when content is loaded
         }
 

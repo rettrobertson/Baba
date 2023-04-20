@@ -24,5 +24,6 @@
     Ice,
     Kiki,
     Empty,
-    Grass
+    Grass,
+    Water
 }

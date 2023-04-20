@@ -24,6 +24,20 @@ namespace Baba.GameComponents.Systems
 
         private Dictionary<WordType, Animation.Animation> wordAnimations = new Dictionary<WordType, Animation.Animation>
         {
+            { WordType.Baba, Animations.WORD_BABA },
+            { WordType.Flag, Animations.WORD_FLAG },
+            { WordType.Is, Animations.WORD_IS },
+            { WordType.Kill, Animations.WORD_KILL },
+            { WordType.Lava, Animations.WORD_LAVA },
+            { WordType.Push, Animations.WORD_PUSH },
+            { WordType.Rock, Animations.WORD_ROCK },
+            { WordType.Sink, Animations.WORD_SINK },
+            { WordType.Stop, Animations.WORD_STOP },
+            { WordType.Wall, Animations.WORD_WALL },
+            { WordType.Water, Animations.WORD_WATER },
+            { WordType.Win, Animations.WORD_WIN },
+            { WordType.You, Animations.WORD_YOU },
+
         };
 
         public AnimationSystem(NewGameView view) : base(view, typeof(Sprite))
@@ -65,13 +79,14 @@ namespace Baba.GameComponents.Systems
             foreach (SpriteAnimator animator in animators) 
             {
                 animator.time += time.ElapsedGameTime;
-                Sprite sprite = animator.sprite;
-                sprite.texture = animator.animation.texture;
 
-                if (animator.time > animator.animation.Duration)
+                if (animator.time >= animator.animation.Duration)
                 {
                     animator.time -= animator.animation.Duration;
                 }
+
+                Sprite sprite = animator.sprite;
+                sprite.texture = animator.animation.texture;
 
                 sprite.source = animator.animation.Evaluate(animator.time);
             }

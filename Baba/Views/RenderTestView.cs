@@ -11,11 +11,11 @@ namespace Baba.Views
         public override void loadContent(ContentManager contentManager)
         {
             base.loadContent(contentManager);
-            m_renderer.LoadWords(contentManager);
-            m_renderer.LoadItems(contentManager);
+            //m_renderer.LoadWords(contentManager);
+            //m_renderer.LoadItems(contentManager);
 
-            Entity test = new Entity();
-            test.AddComponent(new ItemLabel(ItemType.Baba));
+            //Entity test = new Entity();
+            //test.AddComponent(new ItemLabel(ItemType.Baba));
         }
 
         public override GameStateEnum processInput(GameTime gameTime)

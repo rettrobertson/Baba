@@ -17,7 +17,7 @@ namespace Baba.GameComponents.Systems
         private List<ParticleEmitter> removeEmitters;
         public int particleCount => CountParticles();
 
-        public ParticleSystem(GameStateView view, GraphicsDevice graphics) : base(view, typeof(You), typeof(Win))
+        public ParticleSystem(NewGameView view, GraphicsDevice graphics) : base(view, typeof(You), typeof(Win))
         {
             spriteBatch = new SpriteBatch(graphics);
             emitters = new List<ParticleEmitter>();

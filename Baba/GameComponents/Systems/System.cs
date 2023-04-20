@@ -6,7 +6,7 @@ namespace Baba.GameComponents.Systems
 {
     public abstract class System
     {
-        public System(GameStateView view, params Type[] types) 
+        public System(NewGameView view, params Type[] types) 
         {
             foreach (Type type in types)
             {

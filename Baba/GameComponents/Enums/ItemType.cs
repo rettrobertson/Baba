@@ -1,6 +1,6 @@
 ﻿public enum ItemType
 {
-    Grass,
+    Grass = 1,
     Hedge,
     Empty,
     Rock,
@@ -15,5 +15,5 @@
     Bone,
     Ice,
     Kiki,
-    Word
+    Water
 }

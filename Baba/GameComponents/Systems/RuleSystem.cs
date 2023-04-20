@@ -22,10 +22,14 @@ namespace Baba.GameComponents.Systems
 
         private Dictionary<ItemType, ItemType> transformations;
 
-        public RuleSystem(GameStateView view) : base(view, typeof(WordLabel), typeof(ItemLabel))
+        public RuleSystem(NewGameView view) : base(view, typeof(WordLabel), typeof(ItemLabel))
         {
             rules = new Dictionary<ItemType, HashSet<AttributeType>>();
             isList = new List<Transform>();
+            objectPools = new Dictionary<Type, ObjectPool>();
+            itemEntities = new List<Entity>();
+            wordsList = new List<Transform>();
+            transformations = new Dictionary<ItemType, ItemType>();
 
             attributeComponents = new Dictionary<AttributeType, Type>()
             {
@@ -67,7 +71,6 @@ namespace Baba.GameComponents.Systems
                 { WordType.Flag, ItemType.Flag },
                 { WordType.Wall, ItemType.Wall },
                 { WordType.Love, ItemType.Love },
-                { WordType.Kiki, ItemType.Kiki },
                 { WordType.Ice, ItemType.Ice },
                 { WordType.Goop, ItemType.Goop },
             };
@@ -220,7 +223,9 @@ namespace Baba.GameComponents.Systems
             foreach (Entity entity in itemEntities)
             {
                 ItemLabel itemLabel = entity.GetComponent<ItemLabel>();
-                
+
+                if (!rules.ContainsKey(itemLabel.item)) continue;
+
                 foreach (AttributeType attribute in rules[itemLabel.item])
                 {
                     // This line is pretty hard to read, but it gets the component's object pool, removes a component, and adds it to the object

@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.IO;
 
 namespace Baba.GameComponents.Systems
 {
@@ -18,16 +17,17 @@ namespace Baba.GameComponents.Systems
 
         private static readonly Rectangle defaultSource = new Rectangle(0, 0, 24, 24);
 
-        private const int renderScale = 80; // Number of pixels in a unit. This could be changed to number of units on the screen to support more resolutions
+        private const int renderScale = 50; // Number of pixels in a unit. This could be changed to number of units on the screen to support more resolutions
 
         private SpriteBatch m_spriteBatch;
 
         private List<Sprite> renderEntities;
-
-        public SpriteRenderer(GameStateView view, GraphicsDevice graphics) : base(view, typeof(ItemLabel), typeof(WordLabel))
+        private GameStateView view;
+        public SpriteRenderer(NewGameView view, GraphicsDevice graphics) : base(view, typeof(ItemLabel), typeof(WordLabel))
         {
             m_spriteBatch = new SpriteBatch(graphics);
             renderEntities = new List<Sprite>();
+            this.view = view;
         }
 
         protected override void EntityChanged(Entity entity, Component component, Entity.ComponentChange change)
@@ -89,6 +89,11 @@ namespace Baba.GameComponents.Systems
                 return;
             }
 
+            if (sprite.source.X == 48)
+            {
+                sprite.texture = sprite.texture;
+            }
+
             int width = renderScale;
             int height = renderScale;
 
@@ -97,7 +102,7 @@ namespace Baba.GameComponents.Systems
 
         private Vector2 GameToScreenPos(Vector2 pos)
         {
-            Vector2 scale = new Vector2(1, -1);
+            Vector2 scale = new Vector2(1, 1);
             Vector2 offset = Vector2.Zero; //For grid with origin at the center: new Vector2(m_graphics.Viewport.Bounds.Width / 2, m_graphics.Viewport.Bounds.Height / 2);
 
             return pos * renderScale * scale + offset;
@@ -154,6 +159,9 @@ namespace Baba.GameComponents.Systems
 
             wordTextures[WordType.You] = contentManager.Load<Texture2D>("SpriteSheets/word-you");
             wordColors[WordType.You] = Color.Pink;
+
+            wordTextures[WordType.Win] = contentManager.Load<Texture2D>("SpriteSheets/word-win");
+            wordColors[WordType.Win] = Color.Yellow;
         }
 
         public override void Update(GameTime time)

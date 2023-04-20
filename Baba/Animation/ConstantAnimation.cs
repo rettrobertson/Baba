@@ -1,9 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Baba.Animation
 {
@@ -15,6 +11,7 @@ namespace Baba.Animation
             {
                 keyFrames[i] = new KeyFrame() { time = frameTime * i, bounds = new Rectangle(i * frameWidth, 0, frameWidth, frameHeight) };
             }
+            m_duration = frames * frameTime;
         }
     }
 }

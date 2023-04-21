@@ -1,4 +1,5 @@
-﻿using Baba.GameComponents.ConcreteComponents;
+﻿using System;
+using Baba.GameComponents.ConcreteComponents;
 using Baba.Views;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
@@ -42,20 +43,21 @@ namespace Baba.GameComponents.Systems
        
         public void moveEntity( GameTime gameTime, string command)
         {
+            resetHittables();
             for (int i = 0; i < controlledEntities.Count; i++)
             {
                 Vector2 controlled = controlledEntities[i].transform.position;
-                hittables[(int)controlled.Y, (int)controlled.X] = controlledEntities[i];
+                hittables[(int)controlled.X, (int)controlled.Y] = controlledEntities[i];
             }
             for (int i = 0; i < pushableEntities.Count; i++)
             {
                 Vector2 controlled = pushableEntities[i].transform.position;
-                hittables[(int)controlled.Y, (int)controlled.X] = pushableEntities[i];
+                hittables[(int)controlled.X, (int)controlled.Y] = pushableEntities[i];
             }
             for (int i = 0; i < wallEntities.Count; i++)
             {
                 Vector2 controlled = pushableEntities[i].transform.position;
-                hittables[(int)controlled.Y, (int)controlled.X] = wallEntities[i];
+                hittables[(int)controlled.X, (int)controlled.Y] = wallEntities[i];
 
             }
             foreach (Entity entity in controlledEntities)
@@ -86,9 +88,9 @@ namespace Baba.GameComponents.Systems
 
                 if (canMove(newPos, command) && newPos != currPos)
                 {
-                    if (hittables[(int)newPos.Y, (int)newPos.X] != null)
+                    if (hittables[(int)newPos.X, (int)newPos.Y] != null)
                     {
-                        move(hittables[(int)newPos.Y, (int)newPos.X], command);
+                        move(hittables[(int)newPos.X, (int)newPos.Y], command);
                     }
                     entity.transform.position = newPos;
                 }
@@ -102,7 +104,7 @@ namespace Baba.GameComponents.Systems
             {
                 return false;
             }
-            if (hittables[(int)newPos.Y, (int)newPos.X] == null)
+            if (hittables[(int)newPos.X, (int)newPos.Y] == null)
             {
                 return true;
             }
@@ -147,9 +149,10 @@ namespace Baba.GameComponents.Systems
                     break;
 
             }
-            if (hittables[(int)newPos.Y, (int)newPos.X] != null)
+            if (hittables[(int)newPos.X, (int)newPos.Y] != null && newPos != currPos && newPos.X < 20 && newPos.X > 0 && newPos.Y < 20 && newPos.Y > 0)
             {
-                move(hittables[(int)newPos.Y, (int)newPos.X], direction);
+               
+                move(hittables[(int)newPos.X, (int)newPos.Y], direction);
             }
             entity.transform.position = newPos;
         }
@@ -166,6 +169,17 @@ namespace Baba.GameComponents.Systems
             }
 
             pushableEntities.Clear();
+        }
+
+        private void resetHittables()
+        {
+            for (int i = 0; i < 20; i++)
+            {
+                for (int j = 0; j < 20; j++)
+                {
+                    hittables[i, j] = null;
+                }
+            }
         }
 
     }

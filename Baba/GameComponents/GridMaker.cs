@@ -63,7 +63,7 @@ namespace Baba.GameComponents
         public List<Transform> MakeGrid(string level)
         {
             List<Transform> returnList = new();
-            (int width, int height, List<string> file) = getLength(Directory.GetCurrentDirectory() + "..\\..\\..\\..\\levels-all.bbiy", level);
+            (int width, int height, List<string> file) = getLength(Directory.GetCurrentDirectory() + Path.Join("..","..","..","..","levels-all.bbiy"), level);
             for (int i = 0; i < height; i++)
             {
                 for (int j = 0; j < width; j++)

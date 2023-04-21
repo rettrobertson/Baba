@@ -44,7 +44,6 @@ namespace Baba.Views
             undoSystem.OnUndo += ruleSystem.UpdateRules;
 
             loadTextures(contentManager);
-            transforms = gridMaker.MakeGrid(level[0]);
             m_inputKeyboard = new KeyboardInput();
             m_inputKeyboard.registerCommand(Keys.Escape, true, new InputDeviceHelper.CommandDelegate(Escape));
             m_inputKeyboard.registerCommand(controls.Controls[0], true, new InputDeviceHelper.CommandDelegate(moveUp));
@@ -53,9 +52,6 @@ namespace Baba.Views
             m_inputKeyboard.registerCommand(controls.Controls[3], true, new InputDeviceHelper.CommandDelegate(moveRight));
             m_inputKeyboard.registerCommand(controls.Controls[4], true, new InputDeviceHelper.CommandDelegate(ResetKeyPress));
             m_inputKeyboard.registerCommand(controls.Controls[5], true, new InputDeviceHelper.CommandDelegate(Undo));
-
-
-            ruleSystem.UpdateRules();
         }
 
         public override GameStateEnum processInput(GameTime gameTime)
@@ -69,10 +65,14 @@ namespace Baba.Views
         }
         public override void reset()
         {
-            transforms = gridMaker.MakeGrid(level[0]);
             ruleSystem.Reset();
             animationSystem.Reset();
             moveSystem.Reset();
+            undoSystem.Reset();
+            m_renderer.Reset();
+
+            transforms = gridMaker.MakeGrid(level[0]);
+            ruleSystem.UpdateRules();
         }
         public override void update(GameTime gameTime)
         {
@@ -83,7 +83,6 @@ namespace Baba.Views
         {
             base.render(gameTime);
 
-            m_renderer.Render();
             m_renderer.Render();
         }
         private void loadTextures(ContentManager contentManager)

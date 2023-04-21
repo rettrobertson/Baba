@@ -9,7 +9,7 @@ namespace Baba.GameComponents.Systems
     {
         List<Entity> controlledEntities;
         List<Entity> pushableEntities;
-        private List<List<bool>> hittables;
+        private bool[,] hittables;
         
 
 
@@ -17,15 +17,7 @@ namespace Baba.GameComponents.Systems
         {
             controlledEntities = new List<Entity>();
             pushableEntities = new List<Entity>();
-            hittables = new List<List<bool>>();
-            for (int i = 0; i < 20; i++)
-            {
-                hittables.Add(new List<bool>());
-                for (int j = 0; j < 20; j++)
-                {
-                    hittables[i].Add(false);
-                }
-            }
+            hittables = new bool[20,20];
         }
 
         protected override void EntityChanged(Entity entity, Component component, Entity.ComponentChange change)
@@ -47,12 +39,12 @@ namespace Baba.GameComponents.Systems
             for (int i = 0; i < controlledEntities.Count; i++)
             {
                 Vector2 controlled = controlledEntities[i].transform.position;
-                hittables[(int)controlled.Y][(int)controlled.X] = true;
+                hittables[(int)controlled.Y,(int)controlled.X] = true;
             }
             for (int i = 0; i < pushableEntities.Count; i++)
             {
                 Vector2 controlled = pushableEntities[i].transform.position;
-                hittables[(int)controlled.Y][(int)controlled.X] = true;
+                hittables[(int)controlled.Y,(int)controlled.X] = true;
             }
         }
        
@@ -98,7 +90,7 @@ namespace Baba.GameComponents.Systems
             {
                 return false;
             }
-            if (!hittables[(int)newPos.Y][(int)newPos.X])
+            if (!hittables[(int)newPos.Y, (int)newPos.X])
             {
                 return true;
             }
@@ -123,7 +115,15 @@ namespace Baba.GameComponents.Systems
         public override void Reset()
         {
             controlledEntities.Clear();
-            hittables.Clear();
+            
+            for (int i = 0; i < 20; i++)
+            {
+                for (int j = 0; j < 20; j++)
+                {
+                    hittables[i, j] = false;
+                }
+            }
+
             pushableEntities.Clear();
         }
 

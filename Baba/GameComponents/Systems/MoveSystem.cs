@@ -2,8 +2,6 @@
 using Baba.Views;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
-using System.Linq;
 
 namespace Baba.GameComponents.Systems
 {
@@ -19,7 +17,6 @@ namespace Baba.GameComponents.Systems
             Left,
             Right
         }
-
 
         public MoveSystem(NewGameView view) : base(view, typeof(You), typeof(Push))
         {

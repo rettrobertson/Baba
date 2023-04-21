@@ -37,6 +37,7 @@ namespace Baba.GameComponents
             }
 
             entity.AddComponent(new WordLabel(type, ruleType));
+            entity.AddComponent(new Push());
             return entity;
         }
     }

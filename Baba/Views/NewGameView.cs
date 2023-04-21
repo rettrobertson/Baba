@@ -4,9 +4,7 @@ using Baba.GameComponents.Systems;
 using Baba.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
 using System.Collections.Generic;
 using Baba.Views.SavingControls;
 
@@ -50,7 +48,7 @@ namespace Baba.Views
             transforms = gridMaker.MakeGrid(level[0]);
             m_inputKeyboard = new KeyboardInput();
             m_inputKeyboard.registerCommand(Keys.Escape, true, new InputDeviceHelper.CommandDelegate(Escape));
-            m_inputKeyboard.registerCommand(controls.Controls[0], true, new InputDeviceHelper.CommandDelegate(moveUP));
+            m_inputKeyboard.registerCommand(controls.Controls[0], true, new InputDeviceHelper.CommandDelegate(moveUp));
             m_inputKeyboard.registerCommand(controls.Controls[1], true, new InputDeviceHelper.CommandDelegate(moveDown));
             m_inputKeyboard.registerCommand(controls.Controls[2], true, new InputDeviceHelper.CommandDelegate(moveLeft));
             m_inputKeyboard.registerCommand(controls.Controls[3], true, new InputDeviceHelper.CommandDelegate(moveRight));
@@ -73,6 +71,9 @@ namespace Baba.Views
         public override void reset()
         {
             transforms = gridMaker.MakeGrid(level[0]);
+            ruleSystem.Reset();
+            animationSystem.Reset();
+            moveSystem.Reset();
         }
         public override void update(GameTime gameTime)
         {
@@ -83,6 +84,7 @@ namespace Baba.Views
         {
             base.render(gameTime);
 
+            m_renderer.Render();
             m_renderer.Render();
         }
         private void loadTextures(ContentManager contentManager)
@@ -95,7 +97,7 @@ namespace Baba.Views
         {
             returnEnum = GameStateEnum.LevelSelect;
         }
-        private void moveUP(GameTime gameTime, float scale)
+        private void moveUp(GameTime gameTime, float scale)
         {
             moveSystem.moveEntity(gameTime, "Up");
             undoSystem.ArrowKeyPress();

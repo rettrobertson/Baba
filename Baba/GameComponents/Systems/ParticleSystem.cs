@@ -115,5 +115,10 @@ namespace Baba.GameComponents.Systems
         {
 
         }
+
+        public override void Reset()
+        {
+            ClearParticles();
+        }
     }
 }

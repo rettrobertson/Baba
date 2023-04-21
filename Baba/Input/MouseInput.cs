@@ -166,7 +166,7 @@ namespace DrawingExample.Input
         }
         private bool keyPressed(MouseState state, Click click, ScreenButton key)
         {
-            return (isKeyDown(state, click, key) && !isKeyDown(m_statePrevious, click, key));
+            return (!isKeyDown(state, click, key) && isKeyDown(m_statePrevious, click, key));
         }
     }
 }

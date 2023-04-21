@@ -12,7 +12,6 @@ namespace Baba.GameComponents.Systems
         private bool[,] hittables;
         
 
-
         public MoveSystem(NewGameView view) : base(view, typeof(You), typeof(Push))
         {
             controlledEntities = new List<Entity>();

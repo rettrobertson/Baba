@@ -52,9 +52,9 @@ namespace Baba.GameComponents.Systems
         }
 
         public void UndoKeyPress()
-        {   
-            if (snapshots.Count == 0) { return; }
-            Dictionary<uint, (Vector2, ItemType?)> temp = snapshots.Pop();
+        {
+            snapshots.Pop();
+            Dictionary<uint, (Vector2, ItemType?)> temp = snapshots.Peek();
             foreach (Transform transform in transforms)
             {
                 transform.position = temp[transform.entity.id].Item1;

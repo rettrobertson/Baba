@@ -11,6 +11,8 @@ namespace Baba.GameComponents.Systems
 {
     internal class UndoSystem : System
     {
+        public event Action OnUndo;
+
         private List<Transform> transforms;
         private Stack<Dictionary<uint, (Vector2, ItemType?)>> snapshots;
         public UndoSystem(NewGameView view) : base(view, typeof(Transform))
@@ -61,6 +63,7 @@ namespace Baba.GameComponents.Systems
                     transform.entity.GetComponent<ItemLabel>().item = (ItemType)temp[transform.entity.id].Item2;
                 }
             }
+            OnUndo?.Invoke();
         }
     }
 }

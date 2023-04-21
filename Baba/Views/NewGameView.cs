@@ -43,6 +43,9 @@ namespace Baba.Views
             gridMaker = new GridMaker();
             moveSystem = new MoveSystem(this);
             undoSystem = new UndoSystem(this);
+
+            undoSystem.OnUndo += ruleSystem.UpdateRules;
+
             loadTextures(contentManager);
             transforms = gridMaker.MakeGrid(level[0]);
             m_inputKeyboard = new KeyboardInput();

@@ -84,7 +84,6 @@ namespace Baba.Views
             base.render(gameTime);
 
             m_renderer.Render();
-            m_renderer.Render();
         }
         private void loadTextures(ContentManager contentManager)
         {

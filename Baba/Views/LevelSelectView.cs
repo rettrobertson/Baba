@@ -172,7 +172,7 @@ namespace Baba.Views
         private void OnEnter(GameTime gametime, float scale)
         {  
             returnEnum =GameStateEnum.GamePlay;
-            level[0] = $"Level-{m_currentSelectionInt}";
+            level[0] = $"Level-{m_currentSelectionInt + 1}";
         }
         #endregion
     }

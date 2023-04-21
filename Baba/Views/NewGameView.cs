@@ -48,7 +48,7 @@ namespace Baba.Views
             transforms = gridMaker.MakeGrid(level[0]);
             m_inputKeyboard = new KeyboardInput();
             m_inputKeyboard.registerCommand(Keys.Escape, true, new InputDeviceHelper.CommandDelegate(Escape));
-            m_inputKeyboard.registerCommand(controls.Controls[0], true, new InputDeviceHelper.CommandDelegate(moveUP));
+            m_inputKeyboard.registerCommand(controls.Controls[0], true, new InputDeviceHelper.CommandDelegate(moveUp));
             m_inputKeyboard.registerCommand(controls.Controls[1], true, new InputDeviceHelper.CommandDelegate(moveDown));
             m_inputKeyboard.registerCommand(controls.Controls[2], true, new InputDeviceHelper.CommandDelegate(moveLeft));
             m_inputKeyboard.registerCommand(controls.Controls[3], true, new InputDeviceHelper.CommandDelegate(moveRight));
@@ -97,7 +97,7 @@ namespace Baba.Views
         {
             returnEnum = GameStateEnum.LevelSelect;
         }
-        private void moveUP(GameTime gameTime, float scale)
+        private void moveUp(GameTime gameTime, float scale)
         {
             moveSystem.moveEntity(gameTime, "Up");
             undoSystem.ArrowKeyPress();

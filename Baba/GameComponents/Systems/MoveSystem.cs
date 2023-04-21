@@ -88,5 +88,12 @@ namespace Baba.GameComponents.Systems
             
 
         }
+
+        public override void Reset()
+        {
+            controlledEntities.Clear();
+            hittables.Clear();
+            pushableEntities.Clear();
+        }
     }
 }

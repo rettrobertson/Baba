@@ -88,8 +88,5 @@ namespace Baba.GameComponents.Systems
             
 
         }
-
-       
-       
     }
 }

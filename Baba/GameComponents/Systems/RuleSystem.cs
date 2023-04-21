@@ -236,7 +236,14 @@ namespace Baba.GameComponents.Systems
 
         public override void Update(GameTime time)
         {
+            
+        }
 
+        public override void Reset()
+        {
+            isList.Clear();
+            rules.Clear();
+            itemEntities.Clear();
         }
     }
 }

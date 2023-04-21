@@ -91,5 +91,10 @@ namespace Baba.GameComponents.Systems
                 sprite.source = animator.animation.Evaluate(animator.time);
             }
         }
+
+        public override void Reset()
+        {
+            animators.Clear();
+        }
     }
 }

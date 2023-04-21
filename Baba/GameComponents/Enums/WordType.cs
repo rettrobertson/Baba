@@ -9,7 +9,6 @@
     Background,
     Baba,
     Flag,
-    Goop,
     Lava,
     Anni,
     Love,

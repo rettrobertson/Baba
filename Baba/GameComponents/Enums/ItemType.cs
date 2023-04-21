@@ -8,12 +8,11 @@
     Background,
     Baba,
     Flag,
-    Goop,
     Lava,
     Anni,
     Love,
     Bone,
     Ice,
     Kiki,
-    Water
+    Water,
 }

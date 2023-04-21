@@ -93,6 +93,7 @@ namespace Baba.GameComponents.Systems
             int width = cameraSystem.RenderScale;
             int height = cameraSystem.RenderScale;
 
+
             m_spriteBatch.Draw(texture, new Rectangle((int)screenPos.X, (int)screenPos.Y, width, height), sprite.source, sprite.color);
         }
 
@@ -113,6 +114,8 @@ namespace Baba.GameComponents.Systems
             itemColors[ItemType.Hedge] = Color.Green;
             itemTextures[ItemType.Lava] = contentManager.Load<Texture2D>("SpriteSheets/lava");
             itemColors[ItemType.Lava] = Color.Orange;
+            itemTextures[ItemType.Water] = contentManager.Load<Texture2D>("SpriteSheets/lava");
+            itemColors[ItemType.Water] = Color.Blue;
         }
 
         public void LoadWords(ContentManager contentManager)
@@ -144,14 +147,18 @@ namespace Baba.GameComponents.Systems
             wordTextures[WordType.Wall] = contentManager.Load<Texture2D>("SpriteSheets/word-wall");
             wordColors[WordType.Wall] = Color.Gray;
 
-            wordTextures[WordType.Goop] = contentManager.Load<Texture2D>("SpriteSheets/word-water");
-            wordColors[WordType.Goop] = Color.Blue;
+            wordTextures[WordType.Water] = contentManager.Load<Texture2D>("SpriteSheets/word-water");
+            wordColors[WordType.Water] = Color.Blue;
 
             wordTextures[WordType.You] = contentManager.Load<Texture2D>("SpriteSheets/word-you");
             wordColors[WordType.You] = Color.Pink;
 
             wordTextures[WordType.Win] = contentManager.Load<Texture2D>("SpriteSheets/word-win");
             wordColors[WordType.Win] = Color.Yellow;
+
+            wordTextures[WordType.Kill] = contentManager.Load<Texture2D>("SpriteSheets/word-kill");
+            wordColors[WordType.Win] = Color.Red;
+
         }
 
         public override void Update(GameTime time)

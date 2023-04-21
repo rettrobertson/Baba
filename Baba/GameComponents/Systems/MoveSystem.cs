@@ -9,28 +9,14 @@ namespace Baba.GameComponents.Systems
     {
         List<Entity> controlledEntities;
         List<Entity> pushableEntities;
-        private List<List<bool>> hittables;
-        private enum direction
-        {
-            Up,
-            Down,
-            Left,
-            Right
-        }
+        private bool[,] hittables;
+        
 
         public MoveSystem(NewGameView view) : base(view, typeof(You), typeof(Push))
         {
             controlledEntities = new List<Entity>();
             pushableEntities = new List<Entity>();
-            hittables = new List<List<bool>>();
-            for (int i = 0; i < 20; i++)
-            {
-                hittables.Add(new List<bool>());
-                for (int j = 0; j < 20; j++)
-                {
-                    hittables[i].Add(false);
-                }
-            }
+            hittables = new bool[20,20];
         }
 
         protected override void EntityChanged(Entity entity, Component component, Entity.ComponentChange change)
@@ -52,12 +38,12 @@ namespace Baba.GameComponents.Systems
             for (int i = 0; i < controlledEntities.Count; i++)
             {
                 Vector2 controlled = controlledEntities[i].transform.position;
-                hittables[(int)controlled.Y][(int)controlled.X] = true;
+                hittables[(int)controlled.Y,(int)controlled.X] = true;
             }
             for (int i = 0; i < pushableEntities.Count; i++)
             {
                 Vector2 controlled = pushableEntities[i].transform.position;
-                hittables[(int)controlled.Y][(int)controlled.X] = true;
+                hittables[(int)controlled.Y,(int)controlled.X] = true;
             }
         }
        
@@ -66,31 +52,79 @@ namespace Baba.GameComponents.Systems
             foreach (Entity entity in controlledEntities)
             {
                 Vector2 currPos = entity.transform.position;
+                Vector2 newPos = currPos;
                 switch (command)
                 {
                     case "Up":
-                        entity.transform.position = currPos + new Vector2(0, -1);
+                        newPos = currPos + new Vector2(0, -1);
+                        
+
                         break;
                     case "Down":
-                        entity.transform.position = currPos + new Vector2(0, 1);
+                        newPos = currPos + new Vector2(0, 1);
+                        
+                        
                         break;
                     case "Left":
-                        entity.transform.position = currPos + new Vector2(-1, 0);
+                        newPos = currPos + new Vector2(-1, 0);
+                        
                         break;
                     case "Right":
-                        entity.transform.position = currPos + new Vector2(1, 0);
+                        newPos = currPos + new Vector2(1, 0);
                         break;
+                    
+                }
+
+                if (canMove(newPos, command) && newPos != currPos)
+                {
+                    entity.transform.position = newPos;
                 }
             }
-            
-
         }
+
+
+        private bool canMove(Vector2 newPos, string direction)
+        {
+            if (newPos.X > 20 || newPos.X < 0 || newPos.Y > 20 || newPos.Y < 0)
+            {
+                return false;
+            }
+            if (!hittables[(int)newPos.Y, (int)newPos.X])
+            {
+                return true;
+            }
+            else
+            {
+                switch (direction)
+                {
+                    case "Up":
+                        return canMove(newPos + new Vector2(0, -1), direction);
+                    case "Down":
+                        return canMove(newPos + new Vector2(0, 1), direction);
+                    case "Left":
+                        return canMove(newPos + new Vector2(-1, 0), direction);
+                    case "Right":
+                        return canMove(newPos + new Vector2(1, 0), direction);
+                }
+            }
+            return false;
+        }
+       
 
         public override void Reset()
         {
             controlledEntities.Clear();
-            hittables.Clear();
+            
+            for (int i = 0; i < 20; i++)
+            {
+                for (int j = 0; j < 20; j++)
+                {
+                    hittables[i, j] = false;
+                }
+            }
+
             pushableEntities.Clear();
         }
+
     }
 }

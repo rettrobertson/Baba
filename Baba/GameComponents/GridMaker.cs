@@ -16,48 +16,49 @@ namespace Baba.GameComponents
         private Dictionary<char, (ItemType?, WordType?)> dict;
         public GridMaker() 
         {
-            dict = new Dictionary<char, (ItemType?, WordType?)>();
-/*            dict.Add(' ', EntityMaker.MakeEntity(ItemType.Empty));
-*/            dict.Add('h', (ItemType.Hedge, null));
-            dict.Add('g', (ItemType.Grass, null));
-            dict.Add('l', (ItemType.Background, null));
-            dict.Add('w', (ItemType.Wall, null));
-            dict.Add('b', (ItemType.Baba, null));
-            dict.Add('r', (ItemType.Rock, null));
-            dict.Add('f', (ItemType.Flag, null));
-            dict.Add('a', (ItemType.Goop, null));
-            dict.Add('v', (ItemType.Lava, null));
-            dict.Add('c', (ItemType.Anni, null));
-            dict.Add('e', (ItemType.Love, null));
-            dict.Add('d', (ItemType.Bone, null));
-            dict.Add('j', (ItemType.Ice, null));
-            dict.Add('o', (ItemType.Kiki, null));
-            
-            dict.Add('Z', (null, WordType.Empty));
-           
-            dict.Add('W', (null, WordType.Wall));
-            dict.Add('B', (null, WordType.Baba));
-            dict.Add('R', (null, WordType.Rock));
-            dict.Add('F', (null, WordType.Flag));
-            dict.Add('A', (null, WordType.Goop));
-            dict.Add('V', (null, WordType.Lava));
-            dict.Add('C', (null, WordType.Anni));
-            dict.Add('E', (null, WordType.Love));
-            dict.Add('D', (null, WordType.Bone));
-            dict.Add('J', (null, WordType.Ice));
-            dict.Add('O', (null, WordType.Kiki));
-            dict.Add('I', (null, WordType.Is));
-            dict.Add('S', (null, WordType.Stop));
-            dict.Add('P', (null, WordType.Push));
-            dict.Add('Y', (null, WordType.You));
-            dict.Add('X', (null, WordType.Win));
-            dict.Add('N', (null, WordType.Sink));
-            dict.Add('K', (null, WordType.Kill));
-            dict.Add('H', (null, WordType.Hot));
-            dict.Add('M', (null, WordType.Melt));
-            dict.Add('Q', (null, WordType.Move));
-            dict.Add('L', (null, WordType.Slip));
-            dict.Add('T', (null, WordType.Best));
+            dict = new Dictionary<char, (ItemType?, WordType?)>
+            {
+                { 'h', (ItemType.Hedge, null) },
+                { 'g', (ItemType.Grass, null) },
+                { 'l', (ItemType.Background, null) },
+                { 'w', (ItemType.Wall, null) },
+                { 'b', (ItemType.Baba, null) },
+                { 'r', (ItemType.Rock, null) },
+                { 'f', (ItemType.Flag, null) },
+                { 'a', (ItemType.Goop, null) },
+                { 'v', (ItemType.Lava, null) },
+                { 'c', (ItemType.Anni, null) },
+                { 'e', (ItemType.Love, null) },
+                { 'd', (ItemType.Bone, null) },
+                { 'j', (ItemType.Ice, null) },
+                { 'o', (ItemType.Kiki, null) },
+
+                { 'Z', (null, WordType.Empty) },
+
+                { 'W', (null, WordType.Wall) },
+                { 'B', (null, WordType.Baba) },
+                { 'R', (null, WordType.Rock) },
+                { 'F', (null, WordType.Flag) },
+                { 'A', (null, WordType.Goop) },
+                { 'V', (null, WordType.Lava) },
+                { 'C', (null, WordType.Anni) },
+                { 'E', (null, WordType.Love) },
+                { 'D', (null, WordType.Bone) },
+                { 'J', (null, WordType.Ice) },
+                { 'O', (null, WordType.Kiki) },
+                { 'I', (null, WordType.Is) },
+                { 'S', (null, WordType.Stop) },
+                { 'P', (null, WordType.Push) },
+                { 'Y', (null, WordType.You) },
+                { 'X', (null, WordType.Win) },
+                { 'N', (null, WordType.Sink) },
+                { 'K', (null, WordType.Kill) },
+                { 'H', (null, WordType.Hot) },
+                { 'M', (null, WordType.Melt) },
+                { 'Q', (null, WordType.Move) },
+                { 'L', (null, WordType.Slip) },
+                { 'T', (null, WordType.Best) }
+            };
         }
         public List<Transform> MakeGrid(string level)
         {

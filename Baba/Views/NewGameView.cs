@@ -4,9 +4,7 @@ using Baba.GameComponents.Systems;
 using Baba.Input;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
 using System.Collections.Generic;
 using Baba.Views.SavingControls;
 
@@ -73,6 +71,9 @@ namespace Baba.Views
         public override void reset()
         {
             transforms = gridMaker.MakeGrid(level[0]);
+            ruleSystem.Reset();
+            animationSystem.Reset();
+            moveSystem.Reset();
         }
         public override void update(GameTime gameTime)
         {
@@ -83,6 +84,7 @@ namespace Baba.Views
         {
             base.render(gameTime);
 
+            m_renderer.Render();
             m_renderer.Render();
         }
         private void loadTextures(ContentManager contentManager)

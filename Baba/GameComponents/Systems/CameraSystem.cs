@@ -1,38 +1,53 @@
-﻿using Baba.GameComponents.ConcreteComponents;
-using Baba.Views;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using System;
-using System.Globalization;
 
 namespace Baba.GameComponents.Systems
 {
-    public class CameraSystem : System
+    public class CameraSystem
     {
-        GraphicsDeviceManager graphicsDeviceManager;
+        public static CameraSystem Instance;
+
         GameWindow window;
 
         private int width;
         private int height;
+        private Vector2 gameStart;
+        private const int halfGridSize = 10;
 
-        public CameraSystem(NewGameView view, GameWindow window) : base(view, typeof(Camera))
+        private int renderScale;
+        public int RenderScale => renderScale;
+
+        private CameraSystem(GameWindow window)
         {
             this.window = window;
-            window.ClientSizeChanged += Window_ClientSizeChanged;
+            width = window.ClientBounds.Width;
+            height = window.ClientBounds.Height;
+            window.ClientSizeChanged += OnResized;
         }
 
-        private void Window_ClientSizeChanged(object sender, EventArgs e)
+        public static void Initialize(GameWindow gameWindow)
         {
-            throw new NotImplementedException();
+            Instance = new CameraSystem(gameWindow);
         }
 
-        private void OnResized(EventHandler<EventArgs> args)
+        private void OnResized(object sender, EventArgs e)
         {
             width = window.ClientBounds.Width;
             height = window.ClientBounds.Height;
+
+            renderScale = Math.Min(width, height) / 20;
+
+            gameStart = new Vector2(width / 2, height / 2) - Vector2.One * renderScale * halfGridSize;
         }
 
-        public override void Reset()
+        public Vector2 GameToScreenPos(Vector2 pos)
         {
+            return pos * renderScale + gameStart;
+        }
+
+        public void Shake()
+        {
+
         }
     }
 }

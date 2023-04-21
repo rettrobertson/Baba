@@ -4,9 +4,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
-using System.Xml;
 using Baba.Views.SavingControls;
 using BreakoutGame.Engine;
+using Baba.GameComponents.Systems;
 
 namespace Baba
 {
@@ -35,11 +35,11 @@ namespace Baba
 
             m_graphics.PreferredBackBufferWidth = width;
             m_graphics.PreferredBackBufferHeight = height;
+            m_graphics.ApplyChanges();
 
             Window.AllowUserResizing = true;
+            CameraSystem.Initialize(Window);
 
-            m_graphics.ApplyChanges();
-            
             LevelSelectView temp2 = new LevelSelectView();
 
             SaveData savedControls = new SaveData();

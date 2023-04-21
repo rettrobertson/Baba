@@ -17,14 +17,15 @@ namespace Baba.GameComponents.Systems
 
         private static readonly Rectangle defaultSource = new Rectangle(0, 0, 24, 24);
 
-        private const int renderScale = 50; // Number of pixels in a unit. This could be changed to number of units on the screen to support more resolutions
-
         private SpriteBatch m_spriteBatch;
 
         private List<Sprite> renderEntities;
         private GameStateView view;
+        CameraSystem cameraSystem;
+
         public SpriteRenderer(NewGameView view, GraphicsDevice graphics) : base(view, typeof(ItemLabel), typeof(WordLabel))
         {
+            cameraSystem = CameraSystem.Instance;
             m_spriteBatch = new SpriteBatch(graphics);
             renderEntities = new List<Sprite>();
             this.view = view;
@@ -80,7 +81,7 @@ namespace Baba.GameComponents.Systems
 
         private void Render(Sprite sprite)
         {
-            Vector2 screenPos = GameToScreenPos(sprite.entity.transform.position);
+            Vector2 screenPos = cameraSystem.GameToScreenPos(sprite.entity.transform.position);
             Texture2D texture = sprite.texture;
 
             if (texture == null)
@@ -89,24 +90,13 @@ namespace Baba.GameComponents.Systems
                 return;
             }
 
-            if (sprite.source.X == 48)
-            {
-                sprite.texture = sprite.texture;
-            }
-
-            int width = renderScale;
-            int height = renderScale;
+            int width = cameraSystem.RenderScale;
+            int height = cameraSystem.RenderScale;
 
             m_spriteBatch.Draw(texture, new Rectangle((int)screenPos.X, (int)screenPos.Y, width, height), sprite.source, sprite.color);
         }
 
-        private Vector2 GameToScreenPos(Vector2 pos)
-        {
-            Vector2 scale = new Vector2(1, 1);
-            Vector2 offset = Vector2.Zero; //For grid with origin at the center: new Vector2(m_graphics.Viewport.Bounds.Width / 2, m_graphics.Viewport.Bounds.Height / 2);
 
-            return pos * renderScale * scale + offset;
-        }
         public void LoadItems(ContentManager contentManager) 
         {
             itemTextures[ItemType.Baba] = contentManager.Load<Texture2D>("SpriteSheets/flag");

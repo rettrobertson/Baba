@@ -74,6 +74,7 @@ namespace Baba.Views
             m_renderer.Reset();
 
             transforms = gridMaker.MakeGrid(level[0]);
+            ruleSystem.UpdateRules();
         }
         public override void update(GameTime gameTime)
         {

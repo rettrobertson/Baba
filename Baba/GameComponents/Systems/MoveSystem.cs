@@ -2,6 +2,8 @@
 using Baba.Views;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.Linq;
 
 namespace Baba.GameComponents.Systems
 {
@@ -9,6 +11,7 @@ namespace Baba.GameComponents.Systems
     {
         List<Entity> controlledEntities;
         List<Entity> pushableEntities;
+        private List<List<bool>> hittables;
         private enum direction
         {
             Up,
@@ -22,6 +25,15 @@ namespace Baba.GameComponents.Systems
         {
             controlledEntities = new List<Entity>();
             pushableEntities = new List<Entity>();
+            hittables = new List<List<bool>>();
+            for (int i = 0; i < 20; i++)
+            {
+                hittables.Add(new List<bool>());
+                for (int j = 0; j < 20; j++)
+                {
+                    hittables[i].Add(false);
+                }
+            }
         }
 
         protected override void EntityChanged(Entity entity, Component component, Entity.ComponentChange change)
@@ -40,7 +52,16 @@ namespace Baba.GameComponents.Systems
 
         public override void Update(GameTime gameTime)
         {
-            
+            for (int i = 0; i < controlledEntities.Count; i++)
+            {
+                Vector2 controlled = controlledEntities[i].transform.position;
+                hittables[(int)controlled.Y][(int)controlled.X] = true;
+            }
+            for (int i = 0; i < pushableEntities.Count; i++)
+            {
+                Vector2 controlled = pushableEntities[i].transform.position;
+                hittables[(int)controlled.Y][(int)controlled.X] = true;
+            }
         }
        
         public void moveEntity( GameTime gameTime, string command)

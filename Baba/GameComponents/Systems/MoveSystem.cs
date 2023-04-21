@@ -69,24 +69,61 @@ namespace Baba.GameComponents.Systems
             foreach (Entity entity in controlledEntities)
             {
                 Vector2 currPos = entity.transform.position;
+                Vector2 newPos = currPos;
                 switch (command)
                 {
                     case "Up":
-                        entity.transform.position = currPos + new Vector2(0, -1);
+                        newPos = currPos + new Vector2(0, -1);
+                        
+
                         break;
                     case "Down":
-                        entity.transform.position = currPos + new Vector2(0, 1);
+                        newPos = currPos + new Vector2(0, 1);
+                        
+                        
                         break;
                     case "Left":
-                        entity.transform.position = currPos + new Vector2(-1, 0);
+                        newPos = currPos + new Vector2(-1, 0);
+                        
                         break;
                     case "Right":
-                        entity.transform.position = currPos + new Vector2(1, 0);
+                        newPos = currPos + new Vector2(1, 0);
                         break;
+                    
+                }
+
+                if (canMove(newPos, command) && newPos != currPos)
+                {
+                    entity.transform.position = newPos;
                 }
             }
-            
+        }
 
+        private bool canMove(Vector2 newPos, string direction)
+        {
+            if (newPos.X > 20 || newPos.X < 0 || newPos.Y > 20 || newPos.Y < 0)
+            {
+                return false;
+            }
+            if (!hittables[(int)newPos.Y][(int)newPos.X])
+            {
+                return true;
+            }
+            else
+            {
+                switch (direction)
+                {
+                    case "Up":
+                        return canMove(newPos + new Vector2(0, -1), direction);
+                    case "Down":
+                        return canMove(newPos + new Vector2(0, 1), direction);
+                    case "Left":
+                        return canMove(newPos + new Vector2(-1, 0), direction);
+                    case "Right":
+                        return canMove(newPos + new Vector2(1, 0), direction);
+                }
+            }
+            return false;
         }
 
        

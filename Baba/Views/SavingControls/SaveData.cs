@@ -73,7 +73,6 @@ namespace Baba.Views.SavingControls
                 {
                     loading = true;
                     finalizeLoadAsync();
-                    int x = 4;
 
                 }
             }
@@ -99,8 +98,6 @@ namespace Baba.Views.SavingControls
                                 {
                                     XmlSerializer mySerializer = new XmlSerializer(typeof(GameState));
                                     m_loadedState = (GameState)mySerializer.Deserialize(fs);
-                                    int x = 4;
-
                                 }
                             }
                         }

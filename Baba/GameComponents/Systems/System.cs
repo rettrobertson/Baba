@@ -16,7 +16,7 @@ namespace Baba.GameComponents.Systems
 
         public virtual void Update(GameTime time) { }
         public virtual void Draw() { }
-
+        public abstract void Reset();
         protected virtual void EntityChanged(Entity entity, Component component, Entity.ComponentChange change) { }
     }
 }

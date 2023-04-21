@@ -36,11 +36,12 @@ namespace Baba
             m_graphics.PreferredBackBufferWidth = width;
             m_graphics.PreferredBackBufferHeight = height;
 
+            Window.AllowUserResizing = true;
+
             m_graphics.ApplyChanges();
             
             LevelSelectView temp2 = new LevelSelectView();
 
-            
             SaveData savedControls = new SaveData();
             savedControls.loadSomething();
             while (savedControls.getIsLoading()) { }

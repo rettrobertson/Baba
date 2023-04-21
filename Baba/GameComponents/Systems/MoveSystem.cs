@@ -78,6 +78,7 @@ namespace Baba.GameComponents.Systems
             }
         }
 
+
         private bool canMove(Vector2 newPos, string direction)
         {
             if (newPos.X > 20 || newPos.X < 0 || newPos.Y > 20 || newPos.Y < 0)
@@ -105,5 +106,13 @@ namespace Baba.GameComponents.Systems
             return false;
         }
        
+
+        public override void Reset()
+        {
+            controlledEntities.Clear();
+            hittables.Clear();
+            pushableEntities.Clear();
+        }
+
     }
 }

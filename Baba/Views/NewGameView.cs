@@ -26,6 +26,7 @@ namespace Baba.Views
         private AnimationSystem animationSystem;
         private RuleSystem ruleSystem;
         private MoveSystem moveSystem;
+        private UndoSystem undoSystem;
 
         public NewGameView(ref GameState controls)
         {
@@ -41,6 +42,7 @@ namespace Baba.Views
             m_renderer = new SpriteRenderer(this, m_graphics.GraphicsDevice);
             gridMaker = new GridMaker();
             moveSystem = new MoveSystem(this);
+            undoSystem = new UndoSystem(this);
             loadTextures(contentManager);
             transforms = gridMaker.MakeGrid(level[0]);
             m_inputKeyboard = new KeyboardInput();
@@ -49,6 +51,9 @@ namespace Baba.Views
             m_inputKeyboard.registerCommand(controls.Controls[1], true, new InputDeviceHelper.CommandDelegate(moveDown));
             m_inputKeyboard.registerCommand(controls.Controls[2], true, new InputDeviceHelper.CommandDelegate(moveLeft));
             m_inputKeyboard.registerCommand(controls.Controls[3], true, new InputDeviceHelper.CommandDelegate(moveRight));
+            m_inputKeyboard.registerCommand(controls.Controls[4], true, new InputDeviceHelper.CommandDelegate(ResetKeyPress));
+            m_inputKeyboard.registerCommand(controls.Controls[5], true, new InputDeviceHelper.CommandDelegate(Undo));
+
 
             ruleSystem.UpdateRules();
         }
@@ -90,18 +95,30 @@ namespace Baba.Views
         private void moveUP(GameTime gameTime, float scale)
         {
             moveSystem.moveEntity(gameTime, "Up");
+            undoSystem.ArrowKeyPress();
         }
         private void moveDown(GameTime gameTime, float scale)
         {
             moveSystem.moveEntity(gameTime, "Down");
+            undoSystem.ArrowKeyPress();
         }
         private void moveLeft(GameTime gameTime, float scale)
         {
             moveSystem.moveEntity(gameTime, "Left");
+            undoSystem.ArrowKeyPress();
         }
         private void moveRight(GameTime gameTime, float scale)
         {
             moveSystem.moveEntity(gameTime, "Right");
+            undoSystem.ArrowKeyPress();
+        }
+        private void Undo(GameTime gameTime, float scale)
+        {
+            undoSystem.UndoKeyPress();
+        }
+        private void ResetKeyPress(GameTime gameTime, float scale)
+        {
+            reset();
         }
         #endregion
     }

@@ -16,7 +16,6 @@ namespace Baba.Views
         private GameStateEnum returnEnum = GameStateEnum.GamePlay;
         private GridMaker gridMaker;
         private List<Transform> transforms;
-        private Entity entity;
         private GameState controls;
         public string[] level { get; set; } = new string[1] { "Level-1" };
         protected SpriteRenderer m_renderer;

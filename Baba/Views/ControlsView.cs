@@ -13,7 +13,6 @@ namespace Baba.Views
     public class ControlsView : GameStateView
     {
         // also very simple, just like the example given
-        private SpriteFont m_font;
         private SpriteFont m_fontMenu;
         private SpriteFont m_fontMenuSelect;
 
@@ -99,7 +98,6 @@ namespace Baba.Views
                     savedControls = new SaveData();
                     int selection = (int)m_currentSelection;
                     controls.Controls[selection] = keys[0];
-                    int x = 5;
                     savedControls.saveSomething(controls);
                     getNewControl = false;
                 }

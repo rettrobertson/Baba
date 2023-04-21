@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using Baba.Views.SavingControls;
+using System.Diagnostics;
+using System.Threading;
 
 namespace Baba.Views
 {
@@ -15,7 +17,7 @@ namespace Baba.Views
         private KeyboardInput m_inputKeyboard;
         private GameStateEnum returnEnum = GameStateEnum.GamePlay;
         private GridMaker gridMaker;
-        private List<Transform> transforms;
+        private List<Transform> transforms = new List<Transform>();
         private GameState controls;
         public string[] level { get; set; } = new string[1] { "Level-1" };
         protected SpriteRenderer m_renderer;
@@ -72,7 +74,6 @@ namespace Baba.Views
             m_renderer.Reset();
 
             transforms = gridMaker.MakeGrid(level[0]);
-            ruleSystem.UpdateRules();
         }
         public override void update(GameTime gameTime)
         {
@@ -98,26 +99,26 @@ namespace Baba.Views
         private void moveUp(GameTime gameTime, float scale)
         {
             moveSystem.moveEntity(gameTime, "Up");
-            undoSystem.ArrowKeyPress();
+            undoSystem.ArrowKeyPress(transforms);
         }
         private void moveDown(GameTime gameTime, float scale)
         {
             moveSystem.moveEntity(gameTime, "Down");
-            undoSystem.ArrowKeyPress();
+            undoSystem.ArrowKeyPress(transforms);
         }
         private void moveLeft(GameTime gameTime, float scale)
         {
             moveSystem.moveEntity(gameTime, "Left");
-            undoSystem.ArrowKeyPress();
+            undoSystem.ArrowKeyPress(transforms);
         }
         private void moveRight(GameTime gameTime, float scale)
         {
             moveSystem.moveEntity(gameTime, "Right");
-            undoSystem.ArrowKeyPress();
+            undoSystem.ArrowKeyPress(transforms);
         }
         private void Undo(GameTime gameTime, float scale)
         {
-            undoSystem.UndoKeyPress();
+            undoSystem.UndoKeyPress(transforms);
         }
         private void ResetKeyPress(GameTime gameTime, float scale)
         {

@@ -13,14 +13,12 @@ namespace Baba.GameComponents.Systems
     {
         public event Action OnUndo;
 
-        private List<Transform> transforms;
         private Stack<Dictionary<uint, (Vector2, ItemType?)>> snapshots;
         public UndoSystem(NewGameView view) : base(view, typeof(Transform))
         {
             snapshots = new Stack<Dictionary<uint, (Vector2, ItemType?)>>();
-            transforms = new List<Transform>();
         }
-        protected override void EntityChanged(Entity entity, Component component, Entity.ComponentChange change)
+     /*   protected override void EntityChanged(Entity entity, Component component, Entity.ComponentChange change)
         {
 
             if (change == Entity.ComponentChange.ADD)
@@ -31,9 +29,9 @@ namespace Baba.GameComponents.Systems
             {
                 transforms.Remove(component as Transform);
             }
-        }
+        }*/
 
-        public void ArrowKeyPress()
+        public void ArrowKeyPress(List<Transform> transforms)
         {
             Dictionary<uint, (Vector2, ItemType?)> temp = new();
             foreach (Transform transform in transforms)
@@ -51,7 +49,7 @@ namespace Baba.GameComponents.Systems
             snapshots.Push(temp);
         }
 
-        public void UndoKeyPress()
+        public void UndoKeyPress(List<Transform> transforms)
         {   
             if (snapshots.Count == 0) { return; }
 
@@ -70,7 +68,6 @@ namespace Baba.GameComponents.Systems
         public override void Reset()
         {
             snapshots.Clear();
-            transforms.Clear();
         }
     }
 }

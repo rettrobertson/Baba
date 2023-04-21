@@ -60,10 +60,12 @@ namespace Baba.GameComponents
                 { 'T', (null, WordType.Best) }
             };
         }
+
+
         public List<Transform> MakeGrid(string level)
         {
             List<Transform> returnList = new();
-            (int width, int height, List<string> file) = getLength(Directory.GetCurrentDirectory() + Path.Join("..","..","..","..","levels-all.bbiy"), level);
+            (int width, int height, List<string> file) = getLength(Directory.GetCurrentDirectory() + Path.Join("..", "..", "..", "..", "levels-all.bbiy"), level);
             for (int i = 0; i < height; i++)
             {
                 for (int j = 0; j < width; j++)
@@ -72,7 +74,7 @@ namespace Baba.GameComponents
                     {
                         (ItemType?, WordType?) temp = dict[file[i][j]];
                         Entity entity = null;
-                        if (temp.Item1!= null)
+                        if (temp.Item1 != null)
                         {
                             entity = EntityMaker.MakeEntity((ItemType)temp.Item1);
                         }
@@ -86,7 +88,7 @@ namespace Baba.GameComponents
                     }
                 }
             }
-            for (int i = height; i < 2*height; i++)
+            for (int i = height; i < 2 * height; i++)
             {
                 for (int j = 0; j < width; j++)
                 {
@@ -110,6 +112,7 @@ namespace Baba.GameComponents
             }
             return returnList;
         }
+
         private static (int, int, List<string>) getLength(string fileName, string level)
         {
             IEnumerable<string> lines = File.ReadLines(fileName);

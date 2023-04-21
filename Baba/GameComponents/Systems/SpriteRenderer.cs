@@ -86,7 +86,7 @@ namespace Baba.GameComponents.Systems
 
             if (texture == null)
             {
-                Debug.WriteLine("Texture not found!");
+                /*Debug.WriteLine("Texture not found!");*/
                 return;
             }
 
@@ -157,7 +157,7 @@ namespace Baba.GameComponents.Systems
             wordColors[WordType.Win] = Color.Yellow;
 
             wordTextures[WordType.Kill] = contentManager.Load<Texture2D>("SpriteSheets/word-kill");
-            wordColors[WordType.Win] = Color.Red;
+            wordColors[WordType.Kill] = Color.Red;
 
         }
 

@@ -72,7 +72,7 @@ namespace Baba.GameComponents.Systems
                 { WordType.Wall, ItemType.Wall },
                 { WordType.Love, ItemType.Love },
                 { WordType.Ice, ItemType.Ice },
-                { WordType.Goop, ItemType.Goop },
+                { WordType.Water, ItemType.Water },
             };
 
             foreach (Type type in attributeComponents.Values)

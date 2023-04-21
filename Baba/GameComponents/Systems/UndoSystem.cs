@@ -11,11 +11,14 @@ namespace Baba.GameComponents.Systems
 {
     internal class UndoSystem : System
     {
+        public event Action OnUndo;
+
         private List<Transform> transforms;
         private Stack<Dictionary<uint, (Vector2, ItemType?)>> snapshots;
         public UndoSystem(NewGameView view) : base(view, typeof(Transform))
         {
             snapshots = new Stack<Dictionary<uint, (Vector2, ItemType?)>>();
+            transforms = new List<Transform>();
         }
         protected override void EntityChanged(Entity entity, Component component, Entity.ComponentChange change)
         {
@@ -35,7 +38,15 @@ namespace Baba.GameComponents.Systems
             Dictionary<uint, (Vector2, ItemType?)> temp = new();
             foreach (Transform transform in transforms)
             {
-                temp.Add(transform.entity.id, (transform.position, transform.entity.GetComponent<ItemLabel>() == null ? null : transform.entity.GetComponent<ItemLabel>().item));
+                var turnary = transform.entity.GetComponent<ItemLabel>();
+                if (turnary == null)
+                {
+                    temp.Add(transform.entity.id, (transform.position, null));
+                }
+                else
+                {
+                    temp.Add(transform.entity.id, (transform.position, transform.entity.GetComponent<ItemLabel>().item));
+                }
             }
             snapshots.Push(temp);
         }
@@ -49,9 +60,10 @@ namespace Baba.GameComponents.Systems
                 transform.position = temp[transform.entity.id].Item1;
                 if (temp[transform.entity.id].Item2 != null)
                 {
-
+                    transform.entity.GetComponent<ItemLabel>().item = (ItemType)temp[transform.entity.id].Item2;
                 }
             }
+            OnUndo?.Invoke();
         }
     }
 }

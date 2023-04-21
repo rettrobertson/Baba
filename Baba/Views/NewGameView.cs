@@ -54,9 +54,6 @@ namespace Baba.Views
             m_inputKeyboard.registerCommand(controls.Controls[3], true, new InputDeviceHelper.CommandDelegate(moveRight));
             m_inputKeyboard.registerCommand(controls.Controls[4], true, new InputDeviceHelper.CommandDelegate(ResetKeyPress));
             m_inputKeyboard.registerCommand(controls.Controls[5], true, new InputDeviceHelper.CommandDelegate(Undo));
-
-
-            ruleSystem.UpdateRules();
         }
 
         public override GameStateEnum processInput(GameTime gameTime)
@@ -74,8 +71,9 @@ namespace Baba.Views
             animationSystem.Reset();
             moveSystem.Reset();
             undoSystem.Reset();
+            m_renderer.Reset();
+
             transforms = gridMaker.MakeGrid(level[0]);
-            Debug.WriteLine("Reset was called");
         }
         public override void update(GameTime gameTime)
         {

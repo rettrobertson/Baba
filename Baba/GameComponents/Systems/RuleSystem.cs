@@ -216,7 +216,7 @@ namespace Baba.GameComponents.Systems
                 List<RuleComponent> components = entity.RemoveAll<RuleComponent>();
                 foreach (RuleComponent component in components)
                 {
-                    objectPools[typeof(Component)].ReturnObject(component);
+                    objectPools[component.GetType()].ReturnObject(component);
                 }
             }
 

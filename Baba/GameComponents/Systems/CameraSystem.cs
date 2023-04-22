@@ -20,9 +20,8 @@ namespace Baba.GameComponents.Systems
         private CameraSystem(GameWindow window)
         {
             this.window = window;
-            width = window.ClientBounds.Width;
-            height = window.ClientBounds.Height;
             window.ClientSizeChanged += OnResized;
+            OnResized(null, null);
         }
 
         public static void Initialize(GameWindow gameWindow)

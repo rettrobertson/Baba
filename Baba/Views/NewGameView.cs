@@ -109,6 +109,7 @@ namespace Baba.Views
             moveSystem.moveEntity(gameTime, "Up");
             killSystem.Check();
             sinkSystem.Check();
+            ruleSystem.UpdateRules();
         }
         private void moveDown(GameTime gameTime, float scale)
         {
@@ -116,7 +117,7 @@ namespace Baba.Views
             moveSystem.moveEntity(gameTime, "Down");
             killSystem.Check();
             sinkSystem.Check();
-
+            ruleSystem.UpdateRules();
         }
         private void moveLeft(GameTime gameTime, float scale)
         {
@@ -124,7 +125,7 @@ namespace Baba.Views
             moveSystem.moveEntity(gameTime, "Left");
             killSystem.Check();
             sinkSystem.Check();
-
+            ruleSystem.UpdateRules();
         }
         private void moveRight(GameTime gameTime, float scale)
         {
@@ -132,7 +133,7 @@ namespace Baba.Views
             moveSystem.moveEntity(gameTime, "Right");
             killSystem.Check();
             sinkSystem.Check();
-
+            ruleSystem.UpdateRules();
         }
         private void Undo(GameTime gameTime, float scale)
         {

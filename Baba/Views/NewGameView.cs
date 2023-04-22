@@ -96,6 +96,14 @@ namespace Baba.Views
             killSystem.Reset();
             sinkSystem.Reset();
             winSystem.Reset();
+            m_inputKeyboard.resetCommands();
+            m_inputKeyboard.registerCommand(Keys.Escape, true, new InputDeviceHelper.CommandDelegate(Escape));
+            m_inputKeyboard.registerCommand(controls.Controls[0], true, new InputDeviceHelper.CommandDelegate(moveUp));
+            m_inputKeyboard.registerCommand(controls.Controls[1], true, new InputDeviceHelper.CommandDelegate(moveDown));
+            m_inputKeyboard.registerCommand(controls.Controls[2], true, new InputDeviceHelper.CommandDelegate(moveLeft));
+            m_inputKeyboard.registerCommand(controls.Controls[3], true, new InputDeviceHelper.CommandDelegate(moveRight));
+            m_inputKeyboard.registerCommand(controls.Controls[4], true, new InputDeviceHelper.CommandDelegate(ResetKeyPress));
+            m_inputKeyboard.registerCommand(controls.Controls[5], true, new InputDeviceHelper.CommandDelegate(Undo));
 
             transforms = gridMaker.MakeGrid(level[0]);
             ruleSystem.UpdateRules();

@@ -9,11 +9,18 @@ using System.Collections.Generic;
 using Baba.Views.SavingControls;
 using System.Diagnostics;
 using System.Threading;
+using System.Resources;
 
 namespace Baba.Views
 {
     public class NewGameView : GameStateView
     {
+        private enum State{
+            StartParticle,
+            Win,
+            Play
+        }
+        private State state;
         private KeyboardInput m_inputKeyboard;
         private GameStateEnum returnEnum = GameStateEnum.GamePlay;
         private GridMaker gridMaker;
@@ -28,7 +35,7 @@ namespace Baba.Views
         private UndoSystem undoSystem;
         private KillSystem killSystem;
         private SinkSystem sinkSystem;
-
+        private WinSystem winSystem;
         public NewGameView(ref GameState controls)
         {
             this.controls = controls;
@@ -46,6 +53,7 @@ namespace Baba.Views
             undoSystem = new UndoSystem(this);
             killSystem = new(this);
             sinkSystem = new(this);
+            winSystem = new(this);
 
             undoSystem.OnUndo += ruleSystem.UpdateRules;
 
@@ -62,12 +70,21 @@ namespace Baba.Views
 
         public override GameStateEnum processInput(GameTime gameTime)
         {
-            m_inputKeyboard.Update(gameTime);
-            //m_inputGamePad.Update(gameTime);
-            //if return enum changed we'll go to the new view
+            if (state == State.StartParticle)
+            {
+                // start particle effects for win
+                state = State.Win;
+            }
+            else if (state == State.Play || state == State.Win)
+            {
+                m_inputKeyboard.Update(gameTime);
+                //m_inputGamePad.Update(gameTime);
+                //if return enum changed we'll go to the new view
+            }
             GameStateEnum temp = returnEnum;
             returnEnum = GameStateEnum.GamePlay;
             return temp;
+
         }
         public override void reset()
         {
@@ -78,9 +95,11 @@ namespace Baba.Views
             m_renderer.Reset();
             killSystem.Reset();
             sinkSystem.Reset();
+            winSystem.Reset();
 
             transforms = gridMaker.MakeGrid(level[0]);
             ruleSystem.UpdateRules();
+            state = State.Play;
         }
         public override void update(GameTime gameTime)
         {
@@ -105,43 +124,64 @@ namespace Baba.Views
         }
         private void moveUp(GameTime gameTime, float scale)
         {
-            undoSystem.ArrowKeyPress(transforms);
-            moveSystem.moveEntity(gameTime, "Up");
-            killSystem.Check();
-            sinkSystem.Check();
-            ruleSystem.UpdateRules();
+            if (state == State.Play)
+            {
+                undoSystem.ArrowKeyPress(transforms);
+                moveSystem.moveEntity(gameTime, "Up");
+                checkSystems();
+                ruleSystem.UpdateRules();
+            }
         }
         private void moveDown(GameTime gameTime, float scale)
         {
-            undoSystem.ArrowKeyPress(transforms);
-            moveSystem.moveEntity(gameTime, "Down");
-            killSystem.Check();
-            sinkSystem.Check();
-            ruleSystem.UpdateRules();
+            if (state == State.Play)
+            {
+                undoSystem.ArrowKeyPress(transforms);
+                moveSystem.moveEntity(gameTime, "Down");
+                checkSystems();
+                ruleSystem.UpdateRules();
+            }
         }
         private void moveLeft(GameTime gameTime, float scale)
         {
-            undoSystem.ArrowKeyPress(transforms);
-            moveSystem.moveEntity(gameTime, "Left");
-            killSystem.Check();
-            sinkSystem.Check();
-            ruleSystem.UpdateRules();
+            if (state == State.Play)
+            {
+                undoSystem.ArrowKeyPress(transforms);
+                moveSystem.moveEntity(gameTime, "Left");
+                checkSystems();
+                ruleSystem.UpdateRules();
+            }
         }
         private void moveRight(GameTime gameTime, float scale)
         {
-            undoSystem.ArrowKeyPress(transforms);
-            moveSystem.moveEntity(gameTime, "Right");
-            killSystem.Check();
-            sinkSystem.Check();
-            ruleSystem.UpdateRules();
+            if (state == State.Play)
+            {
+                undoSystem.ArrowKeyPress(transforms);
+                moveSystem.moveEntity(gameTime, "Right");
+                checkSystems();
+                ruleSystem.UpdateRules();
+            }
         }
         private void Undo(GameTime gameTime, float scale)
         {
-            undoSystem.UndoKeyPress(transforms);
+            if (state == State.Play)
+            {
+                undoSystem.UndoKeyPress(transforms);
+            }
         }
         private void ResetKeyPress(GameTime gameTime, float scale)
         {
             reset();
+        }
+
+        private void checkSystems()
+        {
+            killSystem.Check();
+            sinkSystem.Check();
+            if (winSystem.Win())
+            {
+                state = State.StartParticle;
+            }
         }
         #endregion
     }

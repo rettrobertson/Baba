@@ -69,8 +69,8 @@ namespace Baba.GameComponents.Systems
             {
                 snapshots.Pop();
             }
-/*            OnUndo?.Invoke();
-*/        }
+            OnUndo?.Invoke();
+        }
 
         public override void Reset()
         {

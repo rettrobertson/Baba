@@ -26,6 +26,8 @@ namespace Baba.Views
         private RuleSystem ruleSystem;
         private MoveSystem moveSystem;
         private UndoSystem undoSystem;
+        private KillSystem killSystem;
+        private SinkSystem sinkSystem;
 
         public NewGameView(ref GameState controls)
         {
@@ -42,6 +44,8 @@ namespace Baba.Views
             gridMaker = new GridMaker();
             moveSystem = new MoveSystem(this);
             undoSystem = new UndoSystem(this);
+            killSystem = new(this);
+            sinkSystem = new(this);
 
             undoSystem.OnUndo += ruleSystem.UpdateRules;
 
@@ -72,6 +76,8 @@ namespace Baba.Views
             moveSystem.Reset();
             undoSystem.Reset();
             m_renderer.Reset();
+            killSystem.Reset();
+            sinkSystem.Reset();
 
             transforms = gridMaker.MakeGrid(level[0]);
             ruleSystem.UpdateRules();
@@ -99,26 +105,34 @@ namespace Baba.Views
         }
         private void moveUp(GameTime gameTime, float scale)
         {
-            moveSystem.moveEntity(gameTime, "Up");
             undoSystem.ArrowKeyPress(transforms);
+            moveSystem.moveEntity(gameTime, "Up");
+            killSystem.Check();
+            sinkSystem.Check();
             ruleSystem.UpdateRules();
         }
         private void moveDown(GameTime gameTime, float scale)
         {
-            moveSystem.moveEntity(gameTime, "Down");
             undoSystem.ArrowKeyPress(transforms);
+            moveSystem.moveEntity(gameTime, "Down");
+            killSystem.Check();
+            sinkSystem.Check();
             ruleSystem.UpdateRules();
         }
         private void moveLeft(GameTime gameTime, float scale)
         {
-            moveSystem.moveEntity(gameTime, "Left");
             undoSystem.ArrowKeyPress(transforms);
+            moveSystem.moveEntity(gameTime, "Left");
+            killSystem.Check();
+            sinkSystem.Check();
             ruleSystem.UpdateRules();
         }
         private void moveRight(GameTime gameTime, float scale)
         {
-            moveSystem.moveEntity(gameTime, "Right");
             undoSystem.ArrowKeyPress(transforms);
+            moveSystem.moveEntity(gameTime, "Right");
+            killSystem.Check();
+            sinkSystem.Check();
             ruleSystem.UpdateRules();
         }
         private void Undo(GameTime gameTime, float scale)

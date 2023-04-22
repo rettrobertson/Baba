@@ -3,6 +3,7 @@ using Baba.Views;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -51,9 +52,11 @@ namespace Baba.GameComponents.Systems
 
         public void UndoKeyPress(List<Transform> transforms)
         {   
-            if (snapshots.Count == 0) { return; }
-
-            Dictionary<uint, (Vector2, ItemType?)> temp = snapshots.Pop();
+            if (snapshots.Count == 0)
+            {
+                return;
+            }
+            Dictionary<uint, (Vector2, ItemType?)> temp = snapshots.Peek();
             foreach (Transform transform in transforms)
             {
                 transform.position = temp[transform.entity.id].Item1;
@@ -62,8 +65,12 @@ namespace Baba.GameComponents.Systems
                     transform.entity.GetComponent<ItemLabel>().item = (ItemType)temp[transform.entity.id].Item2;
                 }
             }
-            OnUndo?.Invoke();
-        }
+            if (snapshots.Count > 1)
+            {
+                snapshots.Pop();
+            }
+/*            OnUndo?.Invoke();
+*/        }
 
         public override void Reset()
         {

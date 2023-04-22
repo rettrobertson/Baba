@@ -71,9 +71,12 @@ namespace Baba.GameComponents
             {
                 if (component.GetType().IsAssignableTo(typeof(T)))
                 {
-                    removeComponents.Add(component);
                     list.Add(component as T);
                 }
+            }
+            foreach(Component component in list)
+            {
+                RemoveComponent(component);
             }
 
             foreach (Component component in removeComponents)

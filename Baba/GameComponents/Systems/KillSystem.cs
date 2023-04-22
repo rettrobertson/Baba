@@ -2,6 +2,7 @@
 using Baba.Views;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -46,17 +47,23 @@ namespace Baba.GameComponents.Systems
 
         public void Check()
         {
+            List<You> temp = new List<You>();
             foreach (You y in yous)
             {
                 foreach(Kill k in kills)
                 {
                     if (y.entity.transform.position.X == k.entity.transform.position.X && y.entity.transform.position.Y == k.entity.transform.position.Y)
                     {
-                        y.entity.RemoveAll<Component>();
-                        y.entity.AddComponent(y.entity.transform);
-                        y.entity.AddComponent(new ItemLabel(ItemType.Empty));
+                        temp.Add(y);
                     }
                 }
+            }
+            foreach(You y in temp)
+            {
+                Transform t = y.entity.transform;
+                y.entity.RemoveAll<Component>();
+                y.entity.AddComponent(t);
+                y.entity.AddComponent(new ItemLabel(ItemType.Empty));
             }
         }
 

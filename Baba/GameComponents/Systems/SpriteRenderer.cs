@@ -86,8 +86,8 @@ namespace Baba.GameComponents.Systems
 
             if (texture == null)
             {
-                Debug.WriteLine("Texture not found!");
-                return;
+/*                Debug.WriteLine("Texture not found!");
+*/                return;
             }
 
             int width = cameraSystem.RenderScale;

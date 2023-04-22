@@ -47,6 +47,7 @@ namespace Baba.GameComponents.Systems
         
         public void Check()
         {
+            List<(Sink, ItemLabel)> temp = new List<(Sink, ItemLabel)>();
             foreach (ItemLabel item in items)
             {
                 if (item.entity.GetComponent<Sink>() == null)
@@ -55,16 +56,22 @@ namespace Baba.GameComponents.Systems
                     {
                         if (item.entity.transform.position.X == sink.entity.transform.position.X && item.entity.transform.position.Y == sink.entity.transform.position.Y)
                         {
-                            item.entity.RemoveAll<Component>();
-                            item.entity.AddComponent(item.entity.transform);
-                            item.entity.AddComponent(new ItemLabel(ItemType.Empty));
-
-                            sink.entity.RemoveAll<Component>();
-                            sink.entity.AddComponent(sink.entity.transform);
-                            sink.entity.AddComponent(new ItemLabel(ItemType.Empty));
+                            temp.Add((sink, item));
                         }
                     }
                 }
+            }
+            foreach((Sink s, ItemLabel i) in temp)
+            {
+                Transform t = s.entity.transform;
+                s.entity.RemoveAll<Component>();
+                s.entity.AddComponent(t);
+                s.entity.AddComponent(new ItemLabel(ItemType.Empty));
+
+                t = i.entity.transform;
+                i.entity.RemoveAll<Component>();
+                i.entity.AddComponent(t);
+                i.entity.AddComponent(new ItemLabel(ItemType.Empty));
             }
         }
 

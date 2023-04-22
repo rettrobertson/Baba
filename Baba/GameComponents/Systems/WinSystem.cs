@@ -45,7 +45,7 @@ namespace Baba.GameComponents.Systems
             }
         }
 
-        public void Check()
+        public bool Win()
         {
             foreach (You you in yous)
             {
@@ -53,10 +53,11 @@ namespace Baba.GameComponents.Systems
                 {
                     if (you.entity.transform.position.X == win.entity.transform.position.X && you.entity.transform.position.Y == win.entity.transform.position.Y)
                     {
-                        // this is when you win the level
+                        return true;
                     }
                 }
             }
+            return false;
         }
 
         public override void Reset()

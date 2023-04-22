@@ -27,6 +27,7 @@ namespace Baba.GameComponents
             _count--;
             var obj = (T)_pool[_tail];
             _pool[_tail] = null;
+
             _tail = (_tail + 1) % _pool.Length;
             return obj;
         }

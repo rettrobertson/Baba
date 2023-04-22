@@ -7,8 +7,6 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using Baba.Views.SavingControls;
-using System.Diagnostics;
-using System.Threading;
 
 namespace Baba.Views
 {
@@ -48,6 +46,7 @@ namespace Baba.Views
             sinkSystem = new(this);
 
             undoSystem.OnUndo += ruleSystem.UpdateRules;
+            ruleSystem.onTransformationsFinished += animationSystem.UpdateAnimations;
 
             loadTextures(contentManager);
             m_inputKeyboard = new KeyboardInput();

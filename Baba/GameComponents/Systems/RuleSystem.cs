@@ -21,6 +21,7 @@ namespace Baba.GameComponents.Systems
         private const int poolSize = 20;
 
         private Dictionary<ItemType, ItemType> transformations;
+        public event Action onTransformationsFinished;
 
         public RuleSystem(NewGameView view) : base(view, typeof(WordLabel), typeof(ItemLabel))
         {
@@ -174,7 +175,7 @@ namespace Baba.GameComponents.Systems
                     }
                     else if (right.ruleType == RuleType.Item)
                     {
-                        transformations.TryAdd(itemWords[top.item], itemWords[bottom.item]);
+                        transformations.TryAdd(itemWords[left.item], itemWords[right.item]);
                     }
                 }
             }
@@ -198,15 +199,23 @@ namespace Baba.GameComponents.Systems
 
         private void PerformTransformations()
         {
+            bool transformed = false;
+
             foreach (Entity entity in itemEntities)
             {
                 ItemLabel label = entity.GetComponent<ItemLabel>();
                 if (transformations.ContainsKey(label.item))
                 {
                     label.item = transformations[label.item];
+                    transformed = true;
                 }
             }
             transformations.Clear();
+
+            if (transformed)
+            {
+                onTransformationsFinished?.Invoke();
+            }
         }
 
         public void ApplyRules()
@@ -234,6 +243,11 @@ namespace Baba.GameComponents.Systems
             }
         }
 
+        public void SetEmpty()
+        {
+
+        }
+
         public override void Update(GameTime time)
         {
             
@@ -243,6 +257,15 @@ namespace Baba.GameComponents.Systems
         {
             isList.Clear();
             rules.Clear();
+
+            for (int i = 0; i < itemEntities.Count; i++) 
+            {
+                List<RuleComponent> removedComponents = itemEntities[i].RemoveAll<RuleComponent>();
+                foreach (RuleComponent component in removedComponents)
+                {
+                    objectPools[component.GetType()].ReturnObject(component);
+                }
+            }
             itemEntities.Clear();
         }
     }

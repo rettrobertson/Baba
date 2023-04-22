@@ -86,7 +86,7 @@ namespace Baba.GameComponents.Systems
 
             if (texture == null)
             {
-                /*Debug.WriteLine("Texture not found!");*/
+                Debug.WriteLine("Texture not found!");
                 return;
             }
 

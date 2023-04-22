@@ -114,6 +114,10 @@ namespace Baba.GameComponents.Systems
             }
             else
             {
+                if (hittables[(int)newPos.X, (int)newPos.Y].GetComponent<Stop>() != null)
+                {
+                    return false;
+                }
                 switch (direction)
                 {
                     case "Up":

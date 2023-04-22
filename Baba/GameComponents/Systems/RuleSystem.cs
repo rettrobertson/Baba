@@ -136,7 +136,7 @@ namespace Baba.GameComponents.Systems
                 {
                     Transform transform = wordsList[i];
 
-                    if (transform.position == isList[j].position + Vector2.UnitY)
+                    if (transform.position == isList[j].position - Vector2.UnitY)
                     {
                         top = transform.entity.GetComponent<WordLabel>();
                     }
@@ -144,7 +144,7 @@ namespace Baba.GameComponents.Systems
                     {
                         left = transform.entity.GetComponent<WordLabel>();
                     }
-                    else if (transform.position == isList[j].position - Vector2.UnitY)
+                    else if (transform.position == isList[j].position + Vector2.UnitY)
                     {
                         bottom = transform.entity.GetComponent<WordLabel>();
                     }

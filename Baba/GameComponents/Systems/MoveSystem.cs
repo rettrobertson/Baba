@@ -44,6 +44,7 @@ namespace Baba.GameComponents.Systems
         public void moveEntity( GameTime gameTime, string command)
         {
             resetHittables();
+            
             for (int i = 0; i < controlledEntities.Count; i++)
             {
                 Vector2 controlled = controlledEntities[i].transform.position;
@@ -88,13 +89,16 @@ namespace Baba.GameComponents.Systems
 
                 if (canMove(newPos, command) && newPos != currPos)
                 {
-                    if (hittables[(int)newPos.X, (int)newPos.Y] != null)
+                    if (hittables[(int)newPos.X, (int)newPos.Y] != null && hittables[(int)newPos.X,(int)newPos.Y].GetComponent<You>() == null)
                     {
                         move(hittables[(int)newPos.X, (int)newPos.Y], command);
                     }
                     entity.transform.position = newPos;
                 }
+                
+
             }
+            controlledEntities.Clear();
         }
 
 
@@ -172,6 +176,10 @@ namespace Baba.GameComponents.Systems
                     hittables[i, j] = null;
                 }
             }
+        }
+        private void resetControlled()
+        {
+            controlledEntities.Clear();
         }
 
     }

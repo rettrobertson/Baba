@@ -98,6 +98,8 @@ namespace Baba.Views
             m_renderer.LoadWords(contentManager);
             m_renderer.LoadItems(contentManager);
         }
+        
+        
         #region input handlers
         private void Escape(GameTime gameTime, float scale)
         {

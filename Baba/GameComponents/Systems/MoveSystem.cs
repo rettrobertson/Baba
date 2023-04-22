@@ -159,15 +159,7 @@ namespace Baba.GameComponents.Systems
         public override void Reset()
         {
             controlledEntities.Clear();
-            
-            for (int i = 0; i < 20; i++)
-            {
-                for (int j = 0; j < 20; j++)
-                {
-                    hittables[i, j] = null;
-                }
-            }
-
+            resetHittables();
             pushableEntities.Clear();
         }
 

@@ -100,21 +100,25 @@ namespace Baba.Views
         {
             moveSystem.moveEntity(gameTime, "Up");
             undoSystem.ArrowKeyPress(transforms);
+            ruleSystem.UpdateRules();
         }
         private void moveDown(GameTime gameTime, float scale)
         {
             moveSystem.moveEntity(gameTime, "Down");
             undoSystem.ArrowKeyPress(transforms);
+            ruleSystem.UpdateRules();
         }
         private void moveLeft(GameTime gameTime, float scale)
         {
             moveSystem.moveEntity(gameTime, "Left");
             undoSystem.ArrowKeyPress(transforms);
+            ruleSystem.UpdateRules();
         }
         private void moveRight(GameTime gameTime, float scale)
         {
             moveSystem.moveEntity(gameTime, "Right");
             undoSystem.ArrowKeyPress(transforms);
+            ruleSystem.UpdateRules();
         }
         private void Undo(GameTime gameTime, float scale)
         {

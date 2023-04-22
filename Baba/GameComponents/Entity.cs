@@ -11,6 +11,7 @@ namespace Baba.GameComponents
         public uint id { get; }
         
         private List<Component> components;
+        private List<Component> removeComponents;
 
         /// <summary>
         /// The transform component attached to this entity. This forces every entity to have a position
@@ -32,6 +33,7 @@ namespace Baba.GameComponents
         {
             id = nextID++;
             components = new List<Component>();
+            removeComponents = new List<Component>();
             transform = new Transform();
             AddComponent(transform);
         }
@@ -69,10 +71,16 @@ namespace Baba.GameComponents
             {
                 if (component.GetType().IsAssignableTo(typeof(T)))
                 {
-                    RemoveComponent(component);
+                    removeComponents.Add(component);
                     list.Add(component as T);
                 }
             }
+
+            foreach (Component component in removeComponents)
+            {
+                components.Remove(component);
+            }
+            removeComponents.Clear();
 
             return list;
         }

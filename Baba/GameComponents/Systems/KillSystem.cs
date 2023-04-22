@@ -12,7 +12,7 @@ namespace Baba.GameComponents.Systems
     {
         private List<Kill> kills;
         private List<You> yous;
-        public KillSystem(NewGameView view) : base(view, typeof(Transform))
+        public KillSystem(NewGameView view) : base(view, typeof(Kill), typeof(You))
         {
             kills = new();
             yous = new();

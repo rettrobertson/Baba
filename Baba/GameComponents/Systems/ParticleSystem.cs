@@ -6,6 +6,8 @@ using Baba.Particles;
 using Baba.Views;
 using System.Net;
 using System.ComponentModel;
+using System.Diagnostics;
+using System;
 
 namespace Baba.GameComponents.Systems
 {
@@ -21,6 +23,9 @@ namespace Baba.GameComponents.Systems
         private ItemType passedFlag;
         List<Entity> controlledEntities;
         List<Entity> winEntities;
+        private Stopwatch particleTimer;
+        private bool isWin = false;
+
 
         public ParticleSystem(NewGameView view, GraphicsDevice graphics) : base(view, typeof(You), typeof(Win))
         {
@@ -29,6 +34,7 @@ namespace Baba.GameComponents.Systems
             removeEmitters = new List<ParticleEmitter>();
             controlledEntities = new List<Entity>();
             winEntities = new List<Entity>();
+            particleTimer = new Stopwatch();
         }
 
         protected override void EntityChanged(Entity entity, Component component, Entity.ComponentChange change)
@@ -62,7 +68,15 @@ namespace Baba.GameComponents.Systems
             {
                 emitters.Remove(removeEmitters[i]);
             }
-
+            if (particleTimer.ElapsedMilliseconds > 250)
+            {
+                this.WinLevel();
+                particleTimer.Restart();
+            }
+            if(isWin && !particleTimer.IsRunning)
+            {
+                particleTimer.Start();
+            }
 
             // This could be replaced with object pooling
             checkChanges();
@@ -155,11 +169,18 @@ namespace Baba.GameComponents.Systems
             emitters.Add(emitter);
             emitter.Start();
         }
-
+        public void setIsWin()
+        {
+            isWin = true;
+        }
         public void WinLevel()
         {
             ParticleEmitter emitter = ParticlePresets.MakeWin();
+            
             emitters.Add(emitter);
+            Random random = new Random();
+
+            emitter.emitLocation = new Vector2(random.Next(1, 20), random.Next(1, 20));
             emitter.Start();
             
         }
@@ -207,6 +228,8 @@ namespace Baba.GameComponents.Systems
             controlledEntities.Clear();
             winEntities.Clear();
             emitters.Clear();
+            isWin = false;
+            particleTimer.Reset();
         }
     }
 }

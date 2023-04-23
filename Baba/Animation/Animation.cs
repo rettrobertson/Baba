@@ -1,7 +1,6 @@
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
-using System.Diagnostics;
 
 namespace Baba.Animation
 {
@@ -18,7 +17,7 @@ namespace Baba.Animation
             keyFrames = new KeyFrame[frames];
 
             this.texture = AssetManager.GetTexture(texture);
-            
+
             //add callback to assign texture when content is loaded
         }
 

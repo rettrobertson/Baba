@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using Baba.Style;
 using Microsoft.Xna.Framework.Audio;
 
 namespace Baba.Views
@@ -22,8 +23,6 @@ namespace Baba.Views
         private GamePadInput m_inputGamePad;
         private bool getNewControl = false;
         GameState controls;
-        
-
         
         public ControlsView(ref GameState  controls)
         {
@@ -143,14 +142,14 @@ namespace Baba.Views
                               m_currentSelection == ControlsState.Up ? m_fontMenuSelect : m_fontMenu,
                               $"Up {controls.Controls[0]} ",
                               200,
-                              m_currentSelection == ControlsState.Up ? Color.Yellow : Color.Blue);
-                bottom = DrawMenuItem(m_currentSelection == ControlsState.Down ? m_fontMenuSelect : m_fontMenu, $"Down {controls.Controls[1]}", bottom, m_currentSelection == ControlsState.Down ? Color.Yellow : Color.Blue);
-                bottom = DrawMenuItem(m_currentSelection == ControlsState.Left ? m_fontMenuSelect : m_fontMenu, $"Left {controls.Controls[2]}", bottom, m_currentSelection == ControlsState.Left ? Color.Yellow : Color.Blue);
-                bottom = DrawMenuItem(m_currentSelection == ControlsState.Right ? m_fontMenuSelect : m_fontMenu, $"Right {controls.Controls[3]}", bottom, m_currentSelection == ControlsState.Right ? Color.Yellow : Color.Blue);
-                bottom = DrawMenuItem(m_currentSelection == ControlsState.Reset ? m_fontMenuSelect : m_fontMenu, $"Reset {controls.Controls[4]}", bottom, m_currentSelection == ControlsState.Reset ? Color.Yellow : Color.Blue);
+                              m_currentSelection == ControlsState.Up ? Color.Yellow : Colors.textBindings);
+                bottom = DrawMenuItem(m_currentSelection == ControlsState.Down ? m_fontMenuSelect : m_fontMenu, $"Down {controls.Controls[1]}", bottom, m_currentSelection == ControlsState.Down ? Color.Yellow : Colors.textBindings);
+                bottom = DrawMenuItem(m_currentSelection == ControlsState.Left ? m_fontMenuSelect : m_fontMenu, $"Left {controls.Controls[2]}", bottom, m_currentSelection == ControlsState.Left ? Color.Yellow : Colors.textBindings);
+                bottom = DrawMenuItem(m_currentSelection == ControlsState.Right ? m_fontMenuSelect : m_fontMenu, $"Right {controls.Controls[3]}", bottom, m_currentSelection == ControlsState.Right ? Color.Yellow : Colors.textBindings);
+                bottom = DrawMenuItem(m_currentSelection == ControlsState.Reset ? m_fontMenuSelect : m_fontMenu, $"Reset {controls.Controls[4]}", bottom, m_currentSelection == ControlsState.Reset ? Color.Yellow : Colors.textBindings);
 
 
-                DrawMenuItem(m_currentSelection == ControlsState.Undo ? m_fontMenuSelect : m_fontMenu, $"Undo {controls.Controls[5]}", bottom, m_currentSelection == ControlsState.Undo ? Color.Yellow : Color.Blue);
+                DrawMenuItem(m_currentSelection == ControlsState.Undo ? m_fontMenuSelect : m_fontMenu, $"Undo {controls.Controls[5]}", bottom, m_currentSelection == ControlsState.Undo ? Color.Yellow : Colors.textBindings);
             }
             else
             {

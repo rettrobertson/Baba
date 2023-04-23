@@ -3,6 +3,7 @@ using Baba.Views;
 using Microsoft.Xna.Framework;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Baba.GameComponents.Systems
 {
@@ -46,7 +47,6 @@ namespace Baba.GameComponents.Systems
                 { AttributeType.Win, typeof(Win)},
                 { AttributeType.You, typeof(You)},
             };
-
             attributeWords = new Dictionary<WordType, AttributeType>()
             {
                 { WordType.You, AttributeType.You },
@@ -226,7 +226,7 @@ namespace Baba.GameComponents.Systems
             }
         }
 
-        public void ApplyRules()
+        private void ApplyRules()
         {
             foreach (Entity entity in itemEntities)
             {
@@ -275,6 +275,7 @@ namespace Baba.GameComponents.Systems
                 }
             }
             itemEntities.Clear();
+            wordsList.Clear();
         }
     }
 }

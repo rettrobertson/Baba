@@ -5,9 +5,9 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using static System.Net.Mime.MediaTypeNames;
 using System;
 using System.Threading;
+using Baba.Style;
 
 namespace Baba.Views
 {
@@ -46,10 +46,10 @@ namespace Baba.Views
 
             m_inputKeyboard.registerCommand(Keys.Enter, true, new InputDeviceHelper.CommandDelegate(OnEnter));
             m_inputKeyboard.registerCommand(Keys.Space, true, new InputDeviceHelper.CommandDelegate(OnEnter));
-           
 
-            m_fontMenu = contentManager.Load<SpriteFont>("Fonts/menu");
-            m_fontMenuSelect = contentManager.Load<SpriteFont>("Fonts/menu-select");
+
+            m_fontMenu = AssetManager.GetFont(Fonts.UI);// contentManager.Load<SpriteFont>("Fonts/menu");
+            m_fontMenuSelect = AssetManager.GetFont(Fonts.UI); //contentManager.Load<SpriteFont>("Fonts/menu-select");
 
             m_inputMouse = new MouseInput();
             Vector2 stringSize = m_fontMenu.MeasureString("Select");
@@ -98,19 +98,22 @@ namespace Baba.Views
         public override void render(GameTime gameTime)
         {
             base.render(gameTime);
-            m_spriteBatch.Begin();
+            m_spriteBatch.Begin(samplerState:SamplerState.PointClamp);
+
+            Vector2 stringSize = m_fontMenu.MeasureString("-- BABA IS YOU --") * 1.6f;
+            m_spriteBatch.DrawString(m_fontMenu, "-- BABA IS YOU --", new Vector2(m_graphics.PreferredBackBufferWidth / 2 - stringSize.X / 2, 100), Colors.title, 0, Vector2.Zero, 1.6f, SpriteEffects.None, 0);
 
             // I split the first one's parameters on separate lines to help you see them better
             float bottom = DrawMenuItem(
                 m_currentSelection == MenuState.LevelSelect ? m_fontMenuSelect : m_fontMenu,
                 "Level Selector",
-                200,
-                m_currentSelection == MenuState.LevelSelect ? Color.Yellow : Color.Blue);
-            bottom = DrawMenuItem(m_currentSelection == MenuState.Controls ? m_fontMenuSelect : m_fontMenu, "Controls", bottom, m_currentSelection == MenuState.Controls ? Color.Yellow : Color.Blue);
-            bottom = DrawMenuItem(m_currentSelection == MenuState.Credits ? m_fontMenuSelect : m_fontMenu, "About", bottom, m_currentSelection == MenuState.Credits ? Color.Yellow : Color.Blue);
+                400,
+                m_currentSelection == MenuState.LevelSelect ? Color.Yellow : Colors.text1);
+            bottom = DrawMenuItem(m_currentSelection == MenuState.Controls ? m_fontMenuSelect : m_fontMenu, "Controls", bottom, m_currentSelection == MenuState.Controls ? Color.Yellow : Colors.text2);
+            bottom = DrawMenuItem(m_currentSelection == MenuState.Credits ? m_fontMenuSelect : m_fontMenu, "About", bottom, m_currentSelection == MenuState.Credits ? Color.Yellow : Colors.text3);
            
 
-            DrawMenuItem(m_currentSelection == MenuState.Quit ? m_fontMenuSelect : m_fontMenu, "Quit", bottom, m_currentSelection == MenuState.Quit ? Color.Yellow : Color.Blue);
+            DrawMenuItem(m_currentSelection == MenuState.Quit ? m_fontMenuSelect : m_fontMenu, "Quit", bottom, m_currentSelection == MenuState.Quit ? Color.Yellow : Colors.text4);
 
             m_spriteBatch.End();
         }

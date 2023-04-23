@@ -20,7 +20,6 @@ namespace Baba.GameComponents.Systems
 
         protected override void EntityChanged(Entity entity, Component component, Entity.ComponentChange change)
         {
-
             if (change == Entity.ComponentChange.ADD)
             {
                 if (component.GetType() == typeof(You))

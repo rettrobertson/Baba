@@ -93,6 +93,13 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/menu.spritefont
 
+#begin Fonts/RetroGaming.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:Fonts/RetroGaming.spritefont
+
 #begin SpriteSheets/baba.png
 /importer:TextureImporter
 /processor:TextureProcessor

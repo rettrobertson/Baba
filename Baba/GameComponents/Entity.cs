@@ -1,6 +1,7 @@
 ﻿using Baba.GameComponents.ConcreteComponents;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Baba.GameComponents
 {
@@ -11,7 +12,6 @@ namespace Baba.GameComponents
         public uint id { get; }
         
         private List<Component> components;
-        private List<Component> removeComponents;
 
         /// <summary>
         /// The transform component attached to this entity. This forces every entity to have a position
@@ -33,7 +33,6 @@ namespace Baba.GameComponents
         {
             id = nextID++;
             components = new List<Component>();
-            removeComponents = new List<Component>();
             transform = new Transform();
             AddComponent(transform);
         }
@@ -61,6 +60,11 @@ namespace Baba.GameComponents
         {
             components.Remove(component);
             onComponentRemoved?.Invoke(this, component, ComponentChange.REMOVE);
+
+            if (GetComponent<WordLabel>() != null && component.GetType() == typeof(Push))
+            {
+                Debug.WriteLine("OH NO");
+            }
         }
 
         public List<T> RemoveAll<T>() where T : Component
@@ -78,12 +82,6 @@ namespace Baba.GameComponents
             {
                 RemoveComponent(component);
             }
-
-            foreach (Component component in removeComponents)
-            {
-                components.Remove(component);
-            }
-            removeComponents.Clear();
 
             return list;
         }

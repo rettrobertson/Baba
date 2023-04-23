@@ -160,6 +160,7 @@ namespace Baba.GameComponents.Systems
         {
             ParticleEmitter emitter = ParticlePresets.MakeWin();
             emitters.Add(emitter);
+            emitter.emitLocation = new Vector2(10,10);
             emitter.Start();
             
         }

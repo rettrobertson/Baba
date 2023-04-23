@@ -172,6 +172,13 @@ namespace Baba.GameComponents.Systems
             pushableEntities.Clear();
         }
 
+        public void UndoReset()
+        {
+            controlledEntities.Clear();
+            resetHittables();
+            wallEntities.Clear();
+        }
+
         private void resetHittables()
         {
             for (int i = 0; i < 20; i++)

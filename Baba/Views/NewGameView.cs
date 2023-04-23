@@ -220,7 +220,7 @@ namespace Baba.Views
         {
             if (state == State.Play)
             {
-                moveSystem.Reset();
+                moveSystem.UndoReset();
                 undoSystem.UndoKeyPress(transforms);
             }
         }

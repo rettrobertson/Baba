@@ -9,6 +9,7 @@ using static System.Net.Mime.MediaTypeNames;
 using System;
 using System.Security.Cryptography.X509Certificates;
 using System.Collections.Generic;
+using Baba.GameComponents;
 
 namespace Baba.Views
 {
@@ -29,7 +30,8 @@ namespace Baba.Views
             
         public override void loadContent(ContentManager contentManager)
         {
-
+            GridMaker gridMaker = new GridMaker();
+            MenuState = gridMaker.getLevels();
             base.loadContent(contentManager);
             //Keyboard input for up down and enter
             m_inputKeyboard = new KeyboardInput();
@@ -43,10 +45,7 @@ namespace Baba.Views
             m_fontMenu = contentManager.Load<SpriteFont>("Fonts/menu");
             m_fontMenuSelect = contentManager.Load<SpriteFont>("Fonts/menu-select");
             m_inputMouse = new MouseInput();
-            for(int i =0; i < 5; i++)
-            {
-                MenuState.Add( $"Level {i + 1}");
-            }
+            
             int y = 200;
             m_currentSelectionInt= 0;
             m_currentSelection = MenuState[0];
@@ -109,7 +108,7 @@ namespace Baba.Views
             {
                 bottom = DrawMenuItem(
                 m_currentSelection == MenuState[i] ? m_fontMenuSelect : m_fontMenu,
-                $"Level {i + 1}",
+                MenuState[i],
                 bottom,
                 m_currentSelection == MenuState[i] ? Color.Yellow : Color.Blue);
             }
@@ -172,7 +171,7 @@ namespace Baba.Views
         private void OnEnter(GameTime gametime, float scale)
         {  
             returnEnum =GameStateEnum.GamePlay;
-            level[0] = $"Level-{m_currentSelectionInt + 1}";
+            level[0] = MenuState[m_currentSelectionInt];
         }
         #endregion
     }

@@ -16,8 +16,10 @@ namespace Baba.Animation
         {
             keyFrames = new KeyFrame[frames];
 
-            this.texture = AssetManager.GetTexture(texture);
-
+            if (texture != null)
+            {
+                this.texture = AssetManager.GetTexture(texture);
+            }
             //add callback to assign texture when content is loaded
         }
 

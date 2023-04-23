@@ -45,7 +45,7 @@ namespace Baba.GameComponents.Systems
             }
         }
 
-        public void Check()
+        public void Check(AudioSystem system)
         {
             List<You> temp = new List<You>();
             foreach (You y in yous)
@@ -60,6 +60,7 @@ namespace Baba.GameComponents.Systems
             }
             foreach(You y in temp)
             {
+                system.PlayHurt();
                 Transform t = y.entity.transform;
                 y.entity.RemoveAll<Component>();
                 y.entity.AddComponent(t);

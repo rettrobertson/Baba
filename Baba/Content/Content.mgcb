@@ -13,6 +13,66 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin Audio/Sounds/change.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Sounds/change.ogg
+
+#begin Audio/Sounds/hurt.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Sounds/hurt.ogg
+
+#begin Audio/Sounds/level-five.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Sounds/level-five.mp3
+
+#begin Audio/Sounds/level-four.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Sounds/level-four.mp3
+
+#begin Audio/Sounds/level-one.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Sounds/level-one.mp3
+
+#begin Audio/Sounds/level-three.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Sounds/level-three.mp3
+
+#begin Audio/Sounds/level-two.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Sounds/level-two.mp3
+
+#begin Audio/Sounds/menu.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Sounds/menu.mp3
+
+#begin Audio/Sounds/move.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Sounds/move.ogg
+
+#begin Audio/Sounds/win.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Sounds/win.ogg
+
 #begin Fonts/menu-select.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor

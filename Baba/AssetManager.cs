@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
-namespace BreakoutGame.Engine
+namespace Baba.Engine
 {
     public class AssetManager
     {
@@ -45,6 +45,19 @@ namespace BreakoutGame.Engine
             LoadTexture("word-water");
             LoadTexture("word-win");
             LoadTexture("word-you");
+
+            LoadSound("menu");
+            LoadSound("level-one");
+            LoadSound("level-two");
+            LoadSound("level-three");
+            LoadSound("level-four");
+            LoadSound("level-five");
+
+            LoadSound("win");
+            LoadSound("move");
+            LoadSound("hurt");
+            LoadSound("change");
+
 
             onContentLoaded?.Invoke();
         }

@@ -19,18 +19,6 @@ namespace Baba.GameComponents.Systems
         {
             snapshots = new Stack<Dictionary<uint, (Vector2, ItemType?)>>();
         }
-     /*   protected override void EntityChanged(Entity entity, Component component, Entity.ComponentChange change)
-        {
-
-            if (change == Entity.ComponentChange.ADD)
-            {
-                transforms.Add(component as Transform);
-            }
-            else
-            {
-                transforms.Remove(component as Transform);
-            }
-        }*/
 
         public void ArrowKeyPress(List<Transform> transforms)
         {

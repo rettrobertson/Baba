@@ -34,6 +34,7 @@ namespace Baba.Views
         private KillSystem killSystem;
         private SinkSystem sinkSystem;
         private WinSystem winSystem;
+        private AudioSystem audioSystem;
         public NewGameView(ref GameState controls)
         {
             this.controls = controls;
@@ -52,6 +53,7 @@ namespace Baba.Views
             killSystem = new(this);
             sinkSystem = new(this);
             winSystem = new(this);
+            audioSystem = new(this);
 
             undoSystem.OnUndo += ruleSystem.UpdateRules;
             undoSystem.OnUndo += animationSystem.UpdateAnimations;
@@ -75,6 +77,7 @@ namespace Baba.Views
         {
             if (state == State.StartParticle)
             {
+                audioSystem.PlayVictory();
                 // start particle effects for win
                 state = State.Win;
             }
@@ -83,6 +86,10 @@ namespace Baba.Views
                 m_inputKeyboard.Update(gameTime);
                 //m_inputGamePad.Update(gameTime);
                 //if return enum changed we'll go to the new view
+            }
+            if (returnEnum != GameStateEnum.GamePlay)
+            {
+                audioSystem.StopBGM();
             }
             GameStateEnum temp = returnEnum;
             returnEnum = GameStateEnum.GamePlay;
@@ -99,6 +106,7 @@ namespace Baba.Views
             killSystem.Reset();
             sinkSystem.Reset();
             winSystem.Reset();
+            audioSystem.StartBGM(level[0]);
 
             transforms = gridMaker.MakeGrid(level[0]);
             ruleSystem.UpdateRules();
@@ -192,8 +200,9 @@ namespace Baba.Views
 
         private void checkSystems()
         {
-            killSystem.Check();
-            sinkSystem.Check();
+            audioSystem.PlayMove();
+            killSystem.Check(audioSystem);
+            sinkSystem.Check(audioSystem);
             if (winSystem.Win())
             {
                 state = State.StartParticle;

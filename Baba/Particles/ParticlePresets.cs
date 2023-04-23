@@ -2,6 +2,7 @@
 using Baba.Particles.Decorators.Emission;
 using Baba.Particles.EmissionTypes;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace Baba.Particles
 {
@@ -29,6 +30,7 @@ namespace Baba.Particles
             emitter.AddDecorator(new ColorOverLifetime(Gradient.FadeInOut(Color.Yellow)));
             emitter.AddDecorator(new InitialRadialVelocity(0, 360, .1f, .2f));
             emitter.AddDecorator(new InitialSize(0.1f, 0.2f));
+            emitter.blendState = BlendState.NonPremultiplied;
             emitter.SetLifetime(1);
             emitter.SetEmissionShape(new RectangleEmitter(new EmissionTypes.Rectangle(0, 0, 1, 1), EmissionShape.EmitType.EDGE));
             emitter.SetTexture("Square");
@@ -44,7 +46,8 @@ namespace Baba.Particles
             emitter.AddDecorator(new ColorOverLifetime(Gradient.FadeInOut(Color.White)));
             emitter.AddDecorator(new InitialRadialVelocity(0, 360, .1f, .2f));
             emitter.AddDecorator(new InitialSize(0.1f, 0.2f));
-            emitter.SetLifetime(2);
+            emitter.SetLifetime(1);
+            emitter.blendState = BlendState.NonPremultiplied;
             emitter.SetEmissionShape(new RectangleEmitter(new EmissionTypes.Rectangle(0, 0, 1, 1), EmissionShape.EmitType.EDGE));
             emitter.SetTexture("Square");
 

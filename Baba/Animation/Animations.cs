@@ -1,4 +1,6 @@
-﻿namespace Baba.Animation
+﻿using System;
+
+namespace Baba.Animation
 {
     public static class Animations
     {
@@ -12,7 +14,7 @@
         public static Animation ROCK = new ThreeFrameAnimation("rock");
         public static Animation WALL = new ThreeFrameAnimation("wall");
         public static Animation WATER = new ThreeFrameAnimation("water");
-        //public static Animation EMPTY = new ConstantAnimation(null, 0, TimeSpan.Zero, 24, 24);
+        public static Animation EMPTY = new ConstantAnimation(null, 1, TimeSpan.Zero, 24, 24);
 
         public static Animation WORD_BABA = new ThreeFrameAnimation("word-baba");
         public static Animation WORD_FLAG = new ThreeFrameAnimation("word-flag");

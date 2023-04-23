@@ -30,6 +30,13 @@ namespace Baba.GameComponents.Systems
             level_four = AssetManager.GetSound("level-four").CreateInstance();
             level_five = AssetManager.GetSound("level-five").CreateInstance();
 
+            level_one.Volume = .6f;
+            level_two.Volume = .6f;
+            level_three.Volume = .6f;
+            level_four.Volume = .6f;
+            level_five.Volume = .6f;
+            everything_else.Volume = .6f;
+
             win = AssetManager.GetSound("win");
             move = AssetManager.GetSound("move");
             hurt = AssetManager.GetSound("hurt");

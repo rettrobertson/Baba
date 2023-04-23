@@ -19,7 +19,8 @@ namespace Baba.GameComponents.Systems
             { ItemType.Lava, Animations.LAVA },
             { ItemType.Rock, Animations.ROCK },
             { ItemType.Wall, Animations.WALL },
-            { ItemType.Water, Animations.WATER }
+            { ItemType.Water, Animations.WATER },
+            { ItemType.Empty, Animations.EMPTY }
         };
 
         private Dictionary<WordType, Animation.Animation> wordAnimations = new Dictionary<WordType, Animation.Animation>
@@ -80,9 +81,12 @@ namespace Baba.GameComponents.Systems
                 ItemLabel itemLabel = animators[i].entity.GetComponent<ItemLabel>();
                 WordLabel wordLabel = animators[i].entity.GetComponent<WordLabel>();
 
-                if (itemLabel != null && itemAnimations.ContainsKey(itemLabel.item))
+                if (itemLabel != null)
                 {
-                    animators[i].animation = itemAnimations[itemLabel.item];
+                    if (itemAnimations.ContainsKey(itemLabel.item))
+                    {
+                        animators[i].animation = itemAnimations[itemLabel.item];
+                    }
                 }
                 else if (wordLabel != null)
                 {
@@ -96,6 +100,8 @@ namespace Baba.GameComponents.Systems
         {
             foreach (SpriteAnimator animator in animators) 
             {
+                if (animator.animation == null) continue;
+
                 animator.time += time.ElapsedGameTime;
 
                 if (animator.time >= animator.animation.Duration)

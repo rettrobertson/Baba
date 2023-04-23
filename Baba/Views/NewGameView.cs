@@ -54,6 +54,7 @@ namespace Baba.Views
             winSystem = new(this);
 
             undoSystem.OnUndo += ruleSystem.UpdateRules;
+            ruleSystem.onTransformationsFinished += animationSystem.UpdateAnimations;
 
             loadTextures(contentManager);
             m_inputKeyboard = new KeyboardInput();
@@ -94,6 +95,7 @@ namespace Baba.Views
             killSystem.Reset();
             sinkSystem.Reset();
             winSystem.Reset();
+
             m_inputKeyboard.resetCommands();
             m_inputKeyboard.registerCommand(Keys.Escape, true, new InputDeviceHelper.CommandDelegate(Escape));
             m_inputKeyboard.registerCommand(controls.Controls[0], true, new InputDeviceHelper.CommandDelegate(moveUp));

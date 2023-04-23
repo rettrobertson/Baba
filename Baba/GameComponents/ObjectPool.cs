@@ -3,6 +3,8 @@
 namespace Baba.GameComponents
 {
     //Thanks chat-gpt!
+    //There was a bug in the version chat-gpt gave me after having it modify the implementation a few times.
+    //I asked it for a simple circular queue and I was able to fix it
     public class ObjectPool
     {
         private readonly object[] _pool;
@@ -15,6 +17,8 @@ namespace Baba.GameComponents
         {
             _pool = new object[capacity];
             _objectType = objectType;
+            _head = 0;
+            _tail = 0;
             InitializePool();
         }
 
@@ -22,7 +26,8 @@ namespace Baba.GameComponents
         {
             if (_count == 0)
             {
-                return CreateObject<T>();
+                T overflow = CreateObject() as T;
+                return overflow;
             }
             _count--;
             var obj = (T)_pool[_tail];
@@ -50,18 +55,14 @@ namespace Baba.GameComponents
                 _pool[i] = CreateObject();
                 _count++;
             }
-            _head = _pool.Length - 1;
+
+            _head = 0;
             _tail = 0;
         }
 
         private object CreateObject()
         {
             return Activator.CreateInstance(_objectType);
-        }
-
-        private T CreateObject<T>() where T : class
-        {
-            return CreateObject() as T;
         }
     }
 }

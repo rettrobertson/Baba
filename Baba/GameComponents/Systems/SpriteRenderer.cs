@@ -93,7 +93,6 @@ namespace Baba.GameComponents.Systems
             int width = cameraSystem.RenderScale;
             int height = cameraSystem.RenderScale;
 
-
             m_spriteBatch.Draw(texture, new Rectangle((int)screenPos.X, (int)screenPos.Y, width, height), sprite.source, sprite.color);
         }
 

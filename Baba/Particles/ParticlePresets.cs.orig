@@ -1,0 +1,68 @@
+﻿using Baba.Particles.Decorators;
+using Baba.Particles.Decorators.Emission;
+using Baba.Particles.EmissionTypes;
+using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
+
+namespace Baba.Particles
+{
+    public static class ParticlePresets
+    {
+        public static ParticleEmitter MakeWin()
+        {
+            ParticleEmitter emitter = new ParticleEmitter();
+            emitter.emissionRate = 0f;
+            emitter.ScheduleBurst(0, 1000);
+            emitter.AddDecorator(new ColorOverLifetime(Gradient.FadeColor(Color.Red, 0.8f)));
+            emitter.SetEmissionShape(new PointEmitter(EmissionShape.EmitType.AREA));
+            emitter.AddDecorator(new InitialSize(0.1f, 0.2f));
+            emitter.SetTexture("Square");
+            emitter.SetLifetime(1);
+
+            return emitter;
+        }
+        public static ParticleEmitter MakeWinChange()
+        {
+            ParticleEmitter emitter = new ParticleEmitter();
+            emitter.emissionRate = 0f;
+            emitter.SetTexture("Square");
+            emitter.ScheduleBurst(0, 1000);
+            emitter.AddDecorator(new ColorOverLifetime(Gradient.FadeInOut(Color.Yellow)));
+            emitter.AddDecorator(new InitialRadialVelocity(0, 360, .1f, .2f));
+            emitter.AddDecorator(new InitialSize(0.1f, 0.2f));
+<<<<<<< HEAD
+=======
+            emitter.blendState = BlendState.NonPremultiplied;
+>>>>>>> bf7f1e3a422137a0b5b218d81e34ca71c0df5608
+            emitter.SetLifetime(1);
+            emitter.SetEmissionShape(new RectangleEmitter(new EmissionTypes.Rectangle(0, 0, 1, 1), EmissionShape.EmitType.EDGE));
+            emitter.SetTexture("Square");
+
+            return emitter;
+        }
+        public static ParticleEmitter MakeYouChange()
+        {
+            ParticleEmitter emitter = new ParticleEmitter();
+            emitter.emissionRate = 0f;
+            emitter.SetTexture("Square");
+            emitter.ScheduleBurst(0, 200);
+            emitter.AddDecorator(new ColorOverLifetime(Gradient.FadeInOut(Color.White)));
+            emitter.AddDecorator(new InitialRadialVelocity(0, 360, .1f, .2f));
+            emitter.AddDecorator(new InitialSize(0.1f, 0.2f));
+<<<<<<< HEAD
+            emitter.SetLifetime(2);
+=======
+            emitter.SetLifetime(1);
+            emitter.blendState = BlendState.NonPremultiplied;
+>>>>>>> bf7f1e3a422137a0b5b218d81e34ca71c0df5608
+            emitter.SetEmissionShape(new RectangleEmitter(new EmissionTypes.Rectangle(0, 0, 1, 1), EmissionShape.EmitType.EDGE));
+            emitter.SetTexture("Square");
+
+            return emitter;
+        }
+        public static ParticleEmitter MakeObjectDestroyed()
+        {
+            return null;
+        }
+    }
+}

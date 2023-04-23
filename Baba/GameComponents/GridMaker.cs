@@ -142,10 +142,10 @@ namespace Baba.GameComponents
             }
             return (width, height, file);
         }
-        public List<String> getLevels()
+        public List<string> getLevels()
         {
-            String file = Directory.GetCurrentDirectory() + Path.Join("..", "..", "..", "..", "levels-all.bbiy");
-            List <String> levels = new List<String>();
+            string file = Directory.GetCurrentDirectory() + Path.Join("..", "..", "..", "..", "levels-all.bbiy");
+            List <string> levels = new List<string>();
             IEnumerable<string> lines = File.ReadLines(file);
             foreach(string line in lines)
             {

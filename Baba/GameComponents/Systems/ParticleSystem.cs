@@ -71,12 +71,13 @@ namespace Baba.GameComponents.Systems
 
         private void checkChanges()
         {
-            Entity entity = controlledEntities[0];
-            if (passedYou != entity.GetComponent<ItemLabel>().item)
+            Entity entity;
+            if (controlledEntities.Count > 0)
             {
-                passedYou = entity.GetComponent<ItemLabel>().item;
-                for (int i = 0; i < controlledEntities.Count; i++)
+                entity = controlledEntities[0];
+                if (passedYou != entity.GetComponent<ItemLabel>().item)
                 {
+
                     YouChanged(controlledEntities[i].transform.position);
                     
                 }
@@ -90,10 +91,29 @@ namespace Baba.GameComponents.Systems
                     for (int i = 0; i < winEntities.Count; i++)
                     {
                         WinChanged(winEntities[i].transform.position);
+		    }
+                    for (int i = 0; i < controlledEntities.Count; i++)
+                    {
+                        YouChanged(controlledEntities[i].transform.position);
 
                     }
                 }
             }
+
+            if (winEntities.Count > 0)
+            {
+                entity = winEntities[0];
+                if (passedFlag != entity.GetComponent<ItemLabel>().item)
+                {
+                    passedFlag = entity.GetComponent<ItemLabel>().item;
+                    for (int i = 0; i < winEntities.Count; i++)
+                    {
+                        WinChanged(winEntities[i].transform.position);
+
+                    }
+                }
+            }
+            
             //controlledEntities.Clear();
         }
         public void resetEntities()
@@ -191,6 +211,9 @@ namespace Baba.GameComponents.Systems
         public override void Reset()
         {
             ClearParticles();
+            controlledEntities.Clear();
+            winEntities.Clear();
+            emitters.Clear();
         }
     }
 }

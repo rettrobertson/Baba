@@ -47,6 +47,19 @@ namespace Baba
             LoadTexture("word-win");
             LoadTexture("word-you");
 
+            LoadSound("menu");
+            LoadSound("level-one");
+            LoadSound("level-two");
+            LoadSound("level-three");
+            LoadSound("level-four");
+            LoadSound("level-five");
+
+            LoadSound("win");
+            LoadSound("move");
+            LoadSound("hurt");
+            LoadSound("change");
+
+
             onContentLoaded?.Invoke();
         }
 

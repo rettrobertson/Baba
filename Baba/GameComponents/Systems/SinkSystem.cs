@@ -48,7 +48,7 @@ namespace Baba.GameComponents.Systems
             }
         }
         
-        public void Check()
+        public void Check(AudioSystem system)
         {
             List<(Sink, ItemLabel)> temp = new List<(Sink, ItemLabel)>();
             foreach (ItemLabel item in items)
@@ -66,6 +66,16 @@ namespace Baba.GameComponents.Systems
             }
             foreach((Sink s, ItemLabel i) in temp)
             {
+                system.PlayHurt();
+                /*Transform t = s.entity.transform;
+                s.entity.RemoveAll<Component>();
+                s.entity.AddComponent(t);
+                s.entity.AddComponent(new ItemLabel(ItemType.Empty));
+
+                t = i.entity.transform;
+                i.entity.RemoveAll<Component>();
+                i.entity.AddComponent(t);
+                i.entity.AddComponent(new ItemLabel(ItemType.Empty));*/
                 view.ruleSystem.ReturnComponents(s.entity.RemoveAll<RuleComponent>());
                 view.ruleSystem.ReturnComponents(i.entity.RemoveAll<RuleComponent>());
             }

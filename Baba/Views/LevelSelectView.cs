@@ -25,7 +25,7 @@ namespace Baba.Views
         private List<String> MenuState = new List<String>();
         private List<Action<GameTime, float>> lambdaList = new List<Action<GameTime, float>>();
         private int m_currentSelectionInt;
-        private String m_currentSelection;
+        private string m_currentSelection;
         
             
         public override void loadContent(ContentManager contentManager)
@@ -112,7 +112,7 @@ namespace Baba.Views
                 m_currentSelection == MenuState[i] ? m_fontMenuSelect : m_fontMenu,
                 MenuState[i],
                 bottom,
-                m_currentSelection == MenuState[i] ? Color.Yellow : Color.Blue);
+                m_currentSelection == MenuState[i] ? Color.Yellow : Color.Gainsboro);
             }
           
             /*bottom = DrawMenuItem(m_currentSelection == MenuState.MainMenu ? m_fontMenuSelect : m_fontMenu, "Main Menu", bottom, m_currentSelection == MenuState.MainMenu ? Color.Yellow : Color.Blue);

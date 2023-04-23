@@ -66,8 +66,7 @@ namespace Baba.GameComponents.Systems
             }
             foreach((Sink s, ItemLabel i) in temp)
             {
-                view.ruleSystem.ReturnComponents(s.entity.RemoveAll<RuleComponent>());
-                view.ruleSystem.ReturnComponents(i.entity.RemoveAll<RuleComponent>());
+                view.KillEntities(s.entity, i.entity);
             }
         }
 

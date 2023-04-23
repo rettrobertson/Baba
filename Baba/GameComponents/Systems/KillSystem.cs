@@ -1,11 +1,6 @@
 ﻿using Baba.GameComponents.ConcreteComponents;
 using Baba.Views;
-using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Baba.GameComponents.Systems
 {
@@ -63,7 +58,7 @@ namespace Baba.GameComponents.Systems
             }
             foreach(You y in temp)
             {
-                view.ruleSystem.ReturnComponents(y.entity.RemoveAll<RuleComponent>());
+                view.KillEntities(y.entity);
             }
         }
 

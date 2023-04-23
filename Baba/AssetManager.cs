@@ -3,9 +3,9 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
-namespace BreakoutGame.Engine
+namespace Baba
 {
-    public class AssetManager
+    public static class AssetManager
     {
         private static Dictionary<string, Texture2D> textures = new Dictionary<string, Texture2D>();
         private static Dictionary<string, SpriteFont> fonts = new Dictionary<string, SpriteFont>();
@@ -46,6 +46,8 @@ namespace BreakoutGame.Engine
             LoadTexture("word-water");
             LoadTexture("word-win");
             LoadTexture("word-you");
+
+            LoadFont("RetroGaming");
 
             onContentLoaded?.Invoke();
         }

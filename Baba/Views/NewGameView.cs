@@ -6,8 +6,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Threading;
 using Baba.Views.SavingControls;
 namespace Baba.Views
 {
@@ -54,7 +52,6 @@ namespace Baba.Views
             killSystem = new(this);
             sinkSystem = new(this);
             winSystem = new(this);
-            //ParticleSystem particle = new ParticleSystem();
 
             undoSystem.OnUndo += ruleSystem.UpdateRules;
             undoSystem.OnUndo += animationSystem.UpdateAnimations;
@@ -146,7 +143,7 @@ namespace Baba.Views
 
             animationSystem.UpdateAnimations();
             m_renderer.UpdateSprites();
-            ruleSystem.ApplyRules();
+            ruleSystem.UpdateRules();
         }
 
         private void loadTextures(ContentManager contentManager)
@@ -207,7 +204,6 @@ namespace Baba.Views
             {
                 moveSystem.Reset();
                 undoSystem.UndoKeyPress(transforms);
-                
             }
         }
         private void ResetKeyPress(GameTime gameTime, float scale)

@@ -1,5 +1,4 @@
-﻿using Baba.GameComponents;
-using Microsoft.Xna.Framework;
+﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Baba.GameComponents.ConcreteComponents;
@@ -93,6 +92,7 @@ namespace Baba.GameComponents.Systems
             ParticleEmitter emitter = ParticlePresets.MakeObjectDestroyed();
             emitter.emitLocation = position;
             emitters.Add(emitter);
+            emitter.Start();
         }
 
         public void WinChanged(Vector2 position)
@@ -100,12 +100,14 @@ namespace Baba.GameComponents.Systems
             ParticleEmitter emitter = ParticlePresets.MakeWinChange();
             emitter.emitLocation = position;
             emitters.Add(emitter);
+            emitter.Start();
         }
 
         public void WinLevel()
         {
             ParticleEmitter emitter = ParticlePresets.MakeWin();
             emitters.Add(emitter);
+            emitter.Start();
         }
 
         public void YouChanged(Vector2 position)
@@ -113,6 +115,7 @@ namespace Baba.GameComponents.Systems
             ParticleEmitter emitter = ParticlePresets.MakeYouChange();
             emitter.emitLocation = position;
             emitters.Add(emitter);
+            emitter.Start();
         }
 
         public override void Draw()

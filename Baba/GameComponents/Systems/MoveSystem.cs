@@ -13,7 +13,6 @@ namespace Baba.GameComponents.Systems
         List<Entity> wallEntities;
         private Entity[,] hittables;
         
-
         public MoveSystem(NewGameView view) : base(view, typeof(You), typeof(Push), typeof(Stop))
         {
             controlledEntities = new List<Entity>();
@@ -41,7 +40,7 @@ namespace Baba.GameComponents.Systems
             
         }
        
-        public void moveEntity( GameTime gameTime, string command)
+        public void moveEntity(GameTime gameTime, string command)
         {
             resetHittables();
             
@@ -169,6 +168,7 @@ namespace Baba.GameComponents.Systems
         {
             controlledEntities.Clear();
             resetHittables();
+            wallEntities.Clear();
             pushableEntities.Clear();
         }
 
@@ -186,6 +186,5 @@ namespace Baba.GameComponents.Systems
         {
             controlledEntities.Clear();
         }
-
     }
 }

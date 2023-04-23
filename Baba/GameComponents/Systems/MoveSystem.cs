@@ -105,7 +105,7 @@ namespace Baba.GameComponents.Systems
 
         private bool canMove(Vector2 newPos, string direction)
         {
-            if (newPos.X > 20 || newPos.X < 0 || newPos.Y > 20 || newPos.Y < 0)
+            if (newPos.X > 18 || newPos.X < 1 || newPos.Y > 18 || newPos.Y < 1)
             {
                 return false;
             }

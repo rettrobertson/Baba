@@ -49,9 +49,9 @@ namespace Baba.Views
             int y = 200;
             m_currentSelectionInt= 0;
             m_currentSelection = MenuState[0];
-            for (int i = 0; i < 5;i++)
+            for (int i = 0; i < MenuState.Count;i++)
             {
-                Vector2 stringSize = m_fontMenu.MeasureString($"Level {i}");
+                Vector2 stringSize = m_fontMenu.MeasureString(MenuState[i]);
                 if (i != 0)
                 {
                     y += (int)stringSize.Y;

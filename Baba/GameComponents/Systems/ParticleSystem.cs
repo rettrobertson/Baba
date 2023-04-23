@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using Baba.GameComponents.ConcreteComponents;
 using Baba.Particles;
 using Baba.Views;
+using System.Net;
+using System.ComponentModel;
 
 namespace Baba.GameComponents.Systems
 {
@@ -15,38 +17,35 @@ namespace Baba.GameComponents.Systems
         private SpriteBatch spriteBatch;
         private List<ParticleEmitter> removeEmitters;
         public int particleCount => CountParticles();
+        private ItemType passedYou;
+        private ItemType passedFlag;
+        List<Entity> controlledEntities;
+        List<Entity> winEntities;
 
         public ParticleSystem(NewGameView view, GraphicsDevice graphics) : base(view, typeof(You), typeof(Win))
         {
             spriteBatch = new SpriteBatch(graphics);
             emitters = new List<ParticleEmitter>();
             removeEmitters = new List<ParticleEmitter>();
+            controlledEntities = new List<Entity>();
+            winEntities = new List<Entity>();
         }
 
         protected override void EntityChanged(Entity entity, Component component, Entity.ComponentChange change)
         {
+            List<Entity> list = entity.GetComponent<You>() != null ? controlledEntities : winEntities;
+
             if (change == Entity.ComponentChange.ADD)
             {
-                if (component.GetType() == typeof(You))
-                {
-                    YouChanged(entity.transform.position);
-                }
-                if (component.GetType() == typeof(Win))
-                {
-                    WinChanged(entity.transform.position);
-                }
+                list.Add(entity);
             }
             else
             {
-                if (component.GetType() == typeof(You))
-                {
-                    YouChanged(entity.transform.position);
-                }
-                if (component.GetType() == typeof(Win))
-                {
-                    WinChanged(entity.transform.position);
-                }
+                list.Remove(entity);
             }
+
+            
+
         }
 
         public override void Update(GameTime time)
@@ -64,10 +63,41 @@ namespace Baba.GameComponents.Systems
                 emitters.Remove(removeEmitters[i]);
             }
 
+
             // This could be replaced with object pooling
+            checkChanges();
             removeEmitters.Clear();
         }
 
+        private void checkChanges()
+        {
+            Entity entity = controlledEntities[0];
+            if (passedYou != entity.GetComponent<ItemLabel>().item)
+            {
+                passedYou = entity.GetComponent<ItemLabel>().item;
+                for (int i = 0; i < controlledEntities.Count; i++)
+                {
+                    YouChanged(controlledEntities[i].transform.position);
+                    
+                }
+            }
+            entity = winEntities[0];
+            if (passedFlag != entity.GetComponent<ItemLabel>().item)
+            {
+                passedFlag = entity.GetComponent<ItemLabel>().item;
+                for (int i = 0; i < winEntities.Count; i++)
+                {
+                    WinChanged(winEntities[i].transform.position);
+
+                }
+            }
+            //controlledEntities.Clear();
+        }
+        public void resetEntities()
+        {
+            controlledEntities.Clear();
+            winEntities.Clear();
+        }
         private int CountParticles()
         {
             int total = 0;

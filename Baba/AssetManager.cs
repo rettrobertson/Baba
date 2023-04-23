@@ -19,6 +19,7 @@ namespace BreakoutGame.Engine
         public static void LoadContent(ContentManager content)
         {
             contentManager = content;
+            LoadTexture("baba");
             LoadTexture("Square");
             LoadTexture("Circle");
 

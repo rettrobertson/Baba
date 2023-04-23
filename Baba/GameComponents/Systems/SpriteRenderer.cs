@@ -123,7 +123,7 @@ namespace Baba.GameComponents.Systems
 
         public void LoadItems(ContentManager contentManager) 
         {
-            itemTextures[ItemType.Baba] = contentManager.Load<Texture2D>("SpriteSheets/flag");
+            itemTextures[ItemType.Baba] = contentManager.Load<Texture2D>("SpriteSheets/baba");
             itemColors[ItemType.Baba] = Color.White;
             itemTextures[ItemType.Flag] = contentManager.Load<Texture2D>("SpriteSheets/flag");
             itemColors[ItemType.Flag] = Color.Yellow;

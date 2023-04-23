@@ -13,7 +13,7 @@ namespace Baba.GameComponents.Systems
 
         private Dictionary<ItemType, Animation.Animation> itemAnimations = new Dictionary<ItemType, Animation.Animation>
         {
-            { ItemType.Baba, Animations.FLAG },
+            { ItemType.Baba, Animations.BABA },
             { ItemType.Flag, Animations.FLAG },
             { ItemType.Grass, Animations.GRASS },
             { ItemType.Hedge, Animations.HEDGE },

@@ -54,6 +54,7 @@ namespace Baba.Views
             killSystem = new(this);
             sinkSystem = new(this);
             winSystem = new(this);
+            //ParticleSystem particle = new ParticleSystem();
 
             undoSystem.OnUndo += ruleSystem.UpdateRules;
             undoSystem.OnUndo += animationSystem.UpdateAnimations;
@@ -65,13 +66,14 @@ namespace Baba.Views
             loadTextures(contentManager);
             m_inputKeyboard = new KeyboardInput();
             m_inputKeyboard.registerCommand(Keys.Escape, true, new InputDeviceHelper.CommandDelegate(Escape));
-            m_inputKeyboard.registerCommand(controls.Controls[0], true, new InputDeviceHelper.CommandDelegate(moveUp));
-            m_inputKeyboard.registerCommand(controls.Controls[1], true, new InputDeviceHelper.CommandDelegate(moveDown));
-            m_inputKeyboard.registerCommand(controls.Controls[2], true, new InputDeviceHelper.CommandDelegate(moveLeft));
-            m_inputKeyboard.registerCommand(controls.Controls[3], true, new InputDeviceHelper.CommandDelegate(moveRight));
-            m_inputKeyboard.registerCommand(controls.Controls[4], true, new InputDeviceHelper.CommandDelegate(ResetKeyPress));
-            m_inputKeyboard.registerCommand(controls.Controls[5], true, new InputDeviceHelper.CommandDelegate(Undo));
-
+            
+            m_inputKeyboard.registerCommand(controls.Controls[0], false, new InputDeviceHelper.CommandDelegate(moveUp));
+            m_inputKeyboard.registerCommand(controls.Controls[1], false, new InputDeviceHelper.CommandDelegate(moveDown));
+            m_inputKeyboard.registerCommand(controls.Controls[2], false, new InputDeviceHelper.CommandDelegate(moveLeft));
+            m_inputKeyboard.registerCommand(controls.Controls[3], false, new InputDeviceHelper.CommandDelegate(moveRight));
+            m_inputKeyboard.registerCommand(controls.Controls[4], false, new InputDeviceHelper.CommandDelegate(ResetKeyPress));
+            m_inputKeyboard.registerCommand(controls.Controls[5], false, new InputDeviceHelper.CommandDelegate(Undo));
+            
             particleSystem = new ParticleSystem(this, m_graphics.GraphicsDevice);
         }
 
@@ -112,12 +114,12 @@ namespace Baba.Views
         {
             m_inputKeyboard.resetCommands();
             m_inputKeyboard.registerCommand(Keys.Escape, true, new InputDeviceHelper.CommandDelegate(Escape));
-            m_inputKeyboard.registerCommand(controls.Controls[0], true, new InputDeviceHelper.CommandDelegate(moveUp));
-            m_inputKeyboard.registerCommand(controls.Controls[1], true, new InputDeviceHelper.CommandDelegate(moveDown));
-            m_inputKeyboard.registerCommand(controls.Controls[2], true, new InputDeviceHelper.CommandDelegate(moveLeft));
-            m_inputKeyboard.registerCommand(controls.Controls[3], true, new InputDeviceHelper.CommandDelegate(moveRight));
-            m_inputKeyboard.registerCommand(controls.Controls[4], true, new InputDeviceHelper.CommandDelegate(ResetKeyPress));
-            m_inputKeyboard.registerCommand(controls.Controls[5], true, new InputDeviceHelper.CommandDelegate(Undo));
+            m_inputKeyboard.registerCommand(controls.Controls[0], false, new InputDeviceHelper.CommandDelegate(moveUp));
+            m_inputKeyboard.registerCommand(controls.Controls[1], false, new InputDeviceHelper.CommandDelegate(moveDown));
+            m_inputKeyboard.registerCommand(controls.Controls[2], false, new InputDeviceHelper.CommandDelegate(moveLeft));
+            m_inputKeyboard.registerCommand(controls.Controls[3], false, new InputDeviceHelper.CommandDelegate(moveRight));
+            m_inputKeyboard.registerCommand(controls.Controls[4], false, new InputDeviceHelper.CommandDelegate(ResetKeyPress));
+            m_inputKeyboard.registerCommand(controls.Controls[5], false, new InputDeviceHelper.CommandDelegate(Undo));
         }
 
         public override void update(GameTime gameTime)
@@ -203,7 +205,9 @@ namespace Baba.Views
         {
             if (state == State.Play)
             {
+                moveSystem.Reset();
                 undoSystem.UndoKeyPress(transforms);
+                
             }
         }
         private void ResetKeyPress(GameTime gameTime, float scale)

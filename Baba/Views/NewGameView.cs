@@ -112,7 +112,7 @@ namespace Baba.Views
             sinkSystem.Reset();
             winSystem.Reset();
             audioSystem.StartBGM(level[0]);
-
+            particleSystem.reset();
             transforms = gridMaker.MakeGrid(level[0]);
             ruleSystem.UpdateRules();
             state = State.Play;

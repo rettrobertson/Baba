@@ -77,7 +77,21 @@ namespace Baba.GameComponents.Systems
                 entity = controlledEntities[0];
                 if (passedYou != entity.GetComponent<ItemLabel>().item)
                 {
-                    passedYou = entity.GetComponent<ItemLabel>().item;
+
+                    YouChanged(controlledEntities[i].transform.position);
+                    
+                }
+            }
+            if (winEntities.Count > 0)
+            {
+                entity = winEntities[0];
+                if (passedFlag != entity.GetComponent<ItemLabel>().item)
+                {
+                    passedFlag = entity.GetComponent<ItemLabel>().item;
+                    for (int i = 0; i < winEntities.Count; i++)
+                    {
+                        WinChanged(winEntities[i].transform.position);
+		    }
                     for (int i = 0; i < controlledEntities.Count; i++)
                     {
                         YouChanged(controlledEntities[i].transform.position);
@@ -106,6 +120,14 @@ namespace Baba.GameComponents.Systems
         {
             controlledEntities.Clear();
             winEntities.Clear();
+        }
+
+        public void reset()
+        {
+            controlledEntities.Clear();
+            winEntities.Clear();
+            passedFlag = ItemType.Anni;
+            passedYou = ItemType.Anni;
         }
         private int CountParticles()
         {

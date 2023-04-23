@@ -8,6 +8,7 @@ namespace Baba.Animation
 {
     public static class Animations
     {
+        public static Animation BABA = new ThreeFrameAnimation("baba");
         public static Animation FLAG = new ThreeFrameAnimation("flag");
         public static Animation FLOOR = new ThreeFrameAnimation("floor");
         public static Animation FLOWERS = new ThreeFrameAnimation("flowers");

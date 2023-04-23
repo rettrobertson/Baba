@@ -45,7 +45,7 @@ namespace Baba.GameComponents.Systems
 
         public void LoadContent(ContentManager content)
         {
-            push = content.Load<SoundEffect>("");
+
         }
 
         public override void Reset()

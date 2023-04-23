@@ -34,6 +34,8 @@ namespace Baba.Views
         private KillSystem killSystem;
         private SinkSystem sinkSystem;
         private WinSystem winSystem;
+        private ParticleSystem particleSystem;
+
         public NewGameView(ref GameState controls)
         {
             this.controls = controls;
@@ -69,6 +71,8 @@ namespace Baba.Views
             m_inputKeyboard.registerCommand(controls.Controls[3], true, new InputDeviceHelper.CommandDelegate(moveRight));
             m_inputKeyboard.registerCommand(controls.Controls[4], true, new InputDeviceHelper.CommandDelegate(ResetKeyPress));
             m_inputKeyboard.registerCommand(controls.Controls[5], true, new InputDeviceHelper.CommandDelegate(Undo));
+
+            particleSystem = new ParticleSystem(this, m_graphics.GraphicsDevice);
         }
 
         public override GameStateEnum processInput(GameTime gameTime)
@@ -87,8 +91,8 @@ namespace Baba.Views
             GameStateEnum temp = returnEnum;
             returnEnum = GameStateEnum.GamePlay;
             return temp;
-
         }
+
         public override void reset()
         {
             ruleSystem.Reset();
@@ -119,6 +123,7 @@ namespace Baba.Views
         public override void update(GameTime gameTime)
         {
             animationSystem.Update(gameTime);
+            particleSystem.Update(gameTime);
         }
 
         public override void render(GameTime gameTime)
@@ -126,7 +131,22 @@ namespace Baba.Views
             base.render(gameTime);
 
             m_renderer.Render();
+            particleSystem.Draw();
         }
+
+        public void KillEntities(params Entity[] entities)
+        {
+            for (int i = 0; i < entities.Length; i++)
+            {
+                ruleSystem.ReturnComponents(entities[i].RemoveAll<RuleComponent>());
+                entities[i].GetComponent<ItemLabel>().item = ItemType.Empty;
+            }
+
+            animationSystem.UpdateAnimations();
+            m_renderer.UpdateSprites();
+            ruleSystem.ApplyRules();
+        }
+
         private void loadTextures(ContentManager contentManager)
         {
             m_renderer.LoadWords(contentManager);

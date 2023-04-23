@@ -54,7 +54,7 @@ namespace Baba.Views
             killSystem = new(this);
             sinkSystem = new(this);
             winSystem = new(this);
-            //ParticleSystem particle = new ParticleSystem();
+            
 
             undoSystem.OnUndo += ruleSystem.UpdateRules;
             undoSystem.OnUndo += animationSystem.UpdateAnimations;
@@ -82,6 +82,7 @@ namespace Baba.Views
             if (state == State.StartParticle)
             {
                 // start particle effects for win
+                particleSystem.WinLevel();
                 state = State.Win;
             }
             else if (state == State.Play || state == State.Win)

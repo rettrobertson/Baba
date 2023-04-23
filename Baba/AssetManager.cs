@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
-namespace BreakoutGame.Engine
+namespace Baba
 {
     public class AssetManager
     {

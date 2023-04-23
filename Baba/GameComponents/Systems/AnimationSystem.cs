@@ -13,6 +13,7 @@ namespace Baba.GameComponents.Systems
 
         private Dictionary<ItemType, Animation.Animation> itemAnimations = new Dictionary<ItemType, Animation.Animation>
         {
+            { ItemType.Baba, Animations.FLAG },
             { ItemType.Flag, Animations.FLAG },
             { ItemType.Grass, Animations.GRASS },
             { ItemType.Hedge, Animations.HEDGE },
@@ -43,7 +44,6 @@ namespace Baba.GameComponents.Systems
         public AnimationSystem(NewGameView view) : base(view, typeof(Sprite))
         {
             animators = new List<SpriteAnimator>();
-            //Subscribe to rule system transformation
         }
 
         protected override void EntityChanged(Entity entity, Component component, Entity.ComponentChange change)
@@ -71,6 +71,25 @@ namespace Baba.GameComponents.Systems
                     animators.Add(sprite);
                 }
                 
+            }
+        }
+
+        public void UpdateAnimations()
+        {
+            for (int i = 0; i < animators.Count; i++)
+            {
+                ItemLabel itemLabel = animators[i].entity.GetComponent<ItemLabel>();
+                WordLabel wordLabel = animators[i].entity.GetComponent<WordLabel>();
+
+                if (itemLabel != null)
+                {
+                    animators[i].animation = itemAnimations[itemLabel.item];
+                }
+                else if (wordLabel != null)
+                {
+                    animators[i].animation = wordAnimations[wordLabel.item];
+                }
+
             }
         }
 

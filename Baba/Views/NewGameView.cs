@@ -6,11 +6,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
-using Baba.Views.SavingControls;
 using System.Diagnostics;
 using System.Threading;
-using System.Resources;
-
+using Baba.Views.SavingControls;
 namespace Baba.Views
 {
     public class NewGameView : GameStateView
@@ -56,6 +54,11 @@ namespace Baba.Views
             winSystem = new(this);
 
             undoSystem.OnUndo += ruleSystem.UpdateRules;
+            undoSystem.OnUndo += animationSystem.UpdateAnimations;
+            undoSystem.OnUndo += m_renderer.UpdateSprites;
+
+            ruleSystem.onTransformationsFinished += animationSystem.UpdateAnimations;
+            ruleSystem.onTransformationsFinished += m_renderer.UpdateSprites;
 
             loadTextures(contentManager);
             m_inputKeyboard = new KeyboardInput();
@@ -96,7 +99,6 @@ namespace Baba.Views
             killSystem.Reset();
             sinkSystem.Reset();
             winSystem.Reset();
-          
 
             transforms = gridMaker.MakeGrid(level[0]);
             ruleSystem.UpdateRules();

@@ -237,6 +237,7 @@ namespace Baba.Views
             if (winSystem.Win())
             {
                 state = State.StartParticle;
+                particleSystem.WinLevel();
             }
         }
         #endregion

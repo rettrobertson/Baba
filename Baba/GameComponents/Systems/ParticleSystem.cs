@@ -95,9 +95,13 @@ namespace Baba.GameComponents.Systems
                     for (int i = 0; i < winEntities.Count; i++)
                     {
                         WinChanged(winEntities[i].transform.position);
-		    }
+		            }
                    
                 }
+            }
+            else
+            {
+                passedFlag = ItemType.Anni;
             }
 
            
@@ -157,6 +161,7 @@ namespace Baba.GameComponents.Systems
             ParticleEmitter emitter = ParticlePresets.MakeWin();
             emitters.Add(emitter);
             emitter.Start();
+            
         }
 
         public void YouChanged(Vector2 position)

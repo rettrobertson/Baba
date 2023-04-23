@@ -107,6 +107,7 @@ namespace Baba
             if (m_nextStateEnum == GameStateEnum.GamePlay && temp != GameStateEnum.GamePlay)
             {
                 m_states[GameStateEnum.GamePlay].reset();
+                
             }
             m_currentState.update(gameTime);
             // TODO: Add your update logic here

@@ -20,6 +20,8 @@ namespace Baba.Views
         private MouseInput m_inputMouse;
         private GamePadInput m_inputGamePad;
         private GameStateEnum returnEnum = GameStateEnum.MainMenu;
+        private MenuState prevEnum = MenuState.LevelSelect;
+        private SoundEffect effect;
 
         //enum for the different menus, borrowed from startercode
         private enum MenuState
@@ -71,12 +73,20 @@ namespace Baba.Views
             m_inputMouse.registerCommand(new ScreenButton((int)(m_graphics.PreferredBackBufferWidth / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y), true, Click.Left, new InputDeviceHelper.CommandDelegate(OnEnter));
 
             m_inputGamePad = new GamePadInput(PlayerIndex.One);
+
+            effect = AssetManager.GetSound("menu-bump");
         }
         public override GameStateEnum processInput(GameTime gameTime)
         {
+            
             m_inputKeyboard.Update(gameTime);
             m_inputMouse.Update(gameTime);
             m_inputGamePad.Update(gameTime);
+            if (prevEnum != m_currentSelection)
+            {
+                effect.Play();
+            }
+            prevEnum = m_currentSelection;
             //if return enum changed we'll go to the new view
             GameStateEnum temp = returnEnum;
             returnEnum = GameStateEnum.MainMenu;

@@ -161,7 +161,7 @@ namespace Baba.GameComponents.Systems
                     {
                         AddRule(itemWords[top.item], attributeWords[bottom.item]);
                     }
-                    else if (right.ruleType == RuleType.Item)
+                    else if (bottom.ruleType == RuleType.Item)
                     {
                         transformations.TryAdd(itemWords[top.item], itemWords[bottom.item]);
                     }

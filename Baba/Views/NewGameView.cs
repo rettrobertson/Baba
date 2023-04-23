@@ -174,7 +174,9 @@ namespace Baba.Views
             {
                 undoSystem.ArrowKeyPress(transforms);
                 moveSystem.moveEntity(gameTime, "Up");
+                particleSystem.resetEntities();
                 ruleSystem.UpdateRules();
+               
                 checkSystems();
             }
         }
@@ -184,7 +186,9 @@ namespace Baba.Views
             {
                 undoSystem.ArrowKeyPress(transforms);
                 moveSystem.moveEntity(gameTime, "Down");
+                particleSystem.resetEntities();
                 ruleSystem.UpdateRules();
+                
                 checkSystems();
             }
         }
@@ -194,7 +198,9 @@ namespace Baba.Views
             {
                 undoSystem.ArrowKeyPress(transforms);
                 moveSystem.moveEntity(gameTime, "Left");
+                particleSystem.resetEntities();
                 ruleSystem.UpdateRules();
+                
                 checkSystems();
             }
         }
@@ -204,7 +210,9 @@ namespace Baba.Views
             {
                 undoSystem.ArrowKeyPress(transforms);
                 moveSystem.moveEntity(gameTime, "Right");
+                particleSystem.resetEntities();
                 ruleSystem.UpdateRules();
+               
                 checkSystems();
             }
         }

@@ -78,8 +78,8 @@ namespace Baba.GameComponents.Systems
                 if (passedYou != entity.GetComponent<ItemLabel>().item)
                 {
 
-                    YouChanged(controlledEntities[i].transform.position);
-
+/*                    YouChanged(controlledEntities[i].transform.position);
+*/
                 }
             }
             if (winEntities.Count > 0)

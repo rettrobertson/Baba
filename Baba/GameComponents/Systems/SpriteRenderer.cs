@@ -110,8 +110,8 @@ namespace Baba.GameComponents.Systems
 
             if (texture == null)
             {
-/*                Debug.WriteLine("Texture not found!");
-*/                return;
+                Debug.WriteLine("Texture not found!");
+                return;
             }
 
             int width = cameraSystem.RenderScale;
@@ -139,6 +139,8 @@ namespace Baba.GameComponents.Systems
             itemColors[ItemType.Lava] = Color.Orange;
             itemTextures[ItemType.Water] = contentManager.Load<Texture2D>("SpriteSheets/lava");
             itemColors[ItemType.Water] = Color.Blue;
+            itemTextures[ItemType.Background] = contentManager.Load<Texture2D>("SpriteSheets/wall");
+            itemColors[ItemType.Background] = Color.DarkSlateGray;
         }
 
         public void LoadWords(ContentManager contentManager)

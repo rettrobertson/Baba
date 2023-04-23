@@ -79,7 +79,7 @@ namespace Baba.GameComponents.Systems
                 {
 
                     YouChanged(controlledEntities[i].transform.position);
-                    
+
                 }
             }
             if (winEntities.Count > 0)

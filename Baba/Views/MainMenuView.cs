@@ -52,8 +52,8 @@ namespace Baba.Views
             m_fontMenuSelect = AssetManager.GetFont(Fonts.UI); //contentManager.Load<SpriteFont>("Fonts/menu-select");
 
             m_inputMouse = new MouseInput();
-            Vector2 stringSize = m_fontMenu.MeasureString("Select");
-            int y = 200;
+            Vector2 stringSize = m_fontMenu.MeasureString("Level Selector");
+            int y = 400;
             m_inputMouse.registerCommand(new ScreenButton((int)(m_graphics.PreferredBackBufferWidth / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y), false, Click.Move, new InputDeviceHelper.CommandDelegate(SetNew));
             m_inputMouse.registerCommand(new ScreenButton((int)(m_graphics.PreferredBackBufferWidth / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y), true, Click.Left, new InputDeviceHelper.CommandDelegate(OnEnter));
 

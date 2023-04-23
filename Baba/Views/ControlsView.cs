@@ -54,8 +54,8 @@ namespace Baba.Views
             m_inputKeyboard.registerCommand(Keys.S, true, new InputDeviceHelper.CommandDelegate(OnDown));
 
 
-            m_fontMenu = contentManager.Load<SpriteFont>("Fonts/menu");
-            m_fontMenuSelect = contentManager.Load<SpriteFont>("Fonts/menu-select");
+            m_fontMenu = AssetManager.GetFont(Fonts.UI); //contentManager.Load<SpriteFont>("Fonts/menu");
+            m_fontMenuSelect = AssetManager.GetFont(Fonts.UI); //contentManager.Load<SpriteFont>("Fonts/menu-select");
 
             m_inputMouse = new MouseInput();
             Vector2 stringSize = m_fontMenu.MeasureString("Up");

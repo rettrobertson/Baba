@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using Baba.Style;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -14,7 +15,7 @@ namespace Baba.Views
         public override void loadContent(ContentManager contentManager)
         {
             base.loadContent(contentManager);
-            m_font = contentManager.Load<SpriteFont>("Fonts/menu");
+            m_font = AssetManager.GetFont(Fonts.UI); //contentManager.Load<SpriteFont>("Fonts/menu");
         }
 
         public override GameStateEnum processInput(GameTime gameTime)

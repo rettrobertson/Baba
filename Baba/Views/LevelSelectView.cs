@@ -10,6 +10,7 @@ using System;
 using System.Security.Cryptography.X509Certificates;
 using System.Collections.Generic;
 using Baba.GameComponents;
+using Baba.Style;
 
 namespace Baba.Views
 {
@@ -46,8 +47,8 @@ namespace Baba.Views
             m_inputKeyboard.registerCommand(Keys.S, true, new InputDeviceHelper.CommandDelegate(OnDown));
 
 
-            m_fontMenu = contentManager.Load<SpriteFont>("Fonts/menu");
-            m_fontMenuSelect = contentManager.Load<SpriteFont>("Fonts/menu-select");
+            m_fontMenu = AssetManager.GetFont(Fonts.UI); //contentManager.Load<SpriteFont>("Fonts/menu");
+            m_fontMenuSelect = AssetManager.GetFont(Fonts.UI); //contentManager.Load<SpriteFont>("Fonts/menu-select");
             m_inputMouse = new MouseInput();
             
             int y = 200;

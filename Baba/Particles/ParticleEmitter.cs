@@ -5,21 +5,22 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 
+
 namespace Baba.Particles
 {
     public class ParticleEmitter
     {
         List<ParticleDecorator> particleDecorators;
         List<EmissionDecorator> emissionDecorators;
-        List<Particle> particles;
+        internal List<Particle> particles;
         List<Particle> deadParticles;
         TimeSpan emissionDuration;
         TimeSpan curTime;
         bool destroyOnComplete;
         bool active;
         public bool loop { get; set; }
-        Texture2D particleTexture;
-
+        internal Texture2D particleTexture;
+        
         private EmissionShape emissionShape;
         
         float minLifetime;
@@ -217,16 +218,17 @@ namespace Baba.Particles
 
         public void SetTexture(string textureName)
         {
-            //Texture2D texture = AssetManager.GetTexture(textureName);
+           Texture2D texture = AssetManager.GetTexture(textureName);
 
-            //if (texture == null)
-            //{
-            //    AssetManager.onContentLoaded += () => particleTexture = AssetManager.GetTexture(textureName);
-            //}
-            //else
-            //{
-            //    particleTexture = texture;
-            //}
+           if (texture == null)
+           {
+               AssetManager.onContentLoaded += () => particleTexture = AssetManager.GetTexture(textureName);
+           }
+            
+            else
+            {
+                particleTexture = texture;
+            }
         }
 
         public void Clear()

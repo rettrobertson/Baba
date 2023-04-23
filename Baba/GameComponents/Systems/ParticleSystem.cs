@@ -37,6 +37,17 @@ namespace Baba.GameComponents.Systems
                     WinChanged(entity.transform.position);
                 }
             }
+            else
+            {
+                if (component.GetType() == typeof(You))
+                {
+                    YouChanged(entity.transform.position);
+                }
+                if (component.GetType() == typeof(Win))
+                {
+                    WinChanged(entity.transform.position);
+                }
+            }
         }
 
         public override void Update(GameTime time)
@@ -82,6 +93,7 @@ namespace Baba.GameComponents.Systems
             ParticleEmitter emitter = ParticlePresets.MakeObjectDestroyed();
             emitter.emitLocation = position;
             emitters.Add(emitter);
+            emitter.Start();
         }
 
         public void WinChanged(Vector2 position)
@@ -89,12 +101,14 @@ namespace Baba.GameComponents.Systems
             ParticleEmitter emitter = ParticlePresets.MakeWinChange();
             emitter.emitLocation = position;
             emitters.Add(emitter);
+            emitter.Start();
         }
 
         public void WinLevel()
         {
             ParticleEmitter emitter = ParticlePresets.MakeWin();
             emitters.Add(emitter);
+            emitter.Start();
         }
 
         public void YouChanged(Vector2 position)
@@ -102,6 +116,7 @@ namespace Baba.GameComponents.Systems
             ParticleEmitter emitter = ParticlePresets.MakeYouChange();
             emitter.emitLocation = position;
             emitters.Add(emitter);
+            emitter.Start();
         }
 
         public override void Draw()
@@ -113,7 +128,24 @@ namespace Baba.GameComponents.Systems
         }
         private void Render(ParticleEmitter emitter)
         {
+            spriteBatch.Begin(blendState: emitter.blendState);
+            CameraSystem camera = CameraSystem.Instance;
 
+            Vector2 pivot = Pivot.CENTER;
+
+            for (int i = 0; i < emitter.Count; i++)
+            {
+                Particle particle = emitter.particles[i];
+                Vector2 screenPos = camera.GameToScreenPos(particle.position);
+
+                int width = (int)(camera.RenderScale * particle.size);
+                int height = (int)(camera.RenderScale * particle.size);
+
+                Vector2 offset = new Vector2(-width * pivot.X, -height * pivot.Y);
+
+                spriteBatch.Draw(emitter.particleTexture, new Rectangle((int)(screenPos.X + offset.X), (int)(screenPos.Y + offset.Y), width, height), particle.color);
+            }
+            spriteBatch.End();
         }
 
         public override void Reset()

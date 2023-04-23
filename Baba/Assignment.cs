@@ -5,7 +5,6 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using Baba.Views.SavingControls;
-using Baba.Engine;
 using Baba.GameComponents.Systems;
 
 namespace Baba
@@ -117,7 +116,7 @@ namespace Baba
 
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
+            GraphicsDevice.Clear(Color.Black);
             m_currentState.render(gameTime);
             m_currentState = m_states[m_nextStateEnum];
 

@@ -3,7 +3,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 
-namespace Baba.Engine
+namespace Baba
 {
     public class AssetManager
     {
@@ -19,6 +19,7 @@ namespace Baba.Engine
         public static void LoadContent(ContentManager content)
         {
             contentManager = content;
+            LoadTexture("baba");
             LoadTexture("Square");
             LoadTexture("Circle");
 

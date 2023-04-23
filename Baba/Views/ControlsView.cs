@@ -48,6 +48,8 @@ namespace Baba.Views
             m_inputKeyboard.registerCommand(Keys.Up, true, new InputDeviceHelper.CommandDelegate(OnUp));
             m_inputKeyboard.registerCommand(Keys.Enter, true, new InputDeviceHelper.CommandDelegate(OnEnter));
             m_inputKeyboard.registerCommand(Keys.Space, true, new InputDeviceHelper.CommandDelegate(OnEnter));
+            m_inputKeyboard.registerCommand(Keys.W, true, new InputDeviceHelper.CommandDelegate(OnUp));
+            m_inputKeyboard.registerCommand(Keys.S, true, new InputDeviceHelper.CommandDelegate(OnDown));
 
 
             m_fontMenu = contentManager.Load<SpriteFont>("Fonts/menu");

@@ -12,10 +12,13 @@ namespace Baba.GameComponents.Systems
     {
         private List<Sink> sinks;
         private List<ItemLabel> items;
+        private NewGameView view;
+
         public SinkSystem(NewGameView view) : base(view, typeof(Sink), typeof(ItemLabel))
         {
             sinks = new();
             items = new();
+            this.view = view;
         }
 
         protected override void EntityChanged(Entity entity, Component component, Entity.ComponentChange change)
@@ -64,7 +67,7 @@ namespace Baba.GameComponents.Systems
             foreach((Sink s, ItemLabel i) in temp)
             {
                 system.PlayHurt();
-                Transform t = s.entity.transform;
+                /*Transform t = s.entity.transform;
                 s.entity.RemoveAll<Component>();
                 s.entity.AddComponent(t);
                 s.entity.AddComponent(new ItemLabel(ItemType.Empty));
@@ -72,7 +75,9 @@ namespace Baba.GameComponents.Systems
                 t = i.entity.transform;
                 i.entity.RemoveAll<Component>();
                 i.entity.AddComponent(t);
-                i.entity.AddComponent(new ItemLabel(ItemType.Empty));
+                i.entity.AddComponent(new ItemLabel(ItemType.Empty));*/
+                view.ruleSystem.ReturnComponents(s.entity.RemoveAll<RuleComponent>());
+                view.ruleSystem.ReturnComponents(i.entity.RemoveAll<RuleComponent>());
             }
         }
 

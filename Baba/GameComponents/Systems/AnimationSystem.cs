@@ -13,7 +13,7 @@ namespace Baba.GameComponents.Systems
 
         private Dictionary<ItemType, Animation.Animation> itemAnimations = new Dictionary<ItemType, Animation.Animation>
         {
-            { ItemType.Baba, Animations.FLAG },
+            { ItemType.Baba, Animations.BABA },
             { ItemType.Flag, Animations.FLAG },
             { ItemType.Grass, Animations.GRASS },
             { ItemType.Hedge, Animations.HEDGE },
@@ -81,7 +81,7 @@ namespace Baba.GameComponents.Systems
                 ItemLabel itemLabel = animators[i].entity.GetComponent<ItemLabel>();
                 WordLabel wordLabel = animators[i].entity.GetComponent<WordLabel>();
 
-                if (itemLabel != null)
+                if (itemLabel != null && itemAnimations.ContainsKey(itemLabel.item))
                 {
                     animators[i].animation = itemAnimations[itemLabel.item];
                 }

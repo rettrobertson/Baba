@@ -66,7 +66,7 @@ namespace Baba.Input
                     entry.callback(gameTime, 1.0f);
                     
                 }
-                else if (!entry.keyPressOnly && state.IsKeyDown(entry.key))
+                else if (!entry.keyPressOnly && keyDown(entry.key))
                 {
                     entry.callback(gameTime, 1.0f);
                 }
@@ -85,6 +85,10 @@ namespace Baba.Input
         private bool keyPressed(Keys key)
         {
             return (Keyboard.GetState().IsKeyUp(key) && m_statePrevious.IsKeyDown(key));
+        }
+        private bool keyDown(Keys key)
+        {
+            return (Keyboard.GetState().IsKeyDown(key) && !m_statePrevious.IsKeyDown(key));
         }
     }
 }

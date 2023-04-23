@@ -77,13 +77,9 @@ namespace Baba.GameComponents.Systems
                 entity = controlledEntities[0];
                 if (passedYou != entity.GetComponent<ItemLabel>().item)
                 {
-                    passedYou = entity.GetComponent<ItemLabel>().item;
-                    for (int i = 0; i < controlledEntities.Count; i++)
-                    {
-
-                        YouChanged(controlledEntities[i].transform.position);
-                    }
-
+<<<<<<< HEAD
+                    YouChanged(controlledEntities[i].transform.position);
+                    
                 }
             }
             if (winEntities.Count > 0)
@@ -95,12 +91,30 @@ namespace Baba.GameComponents.Systems
                     for (int i = 0; i < winEntities.Count; i++)
                     {
                         WinChanged(winEntities[i].transform.position);
-		    }
-                   
+=======
+                    passedYou = entity.GetComponent<ItemLabel>().item;
+                    for (int i = 0; i < controlledEntities.Count; i++)
+                    {
+                        YouChanged(controlledEntities[i].transform.position);
+>>>>>>> 3e8b8cf136c6268a8f31e869b6d0b21eb57d049a
+
+                    }
                 }
             }
 
-           
+            if (winEntities.Count > 0)
+            {
+                entity = winEntities[0];
+                if (passedFlag != entity.GetComponent<ItemLabel>().item)
+                {
+                    passedFlag = entity.GetComponent<ItemLabel>().item;
+                    for (int i = 0; i < winEntities.Count; i++)
+                    {
+                        WinChanged(winEntities[i].transform.position);
+
+                    }
+                }
+            }
             
             //controlledEntities.Clear();
         }

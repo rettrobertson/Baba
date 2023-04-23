@@ -54,7 +54,11 @@ namespace Baba.Views
             winSystem = new(this);
 
             undoSystem.OnUndo += ruleSystem.UpdateRules;
+            undoSystem.OnUndo += animationSystem.UpdateAnimations;
+            undoSystem.OnUndo += m_renderer.UpdateSprites;
+
             ruleSystem.onTransformationsFinished += animationSystem.UpdateAnimations;
+            ruleSystem.onTransformationsFinished += m_renderer.UpdateSprites;
 
             loadTextures(contentManager);
             m_inputKeyboard = new KeyboardInput();

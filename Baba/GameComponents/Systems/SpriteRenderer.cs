@@ -4,7 +4,9 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.Reflection.Metadata;
 
 namespace Baba.GameComponents.Systems
 {
@@ -64,9 +66,31 @@ namespace Baba.GameComponents.Systems
             }
         }
         
-        public void UpdateItemType(ItemLabel itemLabel)
+        public void UpdateSprites()
         {
-            itemLabel.entity.GetComponent<Sprite>().color = itemColors[itemLabel.item];
+            for (int i = 0; i < renderEntities.Count; i++)
+            {
+                Sprite sprite = renderEntities[i];
+
+                WordLabel word = sprite.entity.GetComponent<WordLabel>();
+                ItemLabel item = sprite.entity.GetComponent<ItemLabel>();
+
+                if (word != null)
+                {
+                    sprite.color = wordColors[word.item];
+
+                    Texture2D texture = wordTextures[word.item];
+                    sprite.texture = texture;
+                    sprite.source = defaultSource;
+                }
+                else if (item != null && itemColors.ContainsKey(item.item))
+                {
+                    sprite.color = itemColors[item.item];
+                    Texture2D texture = itemTextures[item.item];
+                    sprite.texture = texture;
+                    sprite.source = defaultSource;
+                }
+            }
         }
 
         public void Render()

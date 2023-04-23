@@ -65,7 +65,9 @@ namespace Baba.GameComponents
         public List<Transform> MakeGrid(string level)
         {
             List<Transform> returnList = new();
-            (int width, int height, List<string> file) = getLength(Directory.GetCurrentDirectory() + Path.Join("..", "..", "..", "..", "levels-all.bbiy"), level);
+
+
+            (int width, int height, List<string> file) = getLength(Directory.GetCurrentDirectory() + Path.Join("..", "..", "..", "..", "levels-all.bbiy"),  level);
             for (int i = 0; i < height; i++)
             {
                 for (int j = 0; j < width; j++)
@@ -140,7 +142,22 @@ namespace Baba.GameComponents
             }
             return (width, height, file);
         }
+        public List<String> getLevels()
+        {
+            String file = Directory.GetCurrentDirectory() + Path.Join("..", "..", "..", "..", "levels-all.bbiy");
+            List <String> levels = new List<String>();
+            IEnumerable<string> lines = File.ReadLines(file);
+            foreach(string line in lines)
+            {
+                char[] chars = line.ToCharArray();
+                if (chars[0].ToString() != " "&& chars[0].ToString() != "h" && chars[0] != null && chars[0].ToString() != "2")
+                {
+                    levels.Add(line.Trim());
+                }
+            }
 
+            return levels;
+        }
         // for testing purposes
         public void TestList(List<Transform> transforms)
         {

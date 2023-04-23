@@ -100,6 +100,12 @@ namespace Baba.Views
             sinkSystem.Reset();
             winSystem.Reset();
 
+            transforms = gridMaker.MakeGrid(level[0]);
+            ruleSystem.UpdateRules();
+            state = State.Play;
+        }
+        public void resetControls()
+        {
             m_inputKeyboard.resetCommands();
             m_inputKeyboard.registerCommand(Keys.Escape, true, new InputDeviceHelper.CommandDelegate(Escape));
             m_inputKeyboard.registerCommand(controls.Controls[0], true, new InputDeviceHelper.CommandDelegate(moveUp));
@@ -108,10 +114,6 @@ namespace Baba.Views
             m_inputKeyboard.registerCommand(controls.Controls[3], true, new InputDeviceHelper.CommandDelegate(moveRight));
             m_inputKeyboard.registerCommand(controls.Controls[4], true, new InputDeviceHelper.CommandDelegate(ResetKeyPress));
             m_inputKeyboard.registerCommand(controls.Controls[5], true, new InputDeviceHelper.CommandDelegate(Undo));
-
-            transforms = gridMaker.MakeGrid(level[0]);
-            ruleSystem.UpdateRules();
-            state = State.Play;
         }
 
         public override void update(GameTime gameTime)
@@ -143,8 +145,8 @@ namespace Baba.Views
             {
                 undoSystem.ArrowKeyPress(transforms);
                 moveSystem.moveEntity(gameTime, "Up");
-                checkSystems();
                 ruleSystem.UpdateRules();
+                checkSystems();
             }
         }
         private void moveDown(GameTime gameTime, float scale)
@@ -153,8 +155,8 @@ namespace Baba.Views
             {
                 undoSystem.ArrowKeyPress(transforms);
                 moveSystem.moveEntity(gameTime, "Down");
-                checkSystems();
                 ruleSystem.UpdateRules();
+                checkSystems();
             }
         }
         private void moveLeft(GameTime gameTime, float scale)
@@ -163,8 +165,8 @@ namespace Baba.Views
             {
                 undoSystem.ArrowKeyPress(transforms);
                 moveSystem.moveEntity(gameTime, "Left");
-                checkSystems();
                 ruleSystem.UpdateRules();
+                checkSystems();
             }
         }
         private void moveRight(GameTime gameTime, float scale)
@@ -173,8 +175,8 @@ namespace Baba.Views
             {
                 undoSystem.ArrowKeyPress(transforms);
                 moveSystem.moveEntity(gameTime, "Right");
-                checkSystems();
                 ruleSystem.UpdateRules();
+                checkSystems();
             }
         }
         private void Undo(GameTime gameTime, float scale)

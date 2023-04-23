@@ -55,6 +55,12 @@
 /processorParam:Quality=Best
 /build:Audio/Sounds/level-two.mp3
 
+#begin Audio/Sounds/menu-bump.mp3
+/importer:Mp3Importer
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Sounds/menu-bump.mp3
+
 #begin Audio/Sounds/menu.mp3
 /importer:Mp3Importer
 /processor:SoundEffectProcessor

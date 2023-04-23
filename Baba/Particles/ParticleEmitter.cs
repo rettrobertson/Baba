@@ -11,14 +11,14 @@ namespace Baba.Particles
     {
         List<ParticleDecorator> particleDecorators;
         List<EmissionDecorator> emissionDecorators;
-        List<Particle> particles;
+        internal List<Particle> particles;
         List<Particle> deadParticles;
         TimeSpan emissionDuration;
         TimeSpan curTime;
         bool destroyOnComplete;
         bool active;
         public bool loop { get; set; }
-        Texture2D particleTexture;
+        internal Texture2D particleTexture;
 
         private EmissionShape emissionShape;
         

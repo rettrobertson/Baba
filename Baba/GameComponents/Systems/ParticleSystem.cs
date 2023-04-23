@@ -37,6 +37,17 @@ namespace Baba.GameComponents.Systems
                     WinChanged(entity.transform.position);
                 }
             }
+            else
+            {
+                if (component.GetType() == typeof(You))
+                {
+                    YouChanged(entity.transform.position);
+                }
+                if (component.GetType() == typeof(Win))
+                {
+                    WinChanged(entity.transform.position);
+                }
+            }
         }
 
         public override void Update(GameTime time)
@@ -113,7 +124,24 @@ namespace Baba.GameComponents.Systems
         }
         private void Render(ParticleEmitter emitter)
         {
+            spriteBatch.Begin(blendState: emitter.blendState);
+            CameraSystem camera = CameraSystem.Instance;
 
+            Vector2 pivot = Pivot.CENTER;
+
+            for (int i = 0; i < emitter.Count; i++)
+            {
+                Particle particle = emitter.particles[i];
+                Vector2 screenPos = camera.GameToScreenPos(particle.position);
+
+                int width = (int)(camera.RenderScale * particle.size);
+                int height = (int)(camera.RenderScale * particle.size);
+
+                Vector2 offset = new Vector2(-width * pivot.X, -height * pivot.Y);
+
+                spriteBatch.Draw(emitter.particleTexture, new Rectangle((int)(screenPos.X + offset.X), (int)(screenPos.Y + offset.Y), width, height), particle.color);
+            }
+            spriteBatch.End();
         }
 
         public override void Reset()

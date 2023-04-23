@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Baba.Style;
+using Microsoft.Xna.Framework.Audio;
 
 namespace Baba.Views
 {
@@ -37,6 +38,8 @@ namespace Baba.Views
             Undo = 5
         }
         private ControlsState m_currentSelection = ControlsState.Up;
+        private ControlsState prevSelection;
+        private SoundEffect effect;
 
         private const string MESSAGE = "Use arrow keys to play the game, and esc to pause. \n     r will reset the scores on highscores page";
 
@@ -86,6 +89,8 @@ namespace Baba.Views
             m_inputMouse.registerCommand(new ScreenButton((int)(m_graphics.PreferredBackBufferWidth / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y), true, Click.Left, new InputDeviceHelper.CommandDelegate(OnEnter));
 
             m_inputGamePad = new GamePadInput(PlayerIndex.One);
+
+            effect = AssetManager.GetSound("menu-bump");
         }
 
         public override GameStateEnum processInput(GameTime gameTime)
@@ -113,11 +118,16 @@ namespace Baba.Views
             m_inputKeyboard.Update(gameTime);
             m_inputMouse.Update(gameTime);
             m_inputGamePad.Update(gameTime);
+            if (prevSelection != m_currentSelection)
+            {
+                effect.Play();
+            }
+            prevSelection = m_currentSelection;
             //if return enum changed we'll go to the new view
-            
-            
-           
-            
+
+
+
+
 
             return GameStateEnum.Controls;
         }

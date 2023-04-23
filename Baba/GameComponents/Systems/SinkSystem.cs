@@ -48,7 +48,7 @@ namespace Baba.GameComponents.Systems
             }
         }
         
-        public void Check()
+        public void Check(AudioSystem system)
         {
             List<(Sink, ItemLabel)> temp = new List<(Sink, ItemLabel)>();
             foreach (ItemLabel item in items)

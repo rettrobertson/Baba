@@ -43,7 +43,7 @@ namespace Baba.GameComponents.Systems
             }
         }
 
-        public void Check()
+        public void Check(AudioSystem system)
         {
             List<You> temp = new List<You>();
             foreach (You y in yous)

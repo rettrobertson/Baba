@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
 
+
 namespace Baba.Particles
 {
     public class ParticleEmitter
@@ -19,7 +20,7 @@ namespace Baba.Particles
         bool active;
         public bool loop { get; set; }
         internal Texture2D particleTexture;
-
+        
         private EmissionShape emissionShape;
         
         float minLifetime;
@@ -223,6 +224,7 @@ namespace Baba.Particles
             {
                 AssetManager.onContentLoaded += () => particleTexture = AssetManager.GetTexture(textureName);
             }
+
             else
             {
                 particleTexture = texture;

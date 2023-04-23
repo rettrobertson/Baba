@@ -25,8 +25,10 @@ namespace Baba.Views
         private List<String> MenuState = new List<String>();
         private List<Action<GameTime, float>> lambdaList = new List<Action<GameTime, float>>();
         private int m_currentSelectionInt;
-        private string m_currentSelection;
         
+        private String m_currentSelection;
+        private String prevSelection;
+        private SoundEffect effect;
             
         public override void loadContent(ContentManager contentManager)
         {
@@ -65,30 +67,37 @@ namespace Baba.Views
                 });
                 m_inputMouse.registerCommand(new ScreenButton((int)(m_graphics.PreferredBackBufferWidth / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y), false, Click.Move, new InputDeviceHelper.CommandDelegate(lambdaList[i]));
                 m_inputMouse.registerCommand(new ScreenButton((int)(m_graphics.PreferredBackBufferWidth / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y), true, Click.Left, new InputDeviceHelper.CommandDelegate(OnEnter));
+
+                effect = AssetManager.GetSound("menu-bump");
             }
-           
-            
-
-           
-            
-            
-           /* stringSize = m_fontMenu.MeasureString("Main Menu");
-            y += (int)stringSize.Y;
-            m_inputMouse.registerCommand(new ScreenButton((int)(m_graphics.PreferredBackBufferWidth / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y), false, Click.Move, new InputDeviceHelper.CommandDelegate(SetMenu));
-            m_inputMouse.registerCommand(new ScreenButton((int)(m_graphics.PreferredBackBufferWidth / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y), true, Click.Left, new InputDeviceHelper.CommandDelegate(OnEnter));
 
 
-            stringSize = m_fontMenu.MeasureString("Quit");
-            y += (int)stringSize.Y;
-            m_inputMouse.registerCommand(new ScreenButton((int)(m_graphics.PreferredBackBufferWidth / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y), false, Click.Move, new InputDeviceHelper.CommandDelegate(SetQuit));
-            m_inputMouse.registerCommand(new ScreenButton((int)(m_graphics.PreferredBackBufferWidth / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y), true, Click.Left, new InputDeviceHelper.CommandDelegate(OnEnter));
-            */
+
+
+
+
+            /* stringSize = m_fontMenu.MeasureString("Main Menu");
+             y += (int)stringSize.Y;
+             m_inputMouse.registerCommand(new ScreenButton((int)(m_graphics.PreferredBackBufferWidth / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y), false, Click.Move, new InputDeviceHelper.CommandDelegate(SetMenu));
+             m_inputMouse.registerCommand(new ScreenButton((int)(m_graphics.PreferredBackBufferWidth / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y), true, Click.Left, new InputDeviceHelper.CommandDelegate(OnEnter));
+
+
+             stringSize = m_fontMenu.MeasureString("Quit");
+             y += (int)stringSize.Y;
+             m_inputMouse.registerCommand(new ScreenButton((int)(m_graphics.PreferredBackBufferWidth / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y), false, Click.Move, new InputDeviceHelper.CommandDelegate(SetQuit));
+             m_inputMouse.registerCommand(new ScreenButton((int)(m_graphics.PreferredBackBufferWidth / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y), true, Click.Left, new InputDeviceHelper.CommandDelegate(OnEnter));
+             */
             //m_inputGamePad = new GamePadInput(PlayerIndex.One);
         }
         public override GameStateEnum processInput(GameTime gameTime)
         {
             m_inputKeyboard.Update(gameTime);
             m_inputMouse.Update(gameTime);
+            if (prevSelection != m_currentSelection)
+            {
+                effect.Play();
+            }
+            prevSelection = m_currentSelection;
             //m_inputGamePad.Update(gameTime);
             //if return enum changed we'll go to the new view
             GameStateEnum temp = returnEnum;

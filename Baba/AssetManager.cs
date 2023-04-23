@@ -47,7 +47,21 @@ namespace Baba
             LoadTexture("word-win");
             LoadTexture("word-you");
 
+
             LoadFont("RetroGaming");
+
+            LoadSound("menu");
+            LoadSound("level-one");
+            LoadSound("level-two");
+            LoadSound("level-three");
+            LoadSound("level-four");
+            LoadSound("level-five");
+
+            LoadSound("win");
+            LoadSound("move");
+            LoadSound("hurt");
+            LoadSound("change");
+            LoadSound("menu-bump");
 
             onContentLoaded?.Invoke();
         }

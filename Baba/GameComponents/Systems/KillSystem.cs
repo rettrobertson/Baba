@@ -13,10 +13,13 @@ namespace Baba.GameComponents.Systems
     {
         private List<Kill> kills;
         private List<You> yous;
+        private NewGameView view;
+
         public KillSystem(NewGameView view) : base(view, typeof(Kill), typeof(You))
         {
             kills = new();
             yous = new();
+            this.view = view;
         }
         protected override void EntityChanged(Entity entity, Component component, Entity.ComponentChange change)
         {
@@ -60,10 +63,7 @@ namespace Baba.GameComponents.Systems
             }
             foreach(You y in temp)
             {
-                Transform t = y.entity.transform;
-                y.entity.RemoveAll<Component>();
-                y.entity.AddComponent(t);
-                y.entity.AddComponent(new ItemLabel(ItemType.Empty));
+                view.ruleSystem.ReturnComponents(y.entity.RemoveAll<RuleComponent>());
             }
         }
 

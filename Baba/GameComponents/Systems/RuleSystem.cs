@@ -197,6 +197,14 @@ namespace Baba.GameComponents.Systems
             }
         }
 
+        public void ReturnComponents<T>(List<T> components) where T : RuleComponent
+        {
+            foreach (var component in components)
+            {
+                objectPools[component.GetType()].ReturnObject(component);
+            }
+        }
+
         private void PerformTransformations()
         {
             bool transformed = false;

@@ -28,7 +28,7 @@ namespace Baba.Views
         protected SpriteRenderer m_renderer;
         public ComponentRouterSystem router;
         private AnimationSystem animationSystem;
-        private RuleSystem ruleSystem;
+        public RuleSystem ruleSystem;
         private MoveSystem moveSystem;
         private UndoSystem undoSystem;
         private KillSystem killSystem;
@@ -113,6 +113,7 @@ namespace Baba.Views
             ruleSystem.UpdateRules();
             state = State.Play;
         }
+
         public override void update(GameTime gameTime)
         {
             animationSystem.Update(gameTime);

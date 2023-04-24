@@ -22,10 +22,13 @@ namespace Baba.GameComponents.Systems
         private SpriteBatch m_spriteBatch;
 
         private List<Sprite> renderEntities;
+        private HashSet<uint> frontEntities = new HashSet<uint>();
+        private HashSet<uint> backEntities = new HashSet<uint>();
+        
         private GameStateView view;
         CameraSystem cameraSystem;
 
-        public SpriteRenderer(NewGameView view, GraphicsDevice graphics) : base(view, typeof(ItemLabel), typeof(WordLabel))
+        public SpriteRenderer(NewGameView view, GraphicsDevice graphics) : base(view, typeof(ItemLabel), typeof(WordLabel), typeof(Push), typeof(You))
         {
             cameraSystem = CameraSystem.Instance;
             m_spriteBatch = new SpriteBatch(graphics);
@@ -35,6 +38,20 @@ namespace Baba.GameComponents.Systems
 
         protected override void EntityChanged(Entity entity, Component component, Entity.ComponentChange change)
         {
+
+            if (component.GetType() == typeof(Push) || component.GetType() == typeof(You)) // This won't work if items can have more than one attribute in the rules
+            {
+                if (change == Entity.ComponentChange.ADD)
+                {
+                    frontEntities.Add(entity.id);
+                }
+                else
+                {
+                    frontEntities.Remove(entity.id);
+                }
+                return;
+            }
+
             if (change == Entity.ComponentChange.ADD)
             {
                 Sprite sprite = new Sprite();
@@ -58,6 +75,11 @@ namespace Baba.GameComponents.Systems
                     Texture2D texture = itemTextures[item.item];
                     sprite.texture = texture;
                     sprite.source = defaultSource;
+                }
+                
+                if (item != null && item.item == ItemType.Background)
+                {
+                    backEntities.Add(entity.id);
                 }
             }
             else
@@ -95,7 +117,7 @@ namespace Baba.GameComponents.Systems
 
         public void Render()
         {
-            m_spriteBatch.Begin(samplerState: SamplerState.PointClamp);
+            m_spriteBatch.Begin(samplerState: SamplerState.PointClamp, sortMode: SpriteSortMode.BackToFront);
             for (int i = 0; i < renderEntities.Count; i++)
             {
                 Render(renderEntities[i]);
@@ -117,7 +139,17 @@ namespace Baba.GameComponents.Systems
             int width = cameraSystem.RenderScale;
             int height = cameraSystem.RenderScale;
 
-            m_spriteBatch.Draw(texture, new Rectangle((int)screenPos.X, (int)screenPos.Y, width, height), sprite.source, sprite.color);
+            float layer = .5f;
+            if (backEntities.Contains(sprite.entity.id))
+            {
+                layer = 1;
+            }
+            else if (frontEntities.Contains(sprite.entity.id))
+            {
+                layer = 0;
+            }
+
+            m_spriteBatch.Draw(texture, new Rectangle((int)screenPos.X, (int)screenPos.Y, width, height), sprite.source, sprite.color, 0, Vector2.Zero, SpriteEffects.None, layer);
         }
 
 
@@ -193,6 +225,8 @@ namespace Baba.GameComponents.Systems
         public override void Reset()
         {
             renderEntities.Clear();
+            frontEntities.Clear();
+            backEntities.Clear();
         }
     }
 }

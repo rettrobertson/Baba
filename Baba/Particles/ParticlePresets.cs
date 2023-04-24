@@ -39,7 +39,7 @@ namespace Baba.Particles
             emitter.ScheduleBurst(0, 1000);
             emitter.AddDecorator(new ColorOverLifetime(Gradient.FadeInOut(Color.Yellow)));
             emitter.AddDecorator(new InitialRadialVelocity(0, 360, .1f, .2f));
-            emitter.AddDecorator(new InitialSize(0.1f, 0.2f));
+            emitter.AddDecorator(new InitialSize(0.07f, 0.1f));
             emitter.blendState = BlendState.NonPremultiplied;
             emitter.SetLifetime(1);
             emitter.SetEmissionShape(new RectangleEmitter(new EmissionTypes.Rectangle(0, 0, 1, 1), EmissionShape.EmitType.EDGE));

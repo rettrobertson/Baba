@@ -26,7 +26,7 @@ namespace Baba.GameComponents.Systems
         List<Entity> winEntities;
         private Stopwatch particleTimer;
         private bool isWin = false;
-
+        public event Action onFirework;
 
         public ParticleSystem(NewGameView view, GraphicsDevice graphics) : base(view, typeof(You), typeof(Win))
         {
@@ -178,7 +178,7 @@ namespace Baba.GameComponents.Systems
 
             emitter.emitLocation = new Vector2(random.Next(1, 20), random.Next(1, 20));
             emitter.Start();
-            
+            onFirework?.Invoke();
         }
 
         public void YouChanged(Vector2 position)

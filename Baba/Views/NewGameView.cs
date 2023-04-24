@@ -80,7 +80,7 @@ namespace Baba.Views
             
             particleSystem = new ParticleSystem(this, m_graphics.GraphicsDevice);
             particleSystem.winChangedAudio += audioSystem.PlayChange;
-
+            particleSystem.onFireworks += audioSystem.PlayFirework;
         }
 
         public override GameStateEnum processInput(GameTime gameTime)

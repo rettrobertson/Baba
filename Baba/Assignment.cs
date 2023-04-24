@@ -48,8 +48,8 @@ namespace Baba
             {
                 Keys[] controlList = new Keys[6];
                 controlList[0] = Keys.W;
-                controlList[1] = Keys.A;
-                controlList[2] = Keys.S;
+                controlList[1] = Keys.S;
+                controlList[2] = Keys.A;
                 controlList[3] = Keys.D;
                 controlList[4] = Keys.R;
                 controlList[5] = Keys.Z;

@@ -78,7 +78,7 @@ namespace Baba.Views
             m_inputKeyboard.registerCommand(controls.Controls[5], false, new InputDeviceHelper.CommandDelegate(Undo));
             
             particleSystem = new ParticleSystem(this, m_graphics.GraphicsDevice);
-            
+            particleSystem.winChangedAudio += audioSystem.PlayChange;
         }
 
         public override GameStateEnum processInput(GameTime gameTime)
@@ -160,6 +160,7 @@ namespace Baba.Views
             animationSystem.UpdateAnimations();
             m_renderer.UpdateSprites();
             ruleSystem.UpdateRules();
+            audioSystem.PlayHurt();
         }
 
         private void loadTextures(ContentManager contentManager)

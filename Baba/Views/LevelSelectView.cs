@@ -30,6 +30,7 @@ namespace Baba.Views
         private String m_currentSelection;
         private String prevSelection;
         private SoundEffect effect;
+        private SoundEffect enter;
             
         public override void loadContent(ContentManager contentManager)
         {
@@ -70,6 +71,7 @@ namespace Baba.Views
                 m_inputMouse.registerCommand(new ScreenButton((int)(m_graphics.PreferredBackBufferWidth / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y), true, Click.Left, new InputDeviceHelper.CommandDelegate(OnEnter));
 
                 effect = AssetManager.GetSound("menu-bump");
+                enter = AssetManager.GetSound("enter");
             }
 
 
@@ -137,7 +139,7 @@ namespace Baba.Views
             m_spriteBatch.DrawString(
                 font,
                 text,
-                new Vector2(m_graphics.PreferredBackBufferWidth / 2 - stringSize.X / 2, y),
+                new Vector2(m_graphics.GraphicsDevice.Viewport.Width /*PreferredBackBufferWidth*/ / 2 - stringSize.X / 2, y),
                 color);
 
             return y + stringSize.Y;
@@ -184,6 +186,7 @@ namespace Baba.Views
         {  
             returnEnum =GameStateEnum.GamePlay;
             level[0] = MenuState[m_currentSelectionInt];
+            enter.Play();
         }
         #endregion
     }

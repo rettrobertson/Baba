@@ -13,6 +13,7 @@ namespace Baba.GameComponents.Systems
 {
     public class ParticleSystem : System
     {
+        public event Action winChangedAudio;
 
         List<ParticleEmitter> emitters;
 
@@ -109,6 +110,7 @@ namespace Baba.GameComponents.Systems
                     for (int i = 0; i < winEntities.Count; i++)
                     {
                         WinChanged(winEntities[i].transform.position);
+                        winChangedAudio?.Invoke();
 		            }
                    
                 }

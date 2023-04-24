@@ -22,6 +22,7 @@ namespace Baba.Views
         private GameStateEnum returnEnum = GameStateEnum.MainMenu;
         private MenuState prevEnum = MenuState.LevelSelect;
         private SoundEffect effect;
+        private SoundEffect enter;
 
         //enum for the different menus, borrowed from startercode
         private enum MenuState
@@ -75,6 +76,7 @@ namespace Baba.Views
             m_inputGamePad = new GamePadInput(PlayerIndex.One);
 
             effect = AssetManager.GetSound("menu-bump");
+            enter = AssetManager.GetSound("enter");
         }
         public override GameStateEnum processInput(GameTime gameTime)
         {
@@ -101,7 +103,7 @@ namespace Baba.Views
             m_spriteBatch.Begin(samplerState:SamplerState.PointClamp);
 
             Vector2 stringSize = m_fontMenu.MeasureString("-- BABA IS YOU --") * 1.6f;
-            m_spriteBatch.DrawString(m_fontMenu, "-- BABA IS YOU --", new Vector2(m_graphics.PreferredBackBufferWidth / 2 - stringSize.X / 2, 100), Colors.title, 0, Vector2.Zero, 1.6f, SpriteEffects.None, 0);
+            m_spriteBatch.DrawString(m_fontMenu, "-- BABA IS YOU --", new Vector2(m_graphics.GraphicsDevice.Viewport.Width /*m_graphics.PreferredBackBufferWidth*/ / 2 - stringSize.X / 2, 100), Colors.title, 0, Vector2.Zero, 1.6f, SpriteEffects.None, 0);
 
             // I split the first one's parameters on separate lines to help you see them better
             float bottom = DrawMenuItem(
@@ -124,7 +126,7 @@ namespace Baba.Views
             m_spriteBatch.DrawString(
                 font,
                 text,
-                new Vector2(m_graphics.PreferredBackBufferWidth / 2 - stringSize.X / 2, y),
+                new Vector2(m_graphics.GraphicsDevice.Viewport.Width /*m_graphics.PreferredBackBufferWidth*/ / 2 - stringSize.X / 2, y),
                 color);
 
             return y + stringSize.Y;
@@ -188,6 +190,7 @@ namespace Baba.Views
                     returnEnum = GameStateEnum.Exit;
                     break;
             }
+            enter.Play();
         }
         #endregion
     }

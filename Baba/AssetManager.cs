@@ -64,6 +64,15 @@ namespace Baba
             LoadSound("menu-bump");
             LoadSound("enter");
 
+            LoadSound("firework-1");
+            LoadSound("firework-2");
+            LoadSound("firework-3");
+            LoadSound("firework-4");
+            LoadSound("firework-5");
+            LoadSound("firework-6");
+            LoadSound("firework-7");
+
+
             onContentLoaded?.Invoke();
         }
 

@@ -14,7 +14,7 @@ namespace Baba.GameComponents.Systems
     public class ParticleSystem : System
     {
         public event Action winChangedAudio;
-
+        public event Action onFireworks;
         List<ParticleEmitter> emitters;
 
         private SpriteBatch spriteBatch;
@@ -177,6 +177,7 @@ namespace Baba.GameComponents.Systems
 
             emitter.emitLocation = new Vector2(random.Next(1, 20), random.Next(1, 20));
             emitter.Start();
+            onFireworks?.Invoke();
         }
 
         public void YouChanged(Vector2 position)

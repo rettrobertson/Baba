@@ -12,10 +12,10 @@ namespace Baba.GameComponents.Systems
     public class AudioSystem : System
     {
         SoundEffectInstance change;
-        SoundEffectInstance move;
+        SoundEffect move;
         SoundEffectInstance hurt;
         SoundEffectInstance win;
-        SoundEffectInstance firework;
+        SoundEffect firework;
 
         SoundEffectInstance level_one;
         SoundEffectInstance level_two;
@@ -23,6 +23,8 @@ namespace Baba.GameComponents.Systems
         SoundEffectInstance level_four;
         SoundEffectInstance level_five;
         SoundEffectInstance everything_else;
+
+        Random random;
 
         public AudioSystem(NewGameView view) : base(view)
         {
@@ -41,10 +43,11 @@ namespace Baba.GameComponents.Systems
             everything_else.Volume = .6f;
 
             win = AssetManager.GetSound("win").CreateInstance();
-            move = AssetManager.GetSound("move").CreateInstance();
+            move = AssetManager.GetSound("move");
             hurt = AssetManager.GetSound("hurt").CreateInstance();
             change = AssetManager.GetSound("change").CreateInstance();
-            firework = AssetManager.GetSound("firework").CreateInstance();
+            firework = AssetManager.GetSound("firework");
+            random = new Random();
         }
 
         public void PlayHurt()
@@ -65,7 +68,7 @@ namespace Baba.GameComponents.Systems
         }
         public void PlayFirework()
         {
-            firework.Play();
+            firework.Play(0.3f, random.NextSingle() / 4, random.NextSingle() * 2 - 1);
         }
         public void StartBGM(string level)
         {
@@ -105,11 +108,10 @@ namespace Baba.GameComponents.Systems
             level_three.Stop();
             level_four.Stop();
             level_five.Stop();
+
             change.Stop();
-            move.Stop();
             win.Stop();
             hurt.Stop();
-            firework.Stop();
         }
 
         public override void Update(GameTime time)

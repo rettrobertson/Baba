@@ -66,6 +66,7 @@ namespace Baba.Views
             ruleSystem.onTransformationsFinished += animationSystem.UpdateAnimations;
             ruleSystem.onTransformationsFinished += m_renderer.UpdateSprites;
 
+
             loadTextures(contentManager);
             m_inputKeyboard = new KeyboardInput();
             m_inputKeyboard.registerCommand(Keys.Escape, true, new InputDeviceHelper.CommandDelegate(Escape));
@@ -79,6 +80,8 @@ namespace Baba.Views
             
             particleSystem = new ParticleSystem(this, m_graphics.GraphicsDevice);
             particleSystem.winChangedAudio += audioSystem.PlayChange;
+            particleSystem.onFirework += audioSystem.PlayFirework;
+
         }
 
         public override GameStateEnum processInput(GameTime gameTime)

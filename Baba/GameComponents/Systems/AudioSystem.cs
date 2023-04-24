@@ -16,7 +16,7 @@ namespace Baba.GameComponents.Systems
         SoundEffect move;
         SoundEffect hurt;
         SoundEffectInstance win;
-        List<SoundEffect> fireworks;
+        List<SoundEffectInstance> fireworks;
 
         SoundEffectInstance level_one;
         SoundEffectInstance level_two;
@@ -45,21 +45,23 @@ namespace Baba.GameComponents.Systems
             level_four.Volume = .6f;
             level_five.Volume = .6f;
             everything_else.Volume = .6f;
-            win.Volume = .05f;
+            win.Volume = .1f;
 
             move = AssetManager.GetSound("move");
             hurt = AssetManager.GetSound("hurt");
             change = AssetManager.GetSound("change");
 
             fireworks = new();
-            fireworks.Add(AssetManager.GetSound("firework-1"));
-            fireworks.Add(AssetManager.GetSound("firework-2"));
-            fireworks.Add(AssetManager.GetSound("firework-3"));
-            fireworks.Add(AssetManager.GetSound("firework-4"));
-            fireworks.Add(AssetManager.GetSound("firework-5"));
-            fireworks.Add(AssetManager.GetSound("firework-6"));
-            fireworks.Add(AssetManager.GetSound("firework-7"));
-
+            for (int i = 0; i < 10; i++)
+            {
+                fireworks.Add(AssetManager.GetSound("firework-1").CreateInstance());
+                fireworks.Add(AssetManager.GetSound("firework-2").CreateInstance());
+                fireworks.Add(AssetManager.GetSound("firework-3").CreateInstance());
+                fireworks.Add(AssetManager.GetSound("firework-4").CreateInstance());
+                fireworks.Add(AssetManager.GetSound("firework-5").CreateInstance());
+                fireworks.Add(AssetManager.GetSound("firework-6").CreateInstance());
+                fireworks.Add(AssetManager.GetSound("firework-7").CreateInstance());
+            }
             escape = AssetManager.GetSound("escape");
 
             random = new Random();
@@ -75,6 +77,7 @@ namespace Baba.GameComponents.Systems
         }
         public void PlayVictory()
         {
+            win.IsLooped = true;
             win.Play();
         }
         public void PlayChange()
@@ -83,7 +86,18 @@ namespace Baba.GameComponents.Systems
         }
         public void PlayFirework()
         {
-            fireworks[random.Next(0, fireworks.Count)].Play(0.3f, random.NextSingle() / 4, random.NextSingle() * 2 - 1);
+            fireworks[random.Next(0, fireworks.Count)].Play(/*0.3f, random.NextSingle() / 4, random.NextSingle() * 2 - 1*/);
+        }
+        public void StopFireworks()
+        {
+            foreach(SoundEffectInstance i in fireworks)
+            {
+                i.Stop();
+            }
+        }
+        public void StopWin()
+        {
+            win.Stop();
         }
 
         public void PlayEscape()
@@ -129,6 +143,7 @@ namespace Baba.GameComponents.Systems
             level_four.Stop();
             level_five.Stop();
 
+            StopFireworks();
             win.Stop();
         }
 

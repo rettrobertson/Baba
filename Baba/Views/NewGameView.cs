@@ -243,6 +243,8 @@ namespace Baba.Views
         }
         private void ResetKeyPress(GameTime gameTime, float scale)
         {
+            audioSystem.StopFireworks();
+            audioSystem.StopWin();
             audioSystem.PlayEscape();
             reset();
         }

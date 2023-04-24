@@ -63,6 +63,7 @@ namespace Baba
             LoadSound("change");
             LoadSound("menu-bump");
             LoadSound("enter");
+            LoadSound("escape");
 
             LoadSound("firework-1");
             LoadSound("firework-2");

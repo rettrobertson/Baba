@@ -25,6 +25,12 @@
 /processorParam:Quality=Best
 /build:Audio/Sounds/enter.mp3
 
+#begin Audio/Sounds/escape.ogg
+/importer:OggImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Audio/Sounds/escape.ogg
+
 #begin Audio/Sounds/firework-1.mp3
 /importer:Mp3Importer
 /processor:SoundEffectProcessor

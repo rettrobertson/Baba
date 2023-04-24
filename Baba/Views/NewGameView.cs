@@ -116,9 +116,11 @@ namespace Baba.Views
             sinkSystem.Reset();
             winSystem.Reset();
             audioSystem.StartBGM(level[0]);
-            particleSystem.reset();
+            particleSystem.Reset();
             transforms = gridMaker.MakeGrid(level[0]);
+            
             ruleSystem.UpdateRules();
+           
             
             state = State.Play;
         }
@@ -153,8 +155,10 @@ namespace Baba.Views
         {
             for (int i = 0; i < entities.Length; i++)
             {
+                particleSystem.ObjectDestroyed(entities[i].transform.position);
                 ruleSystem.ReturnComponents(entities[i].RemoveAll<RuleComponent>());
                 entities[i].GetComponent<ItemLabel>().item = ItemType.Empty;
+                
             }
 
             animationSystem.UpdateAnimations();
@@ -227,7 +231,7 @@ namespace Baba.Views
         {
             if (state == State.Play)
             {
-                moveSystem.Reset();
+                moveSystem.UndoReset();
                 undoSystem.UndoKeyPress(transforms);
             }
         }

@@ -20,7 +20,9 @@ namespace Baba.Particles
             emitter.ScheduleBurst(0, 1000);
             emitter.AddDecorator(new ColorOverLifetime(Gradient.FadeInOut(randomColor)));
             emitter.SetEmissionShape(new PointEmitter(EmissionShape.EmitType.AREA));
+
             emitter.AddDecorator(new InitialRadialVelocity(0, 360, .1f, .2f));
+            
             emitter.AddDecorator(new InitialSize(0.1f, 0.2f));
             emitter.SetTexture("Square");
             emitter.SetLifetime(5);

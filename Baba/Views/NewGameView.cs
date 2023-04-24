@@ -153,6 +153,7 @@ namespace Baba.Views
 
         public void KillEntities(params Entity[] entities)
         {
+            moveSystem.resetControlled();
             for (int i = 0; i < entities.Length; i++)
             {
                 particleSystem.ObjectDestroyed(entities[i].transform.position);
@@ -164,6 +165,7 @@ namespace Baba.Views
             animationSystem.UpdateAnimations();
             m_renderer.UpdateSprites();
             ruleSystem.UpdateRules();
+            
             audioSystem.PlayHurt();
         }
 

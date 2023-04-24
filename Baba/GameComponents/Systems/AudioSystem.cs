@@ -47,7 +47,6 @@ namespace Baba.GameComponents.Systems
             move = AssetManager.GetSound("move");
             hurt = AssetManager.GetSound("hurt").CreateInstance();
             change = AssetManager.GetSound("change").CreateInstance();
-            firework = AssetManager.GetSound("firework");
             random = new Random();
         }
 

@@ -63,6 +63,7 @@ namespace Baba
             LoadSound("change");
             LoadSound("menu-bump");
             LoadSound("enter");
+            LoadSound("firework");
 
             onContentLoaded?.Invoke();
         }

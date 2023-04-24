@@ -15,6 +15,8 @@ namespace Baba.GameComponents.Systems
         SoundEffectInstance move;
         SoundEffectInstance hurt;
         SoundEffectInstance win;
+        SoundEffectInstance firework;
+
         SoundEffectInstance level_one;
         SoundEffectInstance level_two;
         SoundEffectInstance level_three;
@@ -42,6 +44,7 @@ namespace Baba.GameComponents.Systems
             move = AssetManager.GetSound("move").CreateInstance();
             hurt = AssetManager.GetSound("hurt").CreateInstance();
             change = AssetManager.GetSound("change").CreateInstance();
+            firework = AssetManager.GetSound("firework").CreateInstance();
         }
 
         public void PlayHurt()
@@ -59,6 +62,10 @@ namespace Baba.GameComponents.Systems
         public void PlayChange()
         {
             change.Play();
+        }
+        public void PlayFirework()
+        {
+            firework.Play();
         }
         public void StartBGM(string level)
         {
@@ -102,6 +109,7 @@ namespace Baba.GameComponents.Systems
             move.Stop();
             win.Stop();
             hurt.Stop();
+            firework.Stop();
         }
 
         public override void Update(GameTime time)

@@ -25,12 +25,6 @@
 /processorParam:Quality=Best
 /build:Audio/Sounds/enter.mp3
 
-#begin Audio/Sounds/firework.mp3
-/importer:Mp3Importer
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:Audio/Sounds/firework.mp3
-
 #begin Audio/Sounds/hurt.ogg
 /importer:OggImporter
 /processor:SoundEffectProcessor
@@ -85,11 +79,11 @@
 /processorParam:Quality=Best
 /build:Audio/Sounds/move.ogg
 
-#begin Audio/Sounds/win.ogg
-/importer:OggImporter
+#begin Audio/Sounds/win.mp3
+/importer:Mp3Importer
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Audio/Sounds/win.ogg
+/build:Audio/Sounds/win.mp3
 
 #begin Fonts/menu-select.spritefont
 /importer:FontDescriptionImporter

@@ -189,7 +189,7 @@ namespace Baba.GameComponents.Systems
                 }
             }
         }
-        private void resetControlled()
+        public void resetControlled()
         {
             controlledEntities.Clear();
         }

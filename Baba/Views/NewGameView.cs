@@ -7,6 +7,8 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Input;
 using System.Collections.Generic;
 using Baba.Views.SavingControls;
+using System.Diagnostics;
+
 namespace Baba.Views
 {
     public class NewGameView : GameStateView
@@ -34,6 +36,7 @@ namespace Baba.Views
         private WinSystem winSystem;
         private AudioSystem audioSystem;
         private ParticleSystem particleSystem;
+        
 
         public NewGameView(ref GameState controls)
         {
@@ -75,6 +78,7 @@ namespace Baba.Views
             m_inputKeyboard.registerCommand(controls.Controls[5], false, new InputDeviceHelper.CommandDelegate(Undo));
             
             particleSystem = new ParticleSystem(this, m_graphics.GraphicsDevice);
+            
         }
 
         public override GameStateEnum processInput(GameTime gameTime)
@@ -115,6 +119,7 @@ namespace Baba.Views
             particleSystem.reset();
             transforms = gridMaker.MakeGrid(level[0]);
             ruleSystem.UpdateRules();
+            
             state = State.Play;
         }
         public void resetControls()
@@ -133,6 +138,7 @@ namespace Baba.Views
         {
             animationSystem.Update(gameTime);
             particleSystem.Update(gameTime);
+           
         }
 
         public override void render(GameTime gameTime)
@@ -236,8 +242,11 @@ namespace Baba.Views
             sinkSystem.Check(audioSystem);
             if (winSystem.Win())
             {
+                
+
                 state = State.StartParticle;
-                particleSystem.WinLevel();
+                particleSystem.setIsWin();
+               
             }
         }
         #endregion

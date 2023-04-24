@@ -25,6 +25,8 @@ namespace Baba.GameComponents.Systems
         SoundEffectInstance level_five;
         SoundEffectInstance everything_else;
 
+        SoundEffect escape;
+
         Random random;
 
         public AudioSystem(NewGameView view) : base(view)
@@ -58,6 +60,8 @@ namespace Baba.GameComponents.Systems
             fireworks.Add(AssetManager.GetSound("firework-6"));
             fireworks.Add(AssetManager.GetSound("firework-7"));
 
+            escape = AssetManager.GetSound("escape");
+
             random = new Random();
         }
 
@@ -80,6 +84,11 @@ namespace Baba.GameComponents.Systems
         public void PlayFirework()
         {
             fireworks[random.Next(0, fireworks.Count)].Play(0.3f, random.NextSingle() / 4, random.NextSingle() * 2 - 1);
+        }
+
+        public void PlayEscape()
+        {
+            escape.Play();
         }
         public void StartBGM(string level)
         {

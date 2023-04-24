@@ -31,6 +31,7 @@ namespace Baba.Views
         private String prevSelection;
         private SoundEffect effect;
         private SoundEffect enter;
+        private SoundEffect escape;
             
         public override void loadContent(ContentManager contentManager)
         {
@@ -72,6 +73,7 @@ namespace Baba.Views
 
                 effect = AssetManager.GetSound("menu-bump");
                 enter = AssetManager.GetSound("enter");
+                escape = AssetManager.GetSound("escape");
             }
 
 
@@ -155,7 +157,7 @@ namespace Baba.Views
       
         private void Escape(GameTime gametime, float scale)
         {
-
+            escape.Play();
             returnEnum = GameStateEnum.MainMenu;
         }
        

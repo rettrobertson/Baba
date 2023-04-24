@@ -42,6 +42,7 @@ namespace Baba.Views
         private ControlsState prevSelection;
         private SoundEffect effect;
         private SoundEffect enter;
+        private SoundEffect escape;
 
         public override void loadContent(ContentManager contentManager)
         {
@@ -92,6 +93,7 @@ namespace Baba.Views
 
             effect = AssetManager.GetSound("menu-bump");
             enter = AssetManager.GetSound("enter");
+            escape = AssetManager.GetSound("escape");
         }
 
         public override GameStateEnum processInput(GameTime gameTime)
@@ -123,6 +125,7 @@ namespace Baba.Views
             }
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
+                escape.Play();
                 return GameStateEnum.MainMenu;
             }
             //if return enum changed we'll go to the new view

@@ -181,6 +181,7 @@ namespace Baba.Views
         #region input handlers
         private void Escape(GameTime gameTime, float scale)
         {
+            audioSystem.PlayEscape();
             returnEnum = GameStateEnum.LevelSelect;
         }
         private void moveUp(GameTime gameTime, float scale)
@@ -235,12 +236,14 @@ namespace Baba.Views
         {
             if (state == State.Play)
             {
+                audioSystem.PlayEscape();
                 moveSystem.UndoReset();
                 undoSystem.UndoKeyPress(transforms);
             }
         }
         private void ResetKeyPress(GameTime gameTime, float scale)
         {
+            audioSystem.PlayEscape();
             reset();
         }
 

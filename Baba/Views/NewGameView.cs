@@ -155,13 +155,16 @@ namespace Baba.Views
         {
             for (int i = 0; i < entities.Length; i++)
             {
+                particleSystem.ObjectDestroyed(entities[i].transform.position);
                 ruleSystem.ReturnComponents(entities[i].RemoveAll<RuleComponent>());
                 entities[i].GetComponent<ItemLabel>().item = ItemType.Empty;
+                
             }
 
             animationSystem.UpdateAnimations();
             m_renderer.UpdateSprites();
             ruleSystem.UpdateRules();
+            
         }
 
         private void loadTextures(ContentManager contentManager)

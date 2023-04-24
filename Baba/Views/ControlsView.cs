@@ -116,7 +116,11 @@ namespace Baba.Views
             }
             
             m_inputKeyboard.Update(gameTime);
-            m_inputMouse.Update(gameTime);
+
+            if (!getNewControl)
+            {
+                m_inputMouse.Update(gameTime);
+            }
             m_inputGamePad.Update(gameTime);
             if (prevSelection != m_currentSelection)
             {

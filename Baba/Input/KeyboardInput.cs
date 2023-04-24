@@ -15,6 +15,7 @@ namespace Baba.Input
         /// <summary>
         /// Registers a callback-based command
         /// </summary>
+        public bool isDoneUpdate = true;
         public void registerCommand(Keys key, bool keyPressOnly, InputDeviceHelper.CommandDelegate callback)
         {
             //
@@ -59,8 +60,10 @@ namespace Baba.Input
         public void Update(GameTime gameTime)
         {
             KeyboardState state = Keyboard.GetState();
+            isDoneUpdate = false;
             foreach (CommandEntry entry in this.m_commandEntries.Values)
             {
+                
                 if (entry.keyPressOnly && keyPressed(entry.key))
                 {
                     entry.callback(gameTime, 1.0f);
@@ -75,6 +78,7 @@ namespace Baba.Input
             //
             // Move the current state to the previous state for the next time around
             m_statePrevious = state;
+            isDoneUpdate = true;
         }
 
         private KeyboardState m_statePrevious;

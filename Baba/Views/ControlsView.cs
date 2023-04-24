@@ -153,7 +153,7 @@ namespace Baba.Views
             }
             else
             {
-                m_spriteBatch.DrawString(m_fontMenu, "Enter the new they key for this command", new Vector2(1920 / 2 - 400, 1080 / 2), Color.Yellow);
+                m_spriteBatch.DrawString(m_fontMenu, "Enter the new they key for this command", new Vector2(1920 / 2 - 800, 1080 / 2), Color.Yellow);
             }
             m_spriteBatch.End();
         }

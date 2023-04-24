@@ -104,6 +104,11 @@ namespace Baba
             }
             if (m_nextStateEnum == GameStateEnum.GamePlay && temp != GameStateEnum.GamePlay)
             {
+                if (m_states[GameStateEnum.GamePlay].GetType() == typeof(NewGameView))
+                {
+                    NewGameView newGame = (NewGameView)m_states[GameStateEnum.GamePlay];
+                    newGame.resetControls();
+                }
                 m_states[GameStateEnum.GamePlay].reset();
                 
             }

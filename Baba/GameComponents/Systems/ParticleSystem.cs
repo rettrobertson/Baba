@@ -128,13 +128,7 @@ namespace Baba.GameComponents.Systems
             winEntities.Clear();
         }
 
-        public void reset()
-        {
-            controlledEntities.Clear();
-            winEntities.Clear();
-            passedFlag = ItemType.Anni;
-            passedYou = ItemType.Anni;
-        }
+       
         private int CountParticles()
         {
             int total = 0;
@@ -230,6 +224,10 @@ namespace Baba.GameComponents.Systems
             emitters.Clear();
             isWin = false;
             particleTimer.Reset();
+            controlledEntities.Clear();
+            winEntities.Clear();
+            passedFlag = ItemType.Anni;
+            passedYou = ItemType.Anni;
         }
     }
 }

@@ -78,7 +78,7 @@ namespace Baba.Views
             m_inputKeyboard.registerCommand(controls.Controls[5], false, new InputDeviceHelper.CommandDelegate(Undo));
             
             particleSystem = new ParticleSystem(this, m_graphics.GraphicsDevice);
-            
+            particleSystem.winChangedAudio += audioSystem.PlayChange;
         }
 
         public override GameStateEnum processInput(GameTime gameTime)
@@ -116,9 +116,11 @@ namespace Baba.Views
             sinkSystem.Reset();
             winSystem.Reset();
             audioSystem.StartBGM(level[0]);
-            particleSystem.reset();
+            particleSystem.Reset();
             transforms = gridMaker.MakeGrid(level[0]);
+            
             ruleSystem.UpdateRules();
+           
             
             state = State.Play;
         }
@@ -153,13 +155,16 @@ namespace Baba.Views
         {
             for (int i = 0; i < entities.Length; i++)
             {
+                particleSystem.ObjectDestroyed(entities[i].transform.position);
                 ruleSystem.ReturnComponents(entities[i].RemoveAll<RuleComponent>());
                 entities[i].GetComponent<ItemLabel>().item = ItemType.Empty;
+                
             }
 
             animationSystem.UpdateAnimations();
             m_renderer.UpdateSprites();
             ruleSystem.UpdateRules();
+            audioSystem.PlayHurt();
         }
 
         private void loadTextures(ContentManager contentManager)

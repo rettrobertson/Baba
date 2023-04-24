@@ -13,6 +13,7 @@ namespace Baba.GameComponents.Systems
 {
     public class ParticleSystem : System
     {
+        public event Action winChangedAudio;
 
         List<ParticleEmitter> emitters;
 
@@ -109,6 +110,7 @@ namespace Baba.GameComponents.Systems
                     for (int i = 0; i < winEntities.Count; i++)
                     {
                         WinChanged(winEntities[i].transform.position);
+                        winChangedAudio?.Invoke();
 		            }
                    
                 }
@@ -128,13 +130,7 @@ namespace Baba.GameComponents.Systems
             winEntities.Clear();
         }
 
-        public void reset()
-        {
-            controlledEntities.Clear();
-            winEntities.Clear();
-            passedFlag = ItemType.Anni;
-            passedYou = ItemType.Anni;
-        }
+       
         private int CountParticles()
         {
             int total = 0;
@@ -230,6 +226,10 @@ namespace Baba.GameComponents.Systems
             emitters.Clear();
             isWin = false;
             particleTimer.Reset();
+            controlledEntities.Clear();
+            winEntities.Clear();
+            passedFlag = ItemType.Anni;
+            passedYou = ItemType.Anni;
         }
     }
 }

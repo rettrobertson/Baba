@@ -9,6 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Baba.Style;
 using Microsoft.Xna.Framework.Audio;
+using System.Diagnostics;
 
 namespace Baba.Views
 {
@@ -40,8 +41,7 @@ namespace Baba.Views
         private ControlsState m_currentSelection = ControlsState.Up;
         private ControlsState prevSelection;
         private SoundEffect effect;
-
-        private const string MESSAGE = "Use arrow keys to play the game, and esc to pause. \n     r will reset the scores on highscores page";
+        private SoundEffect enter;
 
         public override void loadContent(ContentManager contentManager)
         {
@@ -91,10 +91,12 @@ namespace Baba.Views
             m_inputGamePad = new GamePadInput(PlayerIndex.One);
 
             effect = AssetManager.GetSound("menu-bump");
+            enter = AssetManager.GetSound("enter");
         }
 
         public override GameStateEnum processInput(GameTime gameTime)
         {
+            bool wasGetNewControl = getNewControl;
             if (getNewControl)
             {
                 SaveData savedControls = new SaveData();
@@ -107,32 +109,23 @@ namespace Baba.Views
                     savedControls.saveSomething(controls);
                     getNewControl = false;
                 }
-
-
+            }
+            else
+            {
+                m_inputKeyboard.Update(gameTime);
+                m_inputMouse.Update(gameTime);
+                m_inputGamePad.Update(gameTime);
+                if (prevSelection != m_currentSelection)
+                {
+                    effect.Play();
+                }
+                prevSelection = m_currentSelection;
             }
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
             {
                 return GameStateEnum.MainMenu;
             }
-            
-            m_inputKeyboard.Update(gameTime);
-
-            if (!getNewControl)
-            {
-                m_inputMouse.Update(gameTime);
-            }
-            m_inputGamePad.Update(gameTime);
-            if (prevSelection != m_currentSelection)
-            {
-                effect.Play();
-            }
-            prevSelection = m_currentSelection;
             //if return enum changed we'll go to the new view
-
-
-
-
-
             return GameStateEnum.Controls;
         }
 
@@ -157,7 +150,7 @@ namespace Baba.Views
             }
             else
             {
-                m_spriteBatch.DrawString(m_fontMenu, "Enter the new they key for this command", new Vector2(1920 / 2 - 800, 1080 / 2), Color.Yellow);
+                m_spriteBatch.DrawString(m_fontMenu, "Enter the new key for this command", new Vector2((GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width / 2) - (m_fontMenu.MeasureString("Enter the new key for this command").Length()/2), (GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height / 2)), Color.Yellow);
             }
             m_spriteBatch.End();
         }
@@ -228,6 +221,7 @@ namespace Baba.Views
         {
             
             getNewControl = true;
+            enter.Play();
         }
         #endregion
     }

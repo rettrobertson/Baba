@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Media;
 using System;
 using System.Security.Cryptography;
 using System.Diagnostics;
+using Microsoft.Xna.Framework;
 
 namespace Baba.GameComponents.Systems
 {
@@ -97,6 +98,11 @@ namespace Baba.GameComponents.Systems
             level_three.Stop();
             level_four.Stop();
             level_five.Stop();
+        }
+
+        public override void Update(GameTime time)
+        {
+            
         }
 
         public override void Reset()

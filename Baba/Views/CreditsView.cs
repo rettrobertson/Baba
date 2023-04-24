@@ -10,7 +10,7 @@ namespace Baba.Views
     {
         // very simple, just like the example given
         private SpriteFont m_font;
-        private const string MESSAGE = "*Everything* done by Rett Robertson";
+        private const string MESSAGE = "*This Page* done by Rett Robertson";
        
         public override void loadContent(ContentManager contentManager)
         {
@@ -35,7 +35,7 @@ namespace Baba.Views
 
             Vector2 stringSize = m_font.MeasureString(MESSAGE);
             m_spriteBatch.DrawString(m_font, MESSAGE,
-                new Vector2(m_graphics.PreferredBackBufferWidth / 2 - stringSize.X / 2, m_graphics.PreferredBackBufferHeight / 2 - stringSize.Y), Color.Yellow);
+                new Vector2(m_graphics.GraphicsDevice.Viewport.Width / 2 - stringSize.X / 2, m_graphics.GraphicsDevice.Viewport.Height / 2 - stringSize.Y/2), Color.Yellow);
 
             m_spriteBatch.End();
         }

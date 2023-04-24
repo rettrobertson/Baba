@@ -80,7 +80,6 @@ namespace Baba.Views
             
             particleSystem = new ParticleSystem(this, m_graphics.GraphicsDevice);
             particleSystem.winChangedAudio += audioSystem.PlayChange;
-            particleSystem.onFirework += audioSystem.PlayFirework;
 
         }
 

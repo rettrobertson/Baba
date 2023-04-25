@@ -64,6 +64,10 @@ namespace Baba.GameComponents.Systems
             {
                 Vector2 currPos = entity.transform.position;
                 Vector2 newPos = currPos;
+
+                bool flipX = false;
+                bool flipChanged = false;
+
                 switch (command)
                 {
                     case "Up":
@@ -78,10 +82,13 @@ namespace Baba.GameComponents.Systems
                         break;
                     case "Left":
                         newPos = currPos + new Vector2(-1, 0);
-                        
+                        flipX = true;
+                        flipChanged = true;
+
                         break;
                     case "Right":
                         newPos = currPos + new Vector2(1, 0);
+                        flipChanged = true;
                         break;
                     
                 }
@@ -94,8 +101,15 @@ namespace Baba.GameComponents.Systems
                     }
                     entity.transform.position = newPos;
                 }
-                
 
+                if (flipChanged)
+                {
+                    Sprite sprite = entity.GetComponent<Sprite>();
+                    if (sprite != null)
+                    {
+                        sprite.flipX = flipX;
+                    }
+                }
             }
             controlledEntities.Clear();
             
@@ -136,11 +150,13 @@ namespace Baba.GameComponents.Systems
         {
             Vector2 currPos = entity.transform.position;
             Vector2 newPos = currPos;
+
+
             switch (direction)
             {
                 case "Up":
                     newPos = currPos + new Vector2(0, -1);
-
+                    
 
                     break;
                 case "Down":
@@ -150,7 +166,6 @@ namespace Baba.GameComponents.Systems
                     break;
                 case "Left":
                     newPos = currPos + new Vector2(-1, 0);
-
                     break;
                 case "Right":
                     newPos = currPos + new Vector2(1, 0);
@@ -163,6 +178,8 @@ namespace Baba.GameComponents.Systems
                 move(hittables[(int)newPos.X, (int)newPos.Y], direction);
             }
             entity.transform.position = newPos;
+
+
         }
         public override void Reset()
         {

@@ -14,5 +14,6 @@ namespace Baba.GameComponents.ConcreteComponents
         public Texture2D texture;
         public Rectangle source;
         public Color color;
+        public bool flipX;
     }
 }

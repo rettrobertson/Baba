@@ -149,7 +149,9 @@ namespace Baba.GameComponents.Systems
                 layer = 0;
             }
 
-            m_spriteBatch.Draw(texture, new Rectangle((int)screenPos.X, (int)screenPos.Y, width, height), sprite.source, sprite.color, 0, Vector2.Zero, SpriteEffects.None, layer);
+            SpriteEffects effect = sprite.flipX ? SpriteEffects.FlipHorizontally : SpriteEffects.None;
+
+            m_spriteBatch.Draw(texture, new Rectangle((int)screenPos.X, (int)screenPos.Y, width, height), sprite.source, sprite.color, 0, Vector2.Zero, effect, layer);
         }
 
 

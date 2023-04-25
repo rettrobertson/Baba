@@ -37,10 +37,10 @@ namespace Baba.Particles
             emitter.SetTexture("Square");
             emitter.ScheduleBurst(0, 1000);
             emitter.AddDecorator(new ColorOverLifetime(Gradient.FadeInOut(Color.Yellow)));
-            emitter.AddDecorator(new InitialRadialVelocity(0, 360, .1f, .2f));
-            emitter.AddDecorator(new InitialSize(0.07f, 0.1f));
+            emitter.AddDecorator(new InitialRadialVelocity(0, 360, .02f, .04f));
+            emitter.AddDecorator(new InitialSize(0.06f, 0.08f));
             emitter.blendState = BlendState.NonPremultiplied;
-            emitter.SetLifetime(1);
+            emitter.SetLifetime(.7f);
             emitter.SetEmissionShape(new RectangleEmitter(new EmissionTypes.Rectangle(0, 0, 1, 1), EmissionShape.EmitType.EDGE));
             emitter.SetTexture("Square");
 
@@ -51,12 +51,12 @@ namespace Baba.Particles
             ParticleEmitter emitter = new ParticleEmitter();
             emitter.emissionRate = 0f;
             emitter.SetTexture("Square");
-            emitter.ScheduleBurst(0, 200);
+            emitter.ScheduleBurst(0, 1000);
             emitter.AddDecorator(new ColorOverLifetime(Gradient.FadeInOut(Color.White)));
-            emitter.AddDecorator(new InitialRadialVelocity(0, 360, .1f, .2f));
-            emitter.AddDecorator(new InitialSize(0.1f, 0.2f));
-            emitter.SetLifetime(1);
+            emitter.AddDecorator(new InitialRadialVelocity(0, 360, .02f, .04f));
+            emitter.AddDecorator(new InitialSize(0.06f, 0.08f));
             emitter.blendState = BlendState.NonPremultiplied;
+            emitter.SetLifetime(.7f);
             emitter.SetEmissionShape(new RectangleEmitter(new EmissionTypes.Rectangle(0, 0, 1, 1), EmissionShape.EmitType.EDGE));
             emitter.SetTexture("Square");
 
@@ -68,12 +68,12 @@ namespace Baba.Particles
             emitter.emissionRate = 0f;
             emitter.SetTexture("Square");
             emitter.ScheduleBurst(0, 200);
-            emitter.AddDecorator(new ColorOverLifetime(Gradient.FadeInOut(Color.Red)));
-            emitter.AddDecorator(new InitialRadialVelocity(0, 360, .1f, .2f));
+            emitter.AddDecorator(new ColorOverLifetime(Gradient.FadeInOut(Color.WhiteSmoke)));
+            emitter.AddDecorator(new InitialRadialVelocity(0, 360, 1f, 2f));
             emitter.AddDecorator(new InitialSize(0.1f, 0.2f));
-            emitter.SetLifetime(1);
+            emitter.SetLifetime(.1f, 1);
             emitter.blendState = BlendState.NonPremultiplied;
-            emitter.SetEmissionShape(new RectangleEmitter(new EmissionTypes.Rectangle(0, 0, 1, 1), EmissionShape.EmitType.EDGE));
+            emitter.SetEmissionShape(new CircleEmitter(new Circle(.1f, Pivot.CENTER), EmissionShape.EmitType.AREA));
             emitter.SetTexture("Square");
             return emitter;
         }

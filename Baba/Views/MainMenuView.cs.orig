@@ -104,19 +104,25 @@ namespace Baba.Views
         {
             base.render(gameTime);
             m_spriteBatch.Begin(samplerState:SamplerState.PointClamp);
+<<<<<<< HEAD
             float scale = m_graphics.GraphicsDevice.Viewport.Width / fullWidth;
             Vector2 stringSize = m_fontMenu.MeasureString("-- BABA IS YOU --") * scale *  1.6f;
-            
+            m_spriteBatch.DrawString(m_fontMenu, "-- BABA IS YOU --", new Vector2(m_graphics.GraphicsDevice.Viewport.Width /*m_graphics.PreferredBackBufferWidth*/ / 2 - stringSize.X / 2, 100), Colors.title, 0, Vector2.Zero, scale * 1.6f, SpriteEffects.None, 0);
+=======
 
-           
-            m_spriteBatch.DrawString(m_fontMenu, "-- BABA IS YOU --", new Vector2(m_graphics.GraphicsDevice.Viewport.Width /*m_graphics.PreferredBackBufferWidth*/ / 2 - stringSize.X / 2, m_graphics.GraphicsDevice.Viewport.Height / 10), Colors.title, 0, Vector2.Zero, 1.6f * scale, SpriteEffects.None, 0);
+            Vector2 stringSize = m_fontMenu.MeasureString("-- BABA IS YOU --") * 1.6f;
+            m_spriteBatch.DrawString(m_fontMenu, "-- BABA IS YOU --", new Vector2(m_graphics.GraphicsDevice.Viewport.Width /*m_graphics.PreferredBackBufferWidth*/ / 2 - stringSize.X / 2, m_graphics.GraphicsDevice.Viewport.Height / 10), Colors.title, 0, Vector2.Zero, 1.6f, SpriteEffects.None, 0);
+>>>>>>> 0d956440735a9b73e0052d8ed4e9be5073f504b7
 
             // I split the first one's parameters on separate lines to help you see them better
             float bottom = DrawMenuItem(
                 m_currentSelection == MenuState.LevelSelect ? m_fontMenuSelect : m_fontMenu,
                 "Level Selector",
-
+<<<<<<< HEAD
                 400 * scale,
+=======
+                m_graphics.GraphicsDevice.Viewport.Height * 2 / 5,
+>>>>>>> 0d956440735a9b73e0052d8ed4e9be5073f504b7
                 m_currentSelection == MenuState.LevelSelect ? Color.Yellow : Colors.text1);
             bottom = DrawMenuItem(m_currentSelection == MenuState.Controls ? m_fontMenuSelect : m_fontMenu, "Controls", bottom, m_currentSelection == MenuState.Controls ? Color.Yellow : Colors.text2);
             bottom = DrawMenuItem(m_currentSelection == MenuState.Credits ? m_fontMenuSelect : m_fontMenu, "About", bottom, m_currentSelection == MenuState.Credits ? Color.Yellow : Colors.text3);

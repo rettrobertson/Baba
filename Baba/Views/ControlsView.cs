@@ -24,6 +24,7 @@ namespace Baba.Views
         private GamePadInput m_inputGamePad;
         private bool getNewControl = false;
         GameState controls;
+        private float fullWidth;
         
         public ControlsView(ref GameState  controls)
         {
@@ -46,6 +47,7 @@ namespace Baba.Views
 
         public override void loadContent(ContentManager contentManager)
         {
+            fullWidth = m_graphics.GraphicsDevice.Viewport.Width;
             m_inputKeyboard = new KeyboardInput();
             m_inputKeyboard.registerCommand(Keys.Down, true, new InputDeviceHelper.CommandDelegate(OnDown));
             m_inputKeyboard.registerCommand(Keys.Up, true, new InputDeviceHelper.CommandDelegate(OnUp));
@@ -159,12 +161,14 @@ namespace Baba.Views
         }
         private float DrawMenuItem(SpriteFont font, string text, float y, Color color)
         {
-            Vector2 stringSize = font.MeasureString(text);
+            float scale = m_graphics.GraphicsDevice.Viewport.Width / fullWidth;
+            Vector2 stringSize = font.MeasureString(text) * scale;
+
             m_spriteBatch.DrawString(
                 font,
                 text,
-                new Vector2(m_graphics.PreferredBackBufferWidth / 2 - stringSize.X / 2, y),
-                color);
+                new Vector2(m_graphics.GraphicsDevice.Viewport.Width /*m_graphics.PreferredBackBufferWidth*/ / 2 - stringSize.X / 2, y),
+                color, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
 
             return y + stringSize.Y;
         }

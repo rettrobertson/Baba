@@ -44,11 +44,11 @@ namespace Baba.GameComponents.Systems
         {
             resetHittables();
             
-            for (int i = 0; i < controlledEntities.Count; i++)
-            {
-                Vector2 controlled = controlledEntities[i].transform.position;
-                hittables[(int)controlled.X, (int)controlled.Y] = controlledEntities[i];
-            }
+            //for (int i = 0; i < controlledEntities.Count; i++)
+            //{
+            //    Vector2 controlled = controlledEntities[i].transform.position;
+            //    hittables[(int)controlled.X, (int)controlled.Y] = controlledEntities[i];
+            //}
             for (int i = 0; i < pushableEntities.Count; i++)
             {
                 Vector2 controlled = pushableEntities[i].transform.position;

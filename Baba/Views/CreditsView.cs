@@ -13,12 +13,15 @@ namespace Baba.Views
         private SpriteFont m_font;
         private const string MESSAGE = "*This Page* done by Rett Robertson";
         private SoundEffect escape;
+        private float fullWidth;
        
         public override void loadContent(ContentManager contentManager)
         {
             base.loadContent(contentManager);
             m_font = AssetManager.GetFont(Fonts.UI); //contentManager.Load<SpriteFont>("Fonts/menu");
             escape = AssetManager.GetSound("escape");
+            fullWidth = m_graphics.GraphicsDevice.Viewport.Width;
+
         }
 
         public override GameStateEnum processInput(GameTime gameTime)
@@ -36,10 +39,10 @@ namespace Baba.Views
         {
             base.render(gameTime);
             m_spriteBatch.Begin();
-
+            float scale = m_graphics.GraphicsDevice.Viewport.Width / fullWidth;
             Vector2 stringSize = m_font.MeasureString(MESSAGE);
             m_spriteBatch.DrawString(m_font, MESSAGE,
-                new Vector2(m_graphics.GraphicsDevice.Viewport.Width / 2 - stringSize.X / 2, m_graphics.GraphicsDevice.Viewport.Height / 2 - stringSize.Y/2), Color.Yellow);
+                new Vector2(m_graphics.GraphicsDevice.Viewport.Width / 2 - stringSize.X / 2, m_graphics.GraphicsDevice.Viewport.Height / 2 - stringSize.Y/2), Color.Yellow, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
 
             m_spriteBatch.End();
         }

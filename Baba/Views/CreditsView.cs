@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using static System.Formats.Asn1.AsnWriter;
 
 namespace Baba.Views
 {
@@ -11,7 +12,15 @@ namespace Baba.Views
     {
         // very simple, just like the example given
         private SpriteFont m_font;
-        private const string MESSAGE = "*This Page* done by Rett Robertson";
+        private const string MESSAGE = "This game was created by";
+        private const string MESSAGE1 = "Jason Crandall";
+        private const string MESSAGE2 = "Rett Robertson";
+        private const string MESSAGE3 = "And Tyler Totsch";
+        private const string MESSAGE4 = "It was also beta tested by";
+        private const string MESSAGE5 = "Tiffani Totsch and Annie Crandall";
+        
+
+
         private SoundEffect escape;
         private float fullWidth;
        
@@ -40,11 +49,32 @@ namespace Baba.Views
             base.render(gameTime);
             m_spriteBatch.Begin();
             float scale = m_graphics.GraphicsDevice.Viewport.Width / fullWidth;
-            Vector2 stringSize = m_font.MeasureString(MESSAGE);
-            m_spriteBatch.DrawString(m_font, MESSAGE,
-                new Vector2(m_graphics.GraphicsDevice.Viewport.Width / 2 - stringSize.X / 2, m_graphics.GraphicsDevice.Viewport.Height / 2 - stringSize.Y/2), Color.Yellow, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
+            float bottom = DrawMenuItem(
+                m_font,
+                "Credits",
 
+                200 * scale,
+                 Color.Yellow);
+            bottom = DrawMenuItem(m_font, MESSAGE, bottom, Color.Pink);
+            bottom = DrawMenuItem(m_font, MESSAGE1, bottom, Color.LimeGreen);
+            bottom = DrawMenuItem(m_font, MESSAGE2, bottom, Color.Turquoise);
+            bottom = DrawMenuItem(m_font, MESSAGE3, bottom, Color.DarkSeaGreen);
+            bottom = DrawMenuItem(m_font, MESSAGE4, bottom, Color.Red);
+            bottom = DrawMenuItem(m_font, MESSAGE5, bottom, Color.Pink);
             m_spriteBatch.End();
+        }
+        private float DrawMenuItem(SpriteFont font, string text, float y, Color color)
+        {
+            float scale = m_graphics.GraphicsDevice.Viewport.Width / fullWidth;
+            Vector2 stringSize = font.MeasureString(text) * scale;
+
+            m_spriteBatch.DrawString(
+                font,
+                text,
+                new Vector2(m_graphics.GraphicsDevice.Viewport.Width /*m_graphics.PreferredBackBufferWidth*/ / 2 - stringSize.X / 2, y),
+                color, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
+
+            return y + stringSize.Y;
         }
 
         public override void update(GameTime gameTime)

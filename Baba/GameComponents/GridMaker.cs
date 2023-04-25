@@ -1,19 +1,15 @@
 ﻿using Baba.GameComponents.ConcreteComponents;
-using System;
 using Microsoft.Xna.Framework;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Diagnostics;
-using System.Threading;
-using Microsoft.Xna.Framework.Graphics;
-using System.Text.Json.Serialization;
+using System.IO;
 
 namespace Baba.GameComponents
 {
     public class GridMaker
     {
         private Dictionary<char, (ItemType?, WordType?)> dict;
+        private readonly string levelsFile = Path.Combine("Content", "levels-all.bbiy");
         public GridMaker() 
         {
             dict = new Dictionary<char, (ItemType?, WordType?)>
@@ -67,7 +63,7 @@ namespace Baba.GameComponents
             List<Transform> returnList = new();
 
 
-            (int width, int height, List<string> file) = getLength(Directory.GetCurrentDirectory() + Path.Join("..", "..", "..", "..", "levels-all.bbiy"),  level);
+            (int width, int height, List<string> file) = getLength(levelsFile,  level);
             for (int i = 0; i < height; i++)
             {
                 for (int j = 0; j < width; j++)
@@ -144,9 +140,8 @@ namespace Baba.GameComponents
         }
         public List<string> getLevels()
         {
-            string file = Directory.GetCurrentDirectory() + Path.Join("..", "..", "..", "..", "levels-all.bbiy");
             List <string> levels = new List<string>();
-            IEnumerable<string> lines = File.ReadLines(file);
+            IEnumerable<string> lines = File.ReadLines(levelsFile);
             foreach(string line in lines)
             {
                 char[] chars = line.ToCharArray();

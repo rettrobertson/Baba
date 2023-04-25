@@ -154,6 +154,9 @@
 /processorParam:TextureFormat=Compressed
 /build:Fonts/RetroGaming.spritefont
 
+#begin levels-all.bbiy
+/copy:levels-all.bbiy
+
 #begin SpriteSheets/baba.png
 /importer:TextureImporter
 /processor:TextureProcessor

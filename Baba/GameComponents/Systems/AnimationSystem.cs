@@ -39,7 +39,6 @@ namespace Baba.GameComponents.Systems
             { WordType.Water, Animations.WORD_WATER },
             { WordType.Win, Animations.WORD_WIN },
             { WordType.You, Animations.WORD_YOU },
-
         };
 
         public AnimationSystem(NewGameView view) : base(view, typeof(Sprite))

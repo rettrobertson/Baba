@@ -109,7 +109,7 @@ namespace Baba.Views
             
 
            
-            m_spriteBatch.DrawString(m_fontMenu, "-- BABA IS YOU --", new Vector2(m_graphics.GraphicsDevice.Viewport.Width /*m_graphics.PreferredBackBufferWidth*/ / 2 - stringSize.X / 2, m_graphics.GraphicsDevice.Viewport.Height / 10), Colors.title, 0, Vector2.Zero, 1.6f, SpriteEffects.None, 0);
+            m_spriteBatch.DrawString(m_fontMenu, "-- BABA IS YOU --", new Vector2(m_graphics.GraphicsDevice.Viewport.Width /*m_graphics.PreferredBackBufferWidth*/ / 2 - stringSize.X / 2, m_graphics.GraphicsDevice.Viewport.Height / 10), Colors.title, 0, Vector2.Zero, 1.6f * scale, SpriteEffects.None, 0);
 
             // I split the first one's parameters on separate lines to help you see them better
             float bottom = DrawMenuItem(

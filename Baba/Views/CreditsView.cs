@@ -1,4 +1,5 @@
-﻿using Baba.Style;
+﻿using System.Reflection.Emit;
+using Baba.Style;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -23,6 +24,7 @@ namespace Baba.Views
 
         private SoundEffect escape;
         private float fullWidth;
+        private float fullHeight;
        
         public override void loadContent(ContentManager contentManager)
         {
@@ -30,6 +32,7 @@ namespace Baba.Views
             m_font = AssetManager.GetFont(Fonts.UI); //contentManager.Load<SpriteFont>("Fonts/menu");
             escape = AssetManager.GetSound("escape");
             fullWidth = m_graphics.GraphicsDevice.Viewport.Width;
+            fullHeight = m_graphics.GraphicsDevice.Viewport.Height;
 
         }
 
@@ -48,7 +51,7 @@ namespace Baba.Views
         {
             base.render(gameTime);
             m_spriteBatch.Begin();
-            float scale = m_graphics.GraphicsDevice.Viewport.Width / fullWidth;
+            float scale = m_graphics.GraphicsDevice.Viewport.Height / fullHeight;
             float bottom = DrawMenuItem(
                 m_font,
                 "Credits",

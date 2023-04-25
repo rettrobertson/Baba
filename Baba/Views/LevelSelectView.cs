@@ -33,9 +33,11 @@ namespace Baba.Views
         private SoundEffect enter;
         private SoundEffect escape;
         private float fullWidth;
+        private float fullHeight;
             
         public override void loadContent(ContentManager contentManager)
         {
+            fullHeight = m_graphics.GraphicsDevice.Viewport.Height;
             fullWidth = m_graphics.GraphicsDevice.Viewport.Width;
             GridMaker gridMaker = new GridMaker();
             MenuState = gridMaker.getLevels();
@@ -120,7 +122,7 @@ namespace Baba.Views
             m_spriteBatch.Begin();
 
             // I split the first one's parameters on separate lines to help you see them better
-            
+            float scale = m_graphics.GraphicsDevice.Viewport.Height / fullHeight;
             float bottom = 200;
             for(int i = 0; i < MenuState.Count; i++)
             {

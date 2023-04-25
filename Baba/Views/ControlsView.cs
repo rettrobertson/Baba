@@ -25,6 +25,7 @@ namespace Baba.Views
         private bool getNewControl = false;
         GameState controls;
         private float fullWidth;
+        private float fullHeight;
         
         public ControlsView(ref GameState  controls)
         {
@@ -48,6 +49,7 @@ namespace Baba.Views
         public override void loadContent(ContentManager contentManager)
         {
             fullWidth = m_graphics.GraphicsDevice.Viewport.Width;
+            fullHeight = m_graphics.GraphicsDevice.Viewport.Height;
             m_inputKeyboard = new KeyboardInput();
             m_inputKeyboard.registerCommand(Keys.Down, true, new InputDeviceHelper.CommandDelegate(OnDown));
             m_inputKeyboard.registerCommand(Keys.Up, true, new InputDeviceHelper.CommandDelegate(OnUp));
@@ -138,12 +140,13 @@ namespace Baba.Views
         {
             base.render(gameTime);
             m_spriteBatch.Begin();
+            float scale = m_graphics.GraphicsDevice.Viewport.Height / fullHeight;
             if (!getNewControl)
             {
                 float bottom = DrawMenuItem(
                               m_currentSelection == ControlsState.Up ? m_fontMenuSelect : m_fontMenu,
                               $"Up {controls.Controls[0]} ",
-                              200,
+                              200 * scale,
                               m_currentSelection == ControlsState.Up ? Color.Yellow : Colors.textBindings);
                 bottom = DrawMenuItem(m_currentSelection == ControlsState.Down ? m_fontMenuSelect : m_fontMenu, $"Down {controls.Controls[1]}", bottom, m_currentSelection == ControlsState.Down ? Color.Yellow : Colors.textBindings);
                 bottom = DrawMenuItem(m_currentSelection == ControlsState.Left ? m_fontMenuSelect : m_fontMenu, $"Left {controls.Controls[2]}", bottom, m_currentSelection == ControlsState.Left ? Color.Yellow : Colors.textBindings);

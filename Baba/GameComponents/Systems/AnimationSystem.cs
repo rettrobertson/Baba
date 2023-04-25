@@ -21,7 +21,7 @@ namespace Baba.GameComponents.Systems
             { ItemType.Wall, Animations.WALL },
             { ItemType.Water, Animations.WATER },
             { ItemType.Empty, Animations.EMPTY },
-            { ItemType.Background, Animations.WALL }
+            { ItemType.Background, Animations.FLOOR }
         };
 
         private Dictionary<WordType, Animation.Animation> wordAnimations = new Dictionary<WordType, Animation.Animation>
@@ -39,7 +39,6 @@ namespace Baba.GameComponents.Systems
             { WordType.Water, Animations.WORD_WATER },
             { WordType.Win, Animations.WORD_WIN },
             { WordType.You, Animations.WORD_YOU },
-
         };
 
         public AnimationSystem(NewGameView view) : base(view, typeof(Sprite))

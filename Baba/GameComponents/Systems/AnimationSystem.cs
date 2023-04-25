@@ -21,7 +21,7 @@ namespace Baba.GameComponents.Systems
             { ItemType.Wall, Animations.WALL },
             { ItemType.Water, Animations.WATER },
             { ItemType.Empty, Animations.EMPTY },
-            { ItemType.Background, Animations.WALL }
+            { ItemType.Background, Animations.FLOOR }
         };
 
         private Dictionary<WordType, Animation.Animation> wordAnimations = new Dictionary<WordType, Animation.Animation>

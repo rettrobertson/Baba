@@ -9,6 +9,7 @@ using System;
 using System.Threading;
 using Baba.Style;
 using System.Reflection.Metadata.Ecma335;
+using System.Collections.Generic;
 
 namespace Baba.Views
 {
@@ -25,6 +26,7 @@ namespace Baba.Views
         private SoundEffect effect;
         private SoundEffect enter;
         private float fullWidth;
+        private Rectangle[] buttons_rectangles;
 
         //enum for the different menus, borrowed from startercode
         private enum MenuState
@@ -56,25 +58,33 @@ namespace Baba.Views
             m_fontMenuSelect = AssetManager.GetFont(Fonts.UI); //contentManager.Load<SpriteFont>("Fonts/menu-select");
 
             m_inputMouse = new MouseInput();
-            Vector2 stringSize = m_fontMenu.MeasureString("Level Selector");
-            int y = m_graphics.GraphicsDevice.Viewport.Height / 5 * 2;
-            m_inputMouse.registerCommand(new ScreenButton((int)(m_graphics.GraphicsDevice.Viewport.Width / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y), false, Click.Move, new InputDeviceHelper.CommandDelegate(SetNew));
-            m_inputMouse.registerCommand(new ScreenButton((int)(m_graphics.GraphicsDevice.Viewport.Width / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y), true, Click.Left, new InputDeviceHelper.CommandDelegate(OnEnter));
 
+            buttons_rectangles = new Rectangle[4];
+
+            Vector2 stringSize = m_fontMenu.MeasureString("Level Selector");
+            int y = (int)(400 * m_graphics.GraphicsDevice.Viewport.Width / fullWidth);
+            buttons_rectangles[0] = new Rectangle((int)(m_graphics.GraphicsDevice.Viewport.Width / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y);
             stringSize = m_fontMenu.MeasureString("Controls");
             y += (int)stringSize.Y;
-            m_inputMouse.registerCommand(new ScreenButton((int)(m_graphics.GraphicsDevice.Viewport.Width / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y), false, Click.Move, new InputDeviceHelper.CommandDelegate(SetControls));
-            m_inputMouse.registerCommand(new ScreenButton((int)(m_graphics.GraphicsDevice.Viewport.Width / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y), true, Click.Left, new InputDeviceHelper.CommandDelegate(OnEnter));
-
+            buttons_rectangles[1] = new Rectangle((int)(m_graphics.GraphicsDevice.Viewport.Width / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y);
             stringSize = m_fontMenu.MeasureString("About");
             y += (int)stringSize.Y;
-            m_inputMouse.registerCommand(new ScreenButton((int)(m_graphics.GraphicsDevice.Viewport.Width / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y), false, Click.Move, new InputDeviceHelper.CommandDelegate(SetCredits));
-            m_inputMouse.registerCommand(new ScreenButton((int)(m_graphics.GraphicsDevice.Viewport.Width / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y), true, Click.Left, new InputDeviceHelper.CommandDelegate(OnEnter));
-
+            buttons_rectangles[2] = new Rectangle((int)(m_graphics.GraphicsDevice.Viewport.Width / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y);
             stringSize = m_fontMenu.MeasureString("Quit");
             y += (int)stringSize.Y;
-            m_inputMouse.registerCommand(new ScreenButton((int)(m_graphics.GraphicsDevice.Viewport.Width / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y), false, Click.Move, new InputDeviceHelper.CommandDelegate(SetQuit));
-            m_inputMouse.registerCommand(new ScreenButton((int)(m_graphics.GraphicsDevice.Viewport.Width / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y), true, Click.Left, new InputDeviceHelper.CommandDelegate(OnEnter));
+            buttons_rectangles[3] = new Rectangle((int)(m_graphics.GraphicsDevice.Viewport.Width / 2 - stringSize.X / 2), y, (int)stringSize.X, (int)stringSize.Y);
+
+            m_inputMouse.registerCommand(new ScreenButton(buttons_rectangles[0]), false, Click.Move, new InputDeviceHelper.CommandDelegate(SetNew));
+            m_inputMouse.registerCommand(new ScreenButton(buttons_rectangles[0]), true, Click.Left, new InputDeviceHelper.CommandDelegate(OnEnter));
+
+            m_inputMouse.registerCommand(new ScreenButton(buttons_rectangles[1]), false, Click.Move, new InputDeviceHelper.CommandDelegate(SetControls));
+            m_inputMouse.registerCommand(new ScreenButton(buttons_rectangles[1]), true, Click.Left, new InputDeviceHelper.CommandDelegate(OnEnter));
+
+            m_inputMouse.registerCommand(new ScreenButton(buttons_rectangles[2]), false, Click.Move, new InputDeviceHelper.CommandDelegate(SetCredits));
+            m_inputMouse.registerCommand(new ScreenButton(buttons_rectangles[2]), true, Click.Left, new InputDeviceHelper.CommandDelegate(OnEnter));
+
+            m_inputMouse.registerCommand(new ScreenButton(buttons_rectangles[3]), false, Click.Move, new InputDeviceHelper.CommandDelegate(SetQuit));
+            m_inputMouse.registerCommand(new ScreenButton(buttons_rectangles[3]), true, Click.Left, new InputDeviceHelper.CommandDelegate(OnEnter));
 
             m_inputGamePad = new GamePadInput(PlayerIndex.One);
 
@@ -83,7 +93,7 @@ namespace Baba.Views
         }
         public override GameStateEnum processInput(GameTime gameTime)
         {
-            
+            UpdateRectangles();
             m_inputKeyboard.Update(gameTime);
             m_inputMouse.Update(gameTime);
             m_inputGamePad.Update(gameTime);
@@ -100,16 +110,17 @@ namespace Baba.Views
         public override void update(GameTime gameTime)
         {
         }
+        private void UpdateRectangles()
+        {
+            float scale = m_graphics.GraphicsDevice.Viewport.Width / fullWidth;
+        }
         public override void render(GameTime gameTime)
         {
             base.render(gameTime);
             m_spriteBatch.Begin(samplerState:SamplerState.PointClamp);
             float scale = m_graphics.GraphicsDevice.Viewport.Width / fullWidth;
             Vector2 stringSize = m_fontMenu.MeasureString("-- BABA IS YOU --") * scale *  1.6f;
-            m_spriteBatch.DrawString(m_fontMenu, "-- BABA IS YOU --", new Vector2(m_graphics.GraphicsDevice.Viewport.Width /*m_graphics.PreferredBackBufferWidth*/ / 2 - stringSize.X / 2, 100), Colors.title, 0, Vector2.Zero, scale * 1.6f, SpriteEffects.None, 0);
-
-            Vector2 stringSize = m_fontMenu.MeasureString("-- BABA IS YOU --") * 1.6f;
-            m_spriteBatch.DrawString(m_fontMenu, "-- BABA IS YOU --", new Vector2(m_graphics.GraphicsDevice.Viewport.Width /*m_graphics.PreferredBackBufferWidth*/ / 2 - stringSize.X / 2, m_graphics.GraphicsDevice.Viewport.Height / 10), Colors.title, 0, Vector2.Zero, 1.6f, SpriteEffects.None, 0);
+            m_spriteBatch.DrawString(m_fontMenu, "-- BABA IS YOU --", new Vector2(m_graphics.GraphicsDevice.Viewport.Width / 2 - stringSize.X / 2, 100 * scale /*m_graphics.GraphicsDevice.Viewport.Height / 10*/), Colors.title, 0, Vector2.Zero, scale * 1.6f, SpriteEffects.None, 0);
 
             // I split the first one's parameters on separate lines to help you see them better
             float bottom = DrawMenuItem(

@@ -11,7 +11,7 @@ namespace Baba.Views
     {
         // very simple, just like the example given
         private SpriteFont m_font;
-        private const string MESSAGE = "*This Page* done by Rett Robertson           l";
+        private const string MESSAGE = "*This Page* done by Rett Robertson";
         private SoundEffect escape;
        
         public override void loadContent(ContentManager contentManager)

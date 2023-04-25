@@ -32,9 +32,11 @@ namespace Baba.Views
         private SoundEffect effect;
         private SoundEffect enter;
         private SoundEffect escape;
+        private float fullWidth;
             
         public override void loadContent(ContentManager contentManager)
         {
+            fullWidth = m_graphics.GraphicsDevice.Viewport.Width;
             GridMaker gridMaker = new GridMaker();
             MenuState = gridMaker.getLevels();
             base.loadContent(contentManager);
@@ -137,12 +139,14 @@ namespace Baba.Views
         }
         private float DrawMenuItem(SpriteFont font, string text, float y, Color color)
         {
-            Vector2 stringSize = font.MeasureString(text);
+            float scale = m_graphics.GraphicsDevice.Viewport.Width / fullWidth;
+            Vector2 stringSize = font.MeasureString(text) * scale;
+
             m_spriteBatch.DrawString(
                 font,
                 text,
-                new Vector2(m_graphics.GraphicsDevice.Viewport.Width /*PreferredBackBufferWidth*/ / 2 - stringSize.X / 2, y),
-                color);
+                new Vector2(m_graphics.GraphicsDevice.Viewport.Width /*m_graphics.PreferredBackBufferWidth*/ / 2 - stringSize.X / 2, y),
+                color, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
 
             return y + stringSize.Y;
         }

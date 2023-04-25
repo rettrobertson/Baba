@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Input;
 using System;
 using System.Threading;
 using Baba.Style;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Baba.Views
 {
@@ -23,6 +24,7 @@ namespace Baba.Views
         private MenuState prevEnum = MenuState.LevelSelect;
         private SoundEffect effect;
         private SoundEffect enter;
+        private float fullWidth;
 
         //enum for the different menus, borrowed from startercode
         private enum MenuState
@@ -37,6 +39,7 @@ namespace Baba.Views
         private MenuState m_currentSelection = MenuState.LevelSelect;
         public override void loadContent(ContentManager contentManager)
         {
+            fullWidth = m_graphics.GraphicsDevice.Viewport.Width;
             base.loadContent(contentManager);
             //Keyboard input for up down and enter
             m_inputKeyboard = new KeyboardInput();
@@ -101,15 +104,15 @@ namespace Baba.Views
         {
             base.render(gameTime);
             m_spriteBatch.Begin(samplerState:SamplerState.PointClamp);
-
-            Vector2 stringSize = m_fontMenu.MeasureString("-- BABA IS YOU --") * 1.6f;
-            m_spriteBatch.DrawString(m_fontMenu, "-- BABA IS YOU --", new Vector2(m_graphics.GraphicsDevice.Viewport.Width /*m_graphics.PreferredBackBufferWidth*/ / 2 - stringSize.X / 2, 100), Colors.title, 0, Vector2.Zero, 1.6f, SpriteEffects.None, 0);
+            float scale = m_graphics.GraphicsDevice.Viewport.Width / fullWidth;
+            Vector2 stringSize = m_fontMenu.MeasureString("-- BABA IS YOU --") * scale *  1.6f;
+            m_spriteBatch.DrawString(m_fontMenu, "-- BABA IS YOU --", new Vector2(m_graphics.GraphicsDevice.Viewport.Width /*m_graphics.PreferredBackBufferWidth*/ / 2 - stringSize.X / 2, 100), Colors.title, 0, Vector2.Zero, scale * 1.6f, SpriteEffects.None, 0);
 
             // I split the first one's parameters on separate lines to help you see them better
             float bottom = DrawMenuItem(
                 m_currentSelection == MenuState.LevelSelect ? m_fontMenuSelect : m_fontMenu,
                 "Level Selector",
-                400,
+                400 * scale,
                 m_currentSelection == MenuState.LevelSelect ? Color.Yellow : Colors.text1);
             bottom = DrawMenuItem(m_currentSelection == MenuState.Controls ? m_fontMenuSelect : m_fontMenu, "Controls", bottom, m_currentSelection == MenuState.Controls ? Color.Yellow : Colors.text2);
             bottom = DrawMenuItem(m_currentSelection == MenuState.Credits ? m_fontMenuSelect : m_fontMenu, "About", bottom, m_currentSelection == MenuState.Credits ? Color.Yellow : Colors.text3);
@@ -122,12 +125,14 @@ namespace Baba.Views
 
         private float DrawMenuItem(SpriteFont font, string text, float y, Color color)
         {
-            Vector2 stringSize = font.MeasureString(text);
+            float scale = m_graphics.GraphicsDevice.Viewport.Width / fullWidth;
+            Vector2 stringSize = font.MeasureString(text) * scale;
+            
             m_spriteBatch.DrawString(
                 font,
                 text,
                 new Vector2(m_graphics.GraphicsDevice.Viewport.Width /*m_graphics.PreferredBackBufferWidth*/ / 2 - stringSize.X / 2, y),
-                color);
+                color, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
 
             return y + stringSize.Y;
         }

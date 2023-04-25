@@ -59,7 +59,7 @@ namespace Baba.Views
             bottom = DrawMenuItem(m_font, MESSAGE1, bottom, Color.LimeGreen);
             bottom = DrawMenuItem(m_font, MESSAGE2, bottom, Color.Turquoise);
             bottom = DrawMenuItem(m_font, MESSAGE3, bottom, Color.DarkSeaGreen);
-            bottom = DrawMenuItem(m_font, MESSAGE4, bottom, Color.Red);
+            bottom = DrawMenuItem(m_font, MESSAGE4, bottom, Color.Pink);
             bottom = DrawMenuItem(m_font, MESSAGE5, bottom, Color.Pink);
             m_spriteBatch.End();
         }

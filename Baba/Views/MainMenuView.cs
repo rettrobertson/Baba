@@ -25,6 +25,7 @@ namespace Baba.Views
         private SoundEffect effect;
         private SoundEffect enter;
         private float fullWidth;
+        private float fullHeight;
 
         //enum for the different menus, borrowed from startercode
         private enum MenuState
@@ -40,6 +41,7 @@ namespace Baba.Views
         public override void loadContent(ContentManager contentManager)
         {
             fullWidth = m_graphics.GraphicsDevice.Viewport.Width;
+            fullHeight = m_graphics.GraphicsDevice.Viewport.Height; 
             base.loadContent(contentManager);
             //Keyboard input for up down and enter
             m_inputKeyboard = new KeyboardInput();
@@ -104,7 +106,8 @@ namespace Baba.Views
         {
             base.render(gameTime);
             m_spriteBatch.Begin(samplerState:SamplerState.PointClamp);
-            float scale = m_graphics.GraphicsDevice.Viewport.Width / fullWidth;
+            float scale = m_graphics.GraphicsDevice.Viewport.Height / fullHeight;
+
             Vector2 stringSize = m_fontMenu.MeasureString("-- BABA IS YOU --") * scale *  1.6f;
             
 

@@ -26,11 +26,11 @@ namespace Baba.Views
         private SoundEffect effect;
         private SoundEffect enter;
         private float fullWidth;
-<<<<<<< HEAD
+
         private float fullHeight;
-=======
+
         private Rectangle[] buttons_rectangles;
->>>>>>> bc051a66a1577cde60482899ec61aa327263e60b
+
 
         //enum for the different menus, borrowed from startercode
         private enum MenuState
